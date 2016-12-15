@@ -7,6 +7,8 @@ using Newtonsoft.Json.Linq;
 
 namespace Chromamboo
 {
+    using Chromamboo.Providers.Presentation;
+
     class Program
     {
         private static IBambooApi bambooApi;
@@ -21,21 +23,23 @@ namespace Chromamboo
             string password = null;
             if (args.Length <= 1)
             {
-                Console.Write("Chromamboo bambooApiBaseUrl bitbucketApiBaseUrl [username] [password]");
+                Console.Write("Chromamboo bambooApiBaseUrl bitbucketApiBaseUrl presentationProviderName [username] [password]");
                 return;
             }
 
             var bambooApiBaseUrl = args[0];
             var bitbucketApiBaseUrl = args[1];
+            var presentationProviderName = args[2];
 
-            if (args.Length > 3)
+            if (args.Length > 4)
             {
-                username = args[2];
-                password = args[3];
+                username = args[3];
+                password = args[4];
             }
             bambooApi = new BambooApi(bambooApiBaseUrl, username, password);
             bitbucketApi = new BitbucketApi(bitbucketApiBaseUrl, "MYV", "metis", username, password);
-            presentationService = new PresentationService(username);
+            // TODO: retrieve a list of possible providers from the Command line arguments
+            presentationService = new PresentationService(username, GetProviders(new[] { presentationProviderName }));
 
             // TODO: get a push notification from the bamboo server whenever a new build is in.
             while (true)
@@ -69,6 +73,12 @@ namespace Chromamboo
             }
         }
 
+        private static IPresentationProvider[] GetProviders(string[] presentationProviderNames)
+        {
+            // TODO: don't hardcode it.
+            return new[] { new RazerChromaPresentationProvider() };
+        }
+
         static private BuildDetail GetBuildDetails(JToken jToken)
         {
             var key = jToken["key"].Value<string>();
@@ -89,7 +99,6 @@ namespace Chromamboo
             var buildDetails = new BuildDetail();
             buildDetails.CommitHash = details["vcsRevisionKey"].Value<string>();
             buildDetails.Successful = details["successful"].Value<bool>();
-
             buildDetails.BuildResultKey = details["buildResultKey"].Value<string>();
             buildDetails.PlanResultKey = details["planResultKey"]["key"].Value<string>();
 
@@ -98,7 +107,7 @@ namespace Chromamboo
             buildDetails.JiraIssue = commitDetails["properties"]?["jira-key"].Values<string>().Aggregate((s1, s2) => s1 + ", " + s2);
             buildDetails.AuthorEmailAddress = commitDetails["author"]["emailAddress"].Value<string>();
             buildDetails.AuthorName = commitDetails["author"]["name"].Value<string>();
-            buildDetails.AuthorDisplayName = commitDetails["author"]["displayName"].Value<string>();
+            buildDetails.AuthorDisplayName = commitDetails["author"]["displayName"]?.Value<string>() ?? buildDetails.AuthorName;
             return buildDetails;
         }
     }
