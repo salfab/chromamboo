@@ -7,6 +7,8 @@ using Newtonsoft.Json.Linq;
 
 namespace Chromamboo
 {
+    using System.Reactive.Linq;
+
     using Chromamboo.Providers.Presentation;
 
     class Program
@@ -44,35 +46,43 @@ namespace Chromamboo
 
             presentationService = new PresentationService(username, GetProviders(presentationProviderNames));
 
+            Observable
+                .Timer(DateTimeOffset.MinValue, TimeSpan.FromSeconds(5))
+                .Subscribe(PerformPollingAction);
+
             // TODO: get a push notification from the bamboo server whenever a new build is in.
-            while (true)
+            Console.WriteLine("Hit any key to exit...");
+            Console.ReadKey();
+
+        }
+
+        private static void PerformPollingAction(long l)
+        {
+            try
             {
-                try
+                bitbucketApi.GetAwaitingPullRequestCountAsync().ContinueWith(task => presentationService.UpdatePRCount(task.Result));
+                var latestHistoryBuild = bambooApi.GetLatestBuildResultsInHistoryAsync("MYV-MCI");
+                var branchesListing = bambooApi.GetLastBuildResultsWithBranchesAsync("MYV-MCI");
+
+                var isDevelopSuccessful = JObject.Parse(latestHistoryBuild.Result)["results"]["result"].First()["state"].Value<string>() == "Successful";
+
+                var lastBuiltBranches = JObject.Parse(branchesListing.Result);
+                var buildsDetails = lastBuiltBranches["branches"]["branch"].Where(b => b["enabled"].Value<bool>()).Select(GetBuildDetails).ToList();
+
+                if (!isDevelopSuccessful)
                 {
-                    bitbucketApi.GetAwaitingPullRequestCountAsync().ContinueWith(task => presentationService.UpdatePRCount(task.Result));
-                    var latestHistoryBuild = bambooApi.GetLatestBuildResultsInHistoryAsync("MYV-MCI");
-                    var branchesListing = bambooApi.GetLastBuildResultsWithBranchesAsync("MYV-MCI");
-
-                    var isDevelopSuccessful = JObject.Parse(latestHistoryBuild.Result)["results"]["result"].First()["state"].Value<string>() == "Successful";
-
-                    var lastBuiltBranches = JObject.Parse(branchesListing.Result);
-                    var buildsDetails = lastBuiltBranches["branches"]["branch"].Where(b => b["enabled"].Value<bool>()).Select(GetBuildDetails).ToList();
-
-                    if (!isDevelopSuccessful)
-                    {
-                        var developDetails = bambooApi.GetBuildResultsAsync(JObject.Parse(latestHistoryBuild.Result)["results"]["result"].First()["planResultKey"]["key"].Value<string>());
-                        var developBuildDetails = ConstructBuildDetails(developDetails.Result);
-                        buildsDetails.Add(developBuildDetails);
-                    }
-
-                    presentationService.Update(buildsDetails);
-
-                    Task.Delay(5000).Wait();
+                    var developDetails = bambooApi.GetBuildResultsAsync(JObject.Parse(latestHistoryBuild.Result)["results"]["result"].First()["planResultKey"]["key"].Value<string>());
+                    var developBuildDetails = ConstructBuildDetails(developDetails.Result);
+                    buildsDetails.Add(developBuildDetails);
                 }
-                catch (Exception e)
-                {
-                    Console.WriteLine(e.GetType().Name + " " + e.Message);      
-                }
+
+                presentationService.Update(buildsDetails);
+
+                Task.Delay(5000).Wait();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.GetType().Name + " " + e.Message);
             }
         }
 
