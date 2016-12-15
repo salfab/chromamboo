@@ -38,8 +38,11 @@ namespace Chromamboo
             }
             bambooApi = new BambooApi(bambooApiBaseUrl, username, password);
             bitbucketApi = new BitbucketApi(bitbucketApiBaseUrl, "MYV", "metis", username, password);
+            
             // TODO: retrieve a list of possible providers from the Command line arguments
-            presentationService = new PresentationService(username, GetProviders(new[] { presentationProviderName }));
+            var presentationProviderNames = new[] { presentationProviderName };
+
+            presentationService = new PresentationService(username, GetProviders(presentationProviderNames));
 
             // TODO: get a push notification from the bamboo server whenever a new build is in.
             while (true)
