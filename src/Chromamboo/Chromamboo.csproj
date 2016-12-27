@@ -68,17 +68,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AtlassianCiSuiteBuildStatusNotificationProvider.cs" />
     <Compile Include="BambooApi.cs" />
     <Compile Include="BitbucketApi.cs" />
     <Compile Include="BuildDetail.cs" />
     <Compile Include="Contracts\IBambooApi.cs" />
     <Compile Include="Contracts\IBitbucketApi.cs" />
     <Compile Include="Contracts\IPresentationService.cs" />
+    <Compile Include="Contracts\IPullRequestCountProvider.cs" />
     <Compile Include="IPresentationProvider.cs" />
     <Compile Include="PresentationService.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Providers\Notification\GitNotificationProvider.cs" />
+    <Compile Include="Providers\Notification\INotificationProvider.cs" />
+    <Compile Include="Providers\Presentation\IGitNotificationPresentationProvider.cs" />
     <Compile Include="Providers\Presentation\RazerChromaPresentationProvider.cs" />
+    <Compile Include="PullRequestsNotificationProvider.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

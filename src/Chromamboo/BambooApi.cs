@@ -1,15 +1,15 @@
-﻿namespace Chromamboo
+﻿using System;
+using System.Configuration;
+using System.Text;
+using System.Threading.Tasks;
+
+using Chromamboo.Contracts;
+
+using RestSharp;
+using RestSharp.Authenticators;
+
+namespace Chromamboo
 {
-    using System;
-    using System.Configuration;
-    using System.Text;
-    using System.Threading.Tasks;
-
-    using Chromamboo.Contracts;
-
-    using RestSharp;
-    using RestSharp.Authenticators;
-
     internal class BambooApi : IBambooApi
     {
         private string apiBaseUrl;

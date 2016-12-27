@@ -2,10 +2,8 @@
 {
     using System.Threading.Tasks;
 
-    internal interface IBitbucketApi
+    internal interface IBitbucketApi : IPullRequestCountProvider
     {
         Task<string> GetCommitDetails(string commitHash);
-
-        Task<int> GetAwaitingPullRequestCountAsync();
     }
 }

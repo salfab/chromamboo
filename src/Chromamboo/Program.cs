@@ -1,14 +1,10 @@
 ﻿using System;
-using System.Linq;
-using System.Threading.Tasks;
-using Chromamboo.Contracts;
 
-using Newtonsoft.Json.Linq;
+using Chromamboo.Contracts;
 
 namespace Chromamboo
 {
-    using System.Reactive.Linq;
-
+    using Chromamboo.Providers.Notification;
     using Chromamboo.Providers.Presentation;
 
     class Program
@@ -18,6 +14,7 @@ namespace Chromamboo
         private static IBitbucketApi bitbucketApi;
 
         private static IPresentationService presentationService;
+
 
         static void Main(string[] args)
         {
@@ -44,11 +41,25 @@ namespace Chromamboo
             // TODO: retrieve a list of possible providers from the Command line arguments
             var presentationProviderNames = new[] { presentationProviderName };
 
+            // find all implementations of the presentation provider names
             presentationService = new PresentationService(username, GetProviders(presentationProviderNames));
 
-            Observable
-                .Timer(DateTimeOffset.MinValue, TimeSpan.FromSeconds(5))
-                .Subscribe(PerformPollingAction);
+            // Handle pull requests
+            var pullRequestsNotificationProvider = new PullRequestsNotificationProvider(bitbucketApi, presentationService);
+            pullRequestsNotificationProvider.Register();
+
+            // Handle Build Status
+            var buildStatusNotificationProvider = new AtlassianCiSuiteBuildStatusNotificationProvider(bitbucketApi, bambooApi, presentationService);
+            buildStatusNotificationProvider.Register("MYV-MCI");
+
+            //Observable
+            //    .Timer(DateTimeOffset.MinValue, TimeSpan.FromSeconds(5))
+            //    .Subscribe(PerformPollingAction);
+
+            // Handle git ahead/behind notification.
+            var gitPresentationProviders = new IGitNotificationPresentationProvider[] { };
+            var gitBehindNotificationProvider = new GitNotificationProvider(gitPresentationProviders);
+            gitBehindNotificationProvider.Register(@"C:/sources/metis");
 
             // TODO: get a push notification from the bamboo server whenever a new build is in.
             Console.WriteLine("Hit any key to exit...");
@@ -60,25 +71,7 @@ namespace Chromamboo
         {
             try
             {
-                bitbucketApi.GetAwaitingPullRequestCountAsync().ContinueWith(task => presentationService.UpdatePRCount(task.Result));
-                var latestHistoryBuild = bambooApi.GetLatestBuildResultsInHistoryAsync("MYV-MCI");
-                var branchesListing = bambooApi.GetLastBuildResultsWithBranchesAsync("MYV-MCI");
 
-                var isDevelopSuccessful = JObject.Parse(latestHistoryBuild.Result)["results"]["result"].First()["state"].Value<string>() == "Successful";
-
-                var lastBuiltBranches = JObject.Parse(branchesListing.Result);
-                var buildsDetails = lastBuiltBranches["branches"]["branch"].Where(b => b["enabled"].Value<bool>()).Select(GetBuildDetails).ToList();
-
-                if (!isDevelopSuccessful)
-                {
-                    var developDetails = bambooApi.GetBuildResultsAsync(JObject.Parse(latestHistoryBuild.Result)["results"]["result"].First()["planResultKey"]["key"].Value<string>());
-                    var developBuildDetails = ConstructBuildDetails(developDetails.Result);
-                    buildsDetails.Add(developBuildDetails);
-                }
-
-                presentationService.Update(buildsDetails);
-
-                Task.Delay(5000).Wait();
             }
             catch (Exception e)
             {
@@ -90,38 +83,6 @@ namespace Chromamboo
         {
             // TODO: don't hardcode it.
             return new[] { new RazerChromaPresentationProvider() };
-        }
-
-        static private BuildDetail GetBuildDetails(JToken jToken)
-        {
-            var key = jToken["key"].Value<string>();
-
-            var latestBuildKeyInPlan = JObject.Parse(bambooApi.GetLastBuildFromBranchPlan(key).Result)["results"]["result"].First()["buildResultKey"].Value<string>();
-
-            var buildDetailsString = bambooApi.GetBuildDetailsAsync(latestBuildKeyInPlan).Result;
-            var buildDetails = ConstructBuildDetails(buildDetailsString);
-
-            buildDetails.BranchName = jToken["shortName"].Value<string>();
-            return buildDetails;
-        }
-
-        private static BuildDetail ConstructBuildDetails(string buildDetailsString)
-        {
-            var details = JObject.Parse(buildDetailsString);
-
-            var buildDetails = new BuildDetail();
-            buildDetails.CommitHash = details["vcsRevisionKey"].Value<string>();
-            buildDetails.Successful = details["successful"].Value<bool>();
-            buildDetails.BuildResultKey = details["buildResultKey"].Value<string>();
-            buildDetails.PlanResultKey = details["planResultKey"]["key"].Value<string>();
-
-            var commitDetails = JObject.Parse(bitbucketApi.GetCommitDetails(buildDetails.CommitHash).Result);
-
-            buildDetails.JiraIssue = commitDetails["properties"]?["jira-key"].Values<string>().Aggregate((s1, s2) => s1 + ", " + s2);
-            buildDetails.AuthorEmailAddress = commitDetails["author"]["emailAddress"].Value<string>();
-            buildDetails.AuthorName = commitDetails["author"]["name"].Value<string>();
-            buildDetails.AuthorDisplayName = commitDetails["author"]["displayName"]?.Value<string>() ?? buildDetails.AuthorName;
-            return buildDetails;
         }
     }
 }
