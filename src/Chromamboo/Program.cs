@@ -1,13 +1,12 @@
 ﻿using System;
 
 using Chromamboo.Contracts;
+using Chromamboo.Providers.Notification;
+using Chromamboo.Providers.Presentation;
 
 namespace Chromamboo
 {
-    using Chromamboo.Providers.Notification;
-    using Chromamboo.Providers.Presentation;
-
-    class Program
+    public class Program
     {
         private static IBambooApi bambooApi;
 
@@ -15,8 +14,7 @@ namespace Chromamboo
 
         private static IPresentationService presentationService;
 
-
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             string username = null;
             string password = null;
@@ -52,10 +50,6 @@ namespace Chromamboo
             var buildStatusNotificationProvider = new AtlassianCiSuiteBuildStatusNotificationProvider(bitbucketApi, bambooApi, presentationService);
             buildStatusNotificationProvider.Register("MYV-MCI");
 
-            //Observable
-            //    .Timer(DateTimeOffset.MinValue, TimeSpan.FromSeconds(5))
-            //    .Subscribe(PerformPollingAction);
-
             // Handle git ahead/behind notification.
             var gitPresentationProviders = new IGitNotificationPresentationProvider[] { };
             var gitBehindNotificationProvider = new GitNotificationProvider(gitPresentationProviders);
@@ -65,18 +59,6 @@ namespace Chromamboo
             Console.WriteLine("Hit any key to exit...");
             Console.ReadKey();
 
-        }
-
-        private static void PerformPollingAction(long l)
-        {
-            try
-            {
-
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.GetType().Name + " " + e.Message);
-            }
         }
 
         private static IPresentationProvider[] GetProviders(string[] presentationProviderNames)
