@@ -51,7 +51,7 @@ namespace Chromamboo
             buildStatusNotificationProvider.Register("MYV-MCI");
 
             // Handle git ahead/behind notification.
-            var gitPresentationProviders = new IGitNotificationPresentationProvider[] { };
+            var gitPresentationProviders = new IGitNotificationPresentationProvider[] { new RazerChromaGitNotificationPresentationProvider() };
             var gitBehindNotificationProvider = new GitNotificationProvider(gitPresentationProviders);
             gitBehindNotificationProvider.Register(@"C:/sources/metis");
 
