@@ -8,5 +8,6 @@
 
         void UpdatePRCount(int prCount);
 
+        void MarkAsInconclusive();
     }
 }

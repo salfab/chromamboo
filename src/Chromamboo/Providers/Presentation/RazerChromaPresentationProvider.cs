@@ -8,6 +8,28 @@
 
     public class RazerChromaPresentationProvider : IPresentationProvider
     {
+        private Key[] keysForMyBuilds = new[]
+        {
+            Key.Num0,
+            Key.NumDecimal,
+            Key.NumEnter,
+            Key.Num1,
+            Key.Num2,
+            Key.Num3,
+            Key.Num4,
+            Key.Num5,
+            Key.Num6,
+            Key.Num7,
+            Key.Num8,
+            Key.Num9,
+            Key.NumLock,
+            Key.NumDivide,
+            Key.NumMultiply,
+            Key.NumSubtract,
+            Key.NumAdd
+        };
+
+        private Key keysForAllBuilds = Key.Logo;
 
         public void Update(List<BuildDetail> buildsDetails, string username)
         {
@@ -16,46 +38,26 @@
             var isAnyBroken = buildsDetails.Any(b => !b.Successful);
 
             var isMineBroken = buildsDetails.Any(b => !b.Successful && b.AuthorName == username);
-            var numPad = new[]
-                             {
-                                 Key.Num0,
-                                 Key.NumDecimal,
-                                 Key.NumEnter,
-                                 Key.Num1,
-                                 Key.Num2,
-                                 Key.Num3,
-                                 Key.Num4,
-                                 Key.Num5,
-                                 Key.Num6,
-                                 Key.Num7,
-                                 Key.Num8,
-                                 Key.Num9,
-                                 Key.NumLock,
-                                 Key.NumDivide,
-                                 Key.NumMultiply,
-                                 Key.NumSubtract,
-                                 Key.NumAdd
-                             };
             if (isMineBroken)
             {
                 //Chroma.Instance.Keyboard.SetReactive(new Reactive(Color.Purple, Duration.Long));
-                Chroma.Instance.Keyboard.SetKeys(numPad, new Color(1.0, 0.0, 0.0));
+                Chroma.Instance.Keyboard.SetKeys(keysForMyBuilds, new Color(1.0, 0.0, 0.0));
             }
             else
             {
                 //Chroma.Instance.Keyboard.SetReactive(new Reactive(Color.Purple, Duration.Long));
-                Chroma.Instance.Keyboard.SetKeys(numPad, new Color(0.0, 1.0, 0.0));
+                Chroma.Instance.Keyboard.SetKeys(keysForMyBuilds, new Color(0.0, 1.0, 0.0));
             }
 
             if (isAnyBroken)
             {
                 //Chroma.Instance.Keyboard.SetReactive(new Reactive(Color.Purple, Duration.Long));
-                Chroma.Instance.Keyboard.SetKey(Key.Logo, new Color(1.0, 0.0, 0.0));
+                Chroma.Instance.Keyboard.SetKey(keysForAllBuilds, new Color(1.0, 0.0, 0.0));
             }
             else
             {
                 //Chroma.Instance.Keyboard.SetReactive(new Reactive(Color.Purple, Duration.Long));
-                Chroma.Instance.Keyboard.SetKey(Key.Logo, new Color(0.0, 1.0, 0.0));
+                Chroma.Instance.Keyboard.SetKey(keysForAllBuilds, new Color(0.0, 1.0, 0.0));
             }
         }
 
@@ -76,6 +78,12 @@
             }
 
             Chroma.Instance.Keyboard.SetKey(Key.Macro1, color);
+        }
+
+        public void MarkAsInconclusive()
+        {
+            Chroma.Instance.Keyboard.SetKeys(keysForMyBuilds, new Color(0.5, 0.0, 0.5));
+            Chroma.Instance.Keyboard.SetKey(keysForAllBuilds, new Color(0.5, 0.0, 0.5));
         }
     }
 }

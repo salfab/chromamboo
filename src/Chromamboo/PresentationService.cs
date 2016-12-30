@@ -31,5 +31,13 @@ namespace Chromamboo
                 provider.UpdatePRCount(prCount);
             }
         }
+
+        public void MarkAsInconclusive()
+        {
+            foreach (var provider in this.presentationProviders)
+            {
+                provider.MarkAsInconclusive();
+            }
+        }
     }
 }

@@ -7,5 +7,6 @@
         void Update(List<BuildDetail> buildsDetails);
 
         void UpdatePRCount(int prCount);
+        void MarkAsInconclusive();
     }
 }

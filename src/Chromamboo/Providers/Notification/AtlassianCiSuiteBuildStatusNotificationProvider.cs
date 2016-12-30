@@ -30,26 +30,36 @@
             Observable
                 .Timer(DateTimeOffset.MinValue, TimeSpan.FromSeconds(5))
                 .Subscribe(async l =>
-                    {
-                        await this.PerformPollingAction(planKey);
+                    {                                                
+                            await this.PerformPollingAction(planKey);                       
                     });
         }
 
+
         private async Task PerformPollingAction(string planKey)
-        {            
-            var latestHistoryBuild = this.bambooApi.GetLatestBuildResultsInHistoryAsync(planKey);
-            var branchesListing = this.bambooApi.GetLastBuildResultsWithBranchesAsync(planKey);
-
-            var isDevelopSuccessful = JObject.Parse(latestHistoryBuild.Result)["results"]["result"].First()["state"].Value<string>() == "Successful";
-
-            var lastBuiltBranches = JObject.Parse(branchesListing.Result);
-            var buildsDetails = lastBuiltBranches["branches"]["branch"].Where(b => b["enabled"].Value<bool>()).Select(this.GetBuildDetails).ToList();
-
-            if (!isDevelopSuccessful)
+        {
+            List<BuildDetail> buildsDetails;
+            try
             {
-                var developDetails = this.bambooApi.GetBuildResultsAsync(JObject.Parse(latestHistoryBuild.Result)["results"]["result"].First()["planResultKey"]["key"].Value<string>());
-                var developBuildDetails = this.ConstructBuildDetails(developDetails.Result);
-                buildsDetails.Add(developBuildDetails);
+                var latestHistoryBuild = this.bambooApi.GetLatestBuildResultsInHistoryAsync(planKey);
+                var branchesListing = this.bambooApi.GetLastBuildResultsWithBranchesAsync(planKey);
+
+                var isDevelopSuccessful = JObject.Parse(latestHistoryBuild.Result)["results"]["result"].First()["state"].Value<string>() == "Successful";
+
+                var lastBuiltBranches = JObject.Parse(branchesListing.Result);
+                buildsDetails = lastBuiltBranches["branches"]["branch"].Where(b => b["enabled"].Value<bool>()).Select(this.GetBuildDetails).ToList();
+
+                if (!isDevelopSuccessful)
+                {
+                    var developDetails = this.bambooApi.GetBuildResultsAsync(JObject.Parse(latestHistoryBuild.Result)["results"]["result"].First()["planResultKey"]["key"].Value<string>());
+                    var developBuildDetails = this.ConstructBuildDetails(developDetails.Result);
+                    buildsDetails.Add(developBuildDetails);
+                }
+            }
+            catch (Exception)
+            {
+                this.presentationService.MarkAsInconclusive();
+                return;
             }
 
             this.presentationService.Update(buildsDetails);
