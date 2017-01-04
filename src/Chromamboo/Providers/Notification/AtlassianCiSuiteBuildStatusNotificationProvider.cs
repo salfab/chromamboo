@@ -1,17 +1,24 @@
-﻿namespace Chromamboo
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reactive.Linq;
+using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
+
+using Chromamboo.Contracts;
+using Chromamboo.Providers.Notification;
+
+using Newtonsoft.Json.Linq;
+
+namespace Chromamboo
 {
-    using System;
-    using System.Linq;
-    using System.Reactive.Linq;
-    using System.Threading.Tasks;
-
-    using Chromamboo.Contracts;
-    using Chromamboo.Providers.Notification;
-
-    using Newtonsoft.Json.Linq;
-
-    internal class AtlassianCiSuiteBuildStatusNotificationProvider : INotificationProvider<string>
+    public class AtlassianCiSuiteBuildStatusNotificationProvider : INotificationProvider<string>
     {
+        public enum NotificationType
+        {
+            Build,
+            PullRequest
+        }
         private readonly IBitbucketApi bitbucketApi;
 
         private readonly IBambooApi bambooApi;
@@ -56,9 +63,10 @@
                     buildsDetails.Add(developBuildDetails);
                 }
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                this.presentationService.MarkAsInconclusive();
+                this.presentationService.MarkAsInconclusive(NotificationType.Build);
+                Console.WriteLine(e.GetType() + ": " + e.Message);
                 return;
             }
 

@@ -2,11 +2,11 @@
 {
     using System.Collections.Generic;
 
-    internal interface IPresentationService
+    public interface IPresentationService
     {
         void Update(List<BuildDetail> buildsDetails);
 
         void UpdatePRCount(int prCount);
-        void MarkAsInconclusive();
+        void MarkAsInconclusive(AtlassianCiSuiteBuildStatusNotificationProvider.NotificationType notificationType);
     }
 }

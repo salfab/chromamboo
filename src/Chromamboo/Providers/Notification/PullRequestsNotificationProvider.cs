@@ -33,7 +33,17 @@
 
         private async Task PerformPollingAction()
         {
-            var count = await this.pullRequestCountProvider.GetAwaitingPullRequestCountAsync();
+            int count;
+            try
+            {
+                count = await this.pullRequestCountProvider.GetAwaitingPullRequestCountAsync();
+            }
+            catch (Exception e)
+            {
+                this.presentationService.MarkAsInconclusive(AtlassianCiSuiteBuildStatusNotificationProvider.NotificationType.PullRequest);
+                Console.WriteLine(e.GetType() + ": " + e.Message);
+                return;
+            }
 
             this.presentationService.UpdatePRCount(count);             
         }

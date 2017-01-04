@@ -8,6 +8,7 @@
 
         void UpdatePRCount(int prCount);
 
-        void MarkAsInconclusive();
+        void MarkAsInconclusive(AtlassianCiSuiteBuildStatusNotificationProvider.NotificationType notificationType);
     }
+
 }
