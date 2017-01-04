@@ -21,7 +21,7 @@ namespace Chromamboo.Providers.Presentation
                 Chroma.Instance.Keyboard.SetKeys(new Color(0.0, 1.0, 0.0), Key.Macro2);
             }
 
-            if (divergenceWithDevelop.AheadBy > 0)
+            if (divergenceWithRemote.AheadBy > 0)
             {
                 Debug.WriteLine("unpushed commits: {0}", divergenceWithRemote.AheadBy);
                 Chroma.Instance.Keyboard.SetKeys(new Color(1.0, 0.0, 0.0), Key.Macro3);
