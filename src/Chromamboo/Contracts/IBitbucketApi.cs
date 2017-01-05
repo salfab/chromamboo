@@ -1,7 +1,9 @@
-﻿namespace Chromamboo.Contracts
-{
-    using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 
+using Chromamboo.Providers.Notification;
+
+namespace Chromamboo.Contracts
+{
     public interface IBitbucketApi : IPullRequestCountProvider
     {
         Task<string> GetCommitDetails(string commitHash);

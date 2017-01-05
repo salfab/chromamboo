@@ -8,6 +8,8 @@ namespace Chromamboo.Providers.Presentation
     using Corale.Colore.Core;
     using Corale.Colore.Razer.Keyboard;
 
+    using Notification;
+
     public class RazerChromaPresentationProvider : IPresentationProvider
     {
         private const Key KeysForAllBuilds = Key.Logo;
@@ -50,7 +52,7 @@ namespace Chromamboo.Providers.Presentation
                 isAnyBroken ? new Color(1.0, 0.0, 0.0) : new Color(0.0, 1.0, 0.0));
         }
 
-        public void UpdatePrCount(int pullRequestCount)
+        public void UpdatePullRequestCount(int pullRequestCount)
         {
             Color color;
             if (pullRequestCount == 0)
