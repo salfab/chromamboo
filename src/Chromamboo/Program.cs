@@ -26,19 +26,20 @@ namespace Chromamboo
             if (args.Length <= 1)
             {
                 Console.Write(
-                    "Chromamboo bambooApiBaseUrl bitbucketApiBaseUrl presentationProviderName gitNotificationProviderName [username] [password]");
+                    "Chromamboo bambooApiBaseUrl bitbucketApiBaseUrl repositoryPath presentationProviderName gitNotificationProviderName [username] [password]");
                 return;
             }
 
             var bambooApiBaseUrl = args[0];
             var bitbucketApiBaseUrl = args[1];
-            var presentationProviderName = args[2];
-            var gitNotificationProviderName = args[3];
+            var repositoryPath = args[2];
+            var presentationProviderName = args[3];
+            var gitNotificationProviderName = args[4];
 
-            if (args.Length > 5)
+            if (args.Length > 6)
             {
-                username = args[4];
-                password = args[5];
+                username = args[5];
+                password = args[6];
             }
 
             bambooApi = new BambooApi(bambooApiBaseUrl, username, password);
@@ -66,7 +67,7 @@ namespace Chromamboo
 
             // Handle git ahead/behind notification.
             var gitBehindNotificationProvider = new GitNotificationProvider(GetGitNotificationProviders(gitNotificationProviderNames));
-            gitBehindNotificationProvider.Register(@"C:/sources/metis");
+            gitBehindNotificationProvider.Register(repositoryPath);
 
             // TODO: get a push notification from the bamboo server whenever a new build is in.
             Console.WriteLine("Hit any key to exit...");
