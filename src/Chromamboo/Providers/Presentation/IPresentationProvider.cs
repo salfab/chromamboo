@@ -1,14 +1,15 @@
-﻿namespace Chromamboo
+﻿using System.Collections.Generic;
+
+namespace Chromamboo.Providers.Presentation
 {
-    using System.Collections.Generic;
+    using Notification;
 
     public interface IPresentationProvider
     {
         void Update(List<BuildDetail> buildsDetails, string username);
 
-        void UpdatePRCount(int prCount);
+        void UpdatePullRequestCount(int pullRequestCount);
 
         void MarkAsInconclusive(AtlassianCiSuiteBuildStatusNotificationProvider.NotificationType notificationType);
     }
-
 }
