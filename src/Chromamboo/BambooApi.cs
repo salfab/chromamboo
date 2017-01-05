@@ -12,11 +12,11 @@ namespace Chromamboo
 {
     internal class BambooApi : IBambooApi
     {
-        private string apiBaseUrl;
+        private readonly string apiBaseUrl;
 
-        private string password = ConfigurationManager.AppSettings["password"] == null ? string.Empty : Encoding.UTF8.GetString(Convert.FromBase64String(ConfigurationManager.AppSettings["password"]));
+        private readonly string password = ConfigurationManager.AppSettings["password"] == null ? string.Empty : Encoding.UTF8.GetString(Convert.FromBase64String(ConfigurationManager.AppSettings["password"]));
 
-        private string username = ConfigurationManager.AppSettings["username"];
+        private readonly string username = ConfigurationManager.AppSettings["username"];
 
         public BambooApi(string apiBaseUrl, string username = null, string secret = null)
         {
@@ -72,7 +72,6 @@ namespace Chromamboo
             var result = await rc.ExecuteTaskAsync(request);
             return result.Content;
         }
-
 
         public async Task<string> GetLastBuildFromBranchPlan(string key)
         {

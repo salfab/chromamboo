@@ -1,4 +1,4 @@
-﻿namespace Chromamboo.Contracts
+﻿namespace Chromamboo.Providers.Notification
 {
     using System.Threading.Tasks;
 
