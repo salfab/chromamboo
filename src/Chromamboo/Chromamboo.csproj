@@ -87,6 +87,7 @@
     <Compile Include="Providers\Notification\IPullRequestCountProvider.cs" />
     <Compile Include="Providers\Presentation\Contracts\IGitNotificationPresentationProvider.cs" />
     <Compile Include="Providers\Presentation\Contracts\IPresentationProvider.cs" />
+    <Compile Include="Providers\Presentation\BlyncGitNotificationPresentationProvider.cs" />
     <Compile Include="Providers\Presentation\RazerChromaGitNotificationPresentationProvider.cs" />
     <Compile Include="PresentationService.cs" />
     <Compile Include="Program.cs" />
