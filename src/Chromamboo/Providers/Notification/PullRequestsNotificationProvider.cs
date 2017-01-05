@@ -1,11 +1,10 @@
-﻿namespace Chromamboo
+﻿namespace Chromamboo.Providers.Notification
 {
     using System;
     using System.Reactive.Linq;
     using System.Threading.Tasks;
 
     using Chromamboo.Contracts;
-    using Chromamboo.Providers.Notification;
 
     internal class PullRequestsNotificationProvider : INotificationProvider<object>
     {
@@ -45,7 +44,7 @@
                 return;
             }
 
-            this.presentationService.UpdatePRCount(count);             
+            this.presentationService.UpdatePullRequestCount(count);             
         }
     }
 }

@@ -20,7 +20,8 @@ namespace Chromamboo
             string password = null;
             if (args.Length <= 1)
             {
-                Console.Write("Chromamboo bambooApiBaseUrl bitbucketApiBaseUrl presentationProviderName [username] [password]");
+                Console.Write(
+                    "Chromamboo bambooApiBaseUrl bitbucketApiBaseUrl presentationProviderName [username] [password]");
                 return;
             }
 
@@ -33,9 +34,10 @@ namespace Chromamboo
                 username = args[3];
                 password = args[4];
             }
+
             bambooApi = new BambooApi(bambooApiBaseUrl, username, password);
             bitbucketApi = new BitbucketApi(bitbucketApiBaseUrl, "MYV", "metis", username, password);
-            
+
             // TODO: retrieve a list of possible providers from the Command line arguments
             var presentationProviderNames = new[] { presentationProviderName };
 
@@ -43,28 +45,35 @@ namespace Chromamboo
             presentationService = new PresentationService(username, GetProviders(presentationProviderNames));
 
             // Handle pull requests
-            var pullRequestsNotificationProvider = new PullRequestsNotificationProvider(bitbucketApi, presentationService);
+            var pullRequestsNotificationProvider = new PullRequestsNotificationProvider(
+                bitbucketApi,
+                presentationService);
             pullRequestsNotificationProvider.Register();
 
             // Handle Build Status
-            var buildStatusNotificationProvider = new AtlassianCiSuiteBuildStatusNotificationProvider(bitbucketApi, bambooApi, presentationService);
+            var buildStatusNotificationProvider = new AtlassianCiSuiteBuildStatusNotificationProvider(
+                bitbucketApi,
+                bambooApi,
+                presentationService);
             buildStatusNotificationProvider.Register("MYV-MCI");
 
             // Handle git ahead/behind notification.
-            var gitPresentationProviders = new IGitNotificationPresentationProvider[] { new RazerChromaGitNotificationPresentationProvider() };
+            var gitPresentationProviders = new IGitNotificationPresentationProvider[]
+                                               {
+                                                   new RazerChromaGitNotificationPresentationProvider() 
+                                               };
             var gitBehindNotificationProvider = new GitNotificationProvider(gitPresentationProviders);
             gitBehindNotificationProvider.Register(@"C:/sources/metis");
 
             // TODO: get a push notification from the bamboo server whenever a new build is in.
             Console.WriteLine("Hit any key to exit...");
             Console.ReadKey();
-
         }
 
         private static IPresentationProvider[] GetProviders(string[] presentationProviderNames)
         {
             // TODO: don't hardcode it.
-            return new[] { new RazerChromaPresentationProvider() };
+            return new IPresentationProvider[] { new RazerChromaPresentationProvider() };
         }
     }
 }

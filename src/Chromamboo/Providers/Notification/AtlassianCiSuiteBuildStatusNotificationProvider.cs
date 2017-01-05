@@ -2,23 +2,16 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reactive.Linq;
-using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 
 using Chromamboo.Contracts;
-using Chromamboo.Providers.Notification;
 
 using Newtonsoft.Json.Linq;
 
-namespace Chromamboo
+namespace Chromamboo.Providers.Notification
 {
     public class AtlassianCiSuiteBuildStatusNotificationProvider : INotificationProvider<string>
     {
-        public enum NotificationType
-        {
-            Build,
-            PullRequest
-        }
         private readonly IBitbucketApi bitbucketApi;
 
         private readonly IBambooApi bambooApi;
@@ -32,6 +25,12 @@ namespace Chromamboo
             this.presentationService = presentationService;
         }
 
+        public enum NotificationType
+        {
+            Build,
+            PullRequest
+        }
+
         public void Register(string planKey)
         {
             Observable
@@ -41,7 +40,6 @@ namespace Chromamboo
                             await this.PerformPollingAction(planKey);                       
                     });
         }
-
 
         private async Task PerformPollingAction(string planKey)
         {
@@ -73,21 +71,19 @@ namespace Chromamboo
             this.presentationService.Update(buildsDetails);
         }
 
-
-        private BuildDetail GetBuildDetails(JToken jToken)
+        private BuildDetail GetBuildDetails(JToken jsonToken)
         {
-            var key = jToken["key"].Value<string>();
+            var key = jsonToken["key"].Value<string>();
 
             var latestBuildKeyInPlan = JObject.Parse(this.bambooApi.GetLastBuildFromBranchPlan(key).Result)["results"]["result"].First()["buildResultKey"].Value<string>();
 
             var buildDetailsString = this.bambooApi.GetBuildDetailsAsync(latestBuildKeyInPlan).Result;
             var buildDetails = this.ConstructBuildDetails(buildDetailsString);
 
-            buildDetails.BranchName = jToken["shortName"].Value<string>();
+            buildDetails.BranchName = jsonToken["shortName"].Value<string>();
             return buildDetails;
         }
-
-
+        
         private BuildDetail ConstructBuildDetails(string buildDetailsString)
         {
             var details = JObject.Parse(buildDetailsString);
