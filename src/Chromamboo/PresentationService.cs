@@ -4,6 +4,9 @@ using Chromamboo.Contracts;
 
 namespace Chromamboo
 {
+    using Providers.Notification;
+    using Providers.Presentation;
+
     public class PresentationService : IPresentationService
     {
         private readonly IPresentationProvider[] presentationProviders;
@@ -20,15 +23,15 @@ namespace Chromamboo
         {
             foreach (var provider in this.presentationProviders)
             {
-                provider.Update(buildsDetails, username); 
+                provider.Update(buildsDetails, this.username); 
             }            
         }
 
-        public void UpdatePRCount(int prCount)
+        public void UpdatePullRequestCount(int pullRequestCount)
         {
             foreach (var provider in this.presentationProviders)
             {
-                provider.UpdatePRCount(prCount);
+                provider.UpdatePullRequestCount(pullRequestCount);
             }
         }
 

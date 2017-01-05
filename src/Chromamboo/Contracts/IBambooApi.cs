@@ -1,7 +1,7 @@
-﻿namespace Chromamboo.Contracts
-{
-    using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 
+namespace Chromamboo.Contracts
+{
     public interface IBambooApi
     {
         Task<string> GetBuildResultsAsync(string buildKey);
