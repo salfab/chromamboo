@@ -36,7 +36,6 @@
                 this.username = username;
             }
 
-
             this.apiBaseUrl = apiBaseUrl;
             this.projectKey = projectKey;
             this.repoSlug = repoSlug;
@@ -60,7 +59,6 @@
             rc.Authenticator.Authenticate(rc, request);
             var result = await rc.ExecuteTaskAsync(request);
             return JObject.Parse(result.Content)["count"].Value<int>();
-
         }
     }
 }

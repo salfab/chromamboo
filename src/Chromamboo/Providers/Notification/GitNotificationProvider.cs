@@ -22,6 +22,11 @@ namespace Chromamboo.Providers.Notification
                 .Subscribe(l => this.PerformPollingAction(repositoryPath));
         }
 
+        public void Register<T>(T param)
+        {
+            throw new NotImplementedException();
+        }
+
         private void PerformPollingAction(string repositoryPath)
         {
             // query git difference between current branch and develop            
@@ -42,11 +47,6 @@ namespace Chromamboo.Providers.Notification
             {
                 provider.UpdateGitNotification(divergenceWithDevelop, divergenceWithRemote);
             }
-        }
-
-        public void Register<T>(T param)
-        {
-            throw new NotImplementedException();
         }
     }
 }
