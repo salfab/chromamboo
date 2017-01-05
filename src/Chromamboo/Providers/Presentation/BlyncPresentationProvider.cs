@@ -20,10 +20,12 @@ namespace Chromamboo.Providers.Presentation
         
         public BlyncPresentationProvider(
             BlynclightController blynclightController, 
-            int selectedBlyncDevice)
+            int selectedBlyncDevice = 0,
+            int numberOfExecutions = 0)
         {
             this.blynclightController = blynclightController;
             this.selectedBlyncDevice = selectedBlyncDevice;
+            this.numberOfExecutions = numberOfExecutions;
         }
 
         public void Update(List<BuildDetail> buildsDetails, string username)

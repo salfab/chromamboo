@@ -7,9 +7,10 @@ namespace Chromamboo.Providers.Presentation
 {
     public class RazerChromaGitNotificationPresentationProvider : IGitNotificationPresentationProvider
     {
-        public void UpdateGitNotification(HistoryDivergence divergenceWithDevelop, HistoryDivergence divergenceWithRemote)
+        public void UpdateGitNotification(
+            HistoryDivergence divergenceWithDevelop,
+            HistoryDivergence divergenceWithRemote)
         {
-
             if (divergenceWithDevelop.BehindBy > 0)
             {
                 Debug.WriteLine("Behind origin/develop by: {0}", divergenceWithDevelop.BehindBy);
