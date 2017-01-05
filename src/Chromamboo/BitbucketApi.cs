@@ -20,7 +20,7 @@
 
         private readonly string repoSlug;
 
-        private string password = ConfigurationManager.AppSettings["password"] == null ? "" : Encoding.UTF8.GetString(Convert.FromBase64String(ConfigurationManager.AppSettings["password"]));
+        private string password = ConfigurationManager.AppSettings["password"] == null ? string.Empty : Encoding.UTF8.GetString(Convert.FromBase64String(ConfigurationManager.AppSettings["password"]));
 
         private string username = ConfigurationManager.AppSettings["username"];
 
@@ -45,7 +45,7 @@
         public async Task<string> GetCommitDetails(string commitHash)
         {
             var rc = new RestClient(this.apiBaseUrl);
-            rc.Authenticator = new HttpBasicAuthenticator(this.username,this.password);
+            rc.Authenticator = new HttpBasicAuthenticator(this.username, this.password);
             var request = new RestRequest($"/projects/{this.projectKey}/repos/{this.repoSlug}/commits/{commitHash}");
             rc.Authenticator.Authenticate(rc, request);
             var result = await rc.ExecuteTaskAsync(request);

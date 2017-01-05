@@ -6,9 +6,8 @@
     {
         void Update(List<BuildDetail> buildsDetails, string username);
 
-        void UpdatePRCount(int prCount);
+        void UpdatePrCount(int pullRequestCount);
 
         void MarkAsInconclusive(AtlassianCiSuiteBuildStatusNotificationProvider.NotificationType notificationType);
     }
-
 }

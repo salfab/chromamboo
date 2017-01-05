@@ -20,7 +20,7 @@ namespace Chromamboo
         {
             foreach (var provider in this.presentationProviders)
             {
-                provider.Update(buildsDetails, username); 
+                provider.Update(buildsDetails, this.username); 
             }            
         }
 
@@ -28,7 +28,7 @@ namespace Chromamboo
         {
             foreach (var provider in this.presentationProviders)
             {
-                provider.UpdatePRCount(prCount);
+                provider.UpdatePrCount(prCount);
             }
         }
 
