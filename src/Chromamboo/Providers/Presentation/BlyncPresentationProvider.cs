@@ -26,6 +26,7 @@ namespace Chromamboo.Providers.Presentation
             this.blynclightController = blynclightController;
             this.selectedBlyncDevice = selectedBlyncDevice;
             this.numberOfExecutions = numberOfExecutions;
+            this.blynclightController.InitBlyncDevices();
         }
 
         public void Update(List<BuildDetail> buildsDetails, string username)
