@@ -29,9 +29,14 @@ namespace Chromamboo.Providers.Notification
             HistoryDivergence divergenceWithRemote;
             using (var repo = new Repository(repositoryPath))
             {
-                divergenceWithDevelop = repo.ObjectDatabase.CalculateHistoryDivergence(repo.Head.Tip, repo.Branches["origin/develop"].Tip);
-                divergenceWithRemote = repo.ObjectDatabase.CalculateHistoryDivergence(repo.Head.Tip, repo.Branches[repo.Head.RemoteName+"/"+repo.Head.FriendlyName].Tip);
+                divergenceWithDevelop = repo.ObjectDatabase.CalculateHistoryDivergence(
+                    repo.Head.Tip,
+                    repo.Branches["origin/develop"].Tip);
+                divergenceWithRemote = repo.ObjectDatabase.CalculateHistoryDivergence(
+                    repo.Head.Tip,
+                    repo.Branches[repo.Head.RemoteName + "/" + repo.Head.FriendlyName].Tip);
             }
+
             // update presentation
             foreach (var provider in this.gitPresentationProviders)
             {

@@ -33,6 +33,7 @@ namespace Chromamboo
                 username = args[3];
                 password = args[4];
             }
+
             bambooApi = new BambooApi(bambooApiBaseUrl, username, password);
             bitbucketApi = new BitbucketApi(bitbucketApiBaseUrl, "MYV", "metis", username, password);
             
@@ -64,7 +65,7 @@ namespace Chromamboo
         private static IPresentationProvider[] GetProviders(string[] presentationProviderNames)
         {
             // TODO: don't hardcode it.
-            return new[] { new RazerChromaPresentationProvider() };
+            return new IPresentationProvider[] { new RazerChromaPresentationProvider() };
         }
     }
 }
