@@ -2,7 +2,7 @@
 {
     using System.Threading.Tasks;
 
-    internal interface IPullRequestCountProvider
+    public interface IPullRequestCountProvider
     {
         Task<int> GetAwaitingPullRequestCountAsync();
     }

@@ -1,4 +1,6 @@
-﻿namespace Chromamboo.Providers.Presentation
+﻿using System;
+
+namespace Chromamboo.Providers.Presentation
 {
     using System.Collections.Generic;
     using System.Linq;
@@ -80,10 +82,24 @@
             Chroma.Instance.Keyboard.SetKey(Key.Macro1, color);
         }
 
-        public void MarkAsInconclusive()
+
+
+        public void MarkAsInconclusive(AtlassianCiSuiteBuildStatusNotificationProvider.NotificationType notificationType)
         {
-            Chroma.Instance.Keyboard.SetKeys(keysForMyBuilds, new Color(0.5, 0.0, 0.5));
-            Chroma.Instance.Keyboard.SetKey(keysForAllBuilds, new Color(0.5, 0.0, 0.5));
+            switch (notificationType)
+            {
+                case AtlassianCiSuiteBuildStatusNotificationProvider.NotificationType.Build:
+                    Chroma.Instance.Keyboard.SetKeys(keysForMyBuilds, new Color(0.5, 0.0, 0.5));
+                    Chroma.Instance.Keyboard.SetKey(keysForAllBuilds, new Color(0.5, 0.0, 0.5));
+                    break;
+                case AtlassianCiSuiteBuildStatusNotificationProvider.NotificationType.PullRequest:
+                    Chroma.Instance.Keyboard.SetKey(Key.Macro1, Color.Purple);
+                    break;
+
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(notificationType), notificationType, null);
+
+            }
         }
     }
 }

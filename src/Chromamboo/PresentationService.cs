@@ -32,11 +32,11 @@ namespace Chromamboo
             }
         }
 
-        public void MarkAsInconclusive()
+        public void MarkAsInconclusive(AtlassianCiSuiteBuildStatusNotificationProvider.NotificationType notificationType)
         {
             foreach (var provider in this.presentationProviders)
             {
-                provider.MarkAsInconclusive();
+                provider.MarkAsInconclusive(notificationType);
             }
         }
     }

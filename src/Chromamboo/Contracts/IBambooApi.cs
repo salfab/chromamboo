@@ -2,7 +2,7 @@
 {
     using System.Threading.Tasks;
 
-    internal interface IBambooApi
+    public interface IBambooApi
     {
         Task<string> GetBuildResultsAsync(string buildKey);
 
