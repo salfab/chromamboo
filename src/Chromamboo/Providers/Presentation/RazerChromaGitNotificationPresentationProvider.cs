@@ -1,5 +1,4 @@
-﻿using System;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using Corale.Colore.Core;
 using Corale.Colore.Razer.Keyboard;
 using LibGit2Sharp;

@@ -14,7 +14,7 @@ namespace Chromamboo
     {
         private string apiBaseUrl;
 
-        private string password = ConfigurationManager.AppSettings["password"] == null ? "" : Encoding.UTF8.GetString(Convert.FromBase64String(ConfigurationManager.AppSettings["password"]));
+        private string password = ConfigurationManager.AppSettings["password"] == null ? string.Empty : Encoding.UTF8.GetString(Convert.FromBase64String(ConfigurationManager.AppSettings["password"]));
 
         private string username = ConfigurationManager.AppSettings["username"];
 
@@ -56,7 +56,7 @@ namespace Chromamboo
         public async Task<string> GetLastBuildResultsWithBranchesAsync(string planKey)
         {
             var rc = new RestClient(this.apiBaseUrl);
-            rc.Authenticator = new HttpBasicAuthenticator(this.username,this.password);
+            rc.Authenticator = new HttpBasicAuthenticator(this.username, this.password);
             var request = new RestRequest($"/latest/plan/{planKey}/branch.json");
             rc.Authenticator.Authenticate(rc, request);
             var result = await rc.ExecuteTaskAsync(request);
@@ -77,7 +77,7 @@ namespace Chromamboo
         public async Task<string> GetLastBuildFromBranchPlan(string key)
         {
             var rc = new RestClient(this.apiBaseUrl);
-            rc.Authenticator = new HttpBasicAuthenticator(this.username,this.password);
+            rc.Authenticator = new HttpBasicAuthenticator(this.username, this.password);
             var request = new RestRequest($"/latest/result/{key}.json");
             rc.Authenticator.Authenticate(rc, request);
             var result = await rc.ExecuteTaskAsync(request);
