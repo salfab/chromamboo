@@ -77,13 +77,23 @@ namespace Chromamboo
         private static IPresentationProvider[] GetProviders(string[] presentationProviderNames)
         {
             // TODO: don't hardcode it.
-            return new IPresentationProvider[] { new BlyncPresentationProvider(new BlynclightController()) };
+            return new IPresentationProvider[]
+                    {
+                        new BlyncPresentationProvider(new BlynclightController()), new RazerChromaPresentationProvider()
+                    }
+                    .Where(provider => presentationProviderNames.Contains(provider.GetType().Name))
+                    .ToArray();
         }
 
         private static IGitNotificationPresentationProvider[] GetGitNotificationProviders(string[] gitNotificationPresentationProviderNames)
         {
             // TODO: don't hardcode it.
-            return new IGitNotificationPresentationProvider[] { };
+            return new IGitNotificationPresentationProvider[]
+                    {
+                        new RazerChromaGitNotificationPresentationProvider()
+                    }
+                    .Where(provider => gitNotificationPresentationProviderNames.Contains(provider.GetType().Name))
+                    .ToArray();
         }
     }
 }
