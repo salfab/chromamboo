@@ -31,5 +31,7 @@ namespace Chromamboo.Providers.Presentation
                 Chroma.Instance.Keyboard.SetKeys(new Color(120, 200, 240), Key.Macro3);
             }
         }
+
+        public string Name => "razerchroma";
     }
 }

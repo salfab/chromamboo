@@ -42,6 +42,13 @@ namespace Chromamboo
                 password = args[6];
             }
 
+            Console.WriteLine($"bambooApiBaseUrl = {args[0]}");
+            Console.WriteLine($"bitbucketApiBaseUrl = {args[1]}");
+            Console.WriteLine($"repositoryPath = {args[2]}");
+            Console.WriteLine($"presentationProviderName = {args[3]}");
+            Console.WriteLine($"gitNotificationProviderName = {args[4]}");
+
+
             bambooApi = new BambooApi(bambooApiBaseUrl, username, password);
             bitbucketApi = new BitbucketApi(bitbucketApiBaseUrl, "MYV", "metis", username, password);
 
@@ -79,9 +86,10 @@ namespace Chromamboo
             // TODO: don't hardcode it.
             return new IPresentationProvider[]
                     {
-                        new BlyncPresentationProvider(new BlynclightController()), new RazerChromaPresentationProvider()
+                        new BlyncPresentationProvider(new BlynclightController()),
+                        new RazerChromaPresentationProvider()
                     }
-                    .Where(provider => presentationProviderNames.Contains(provider.GetType().Name))
+                    .Where(provider => presentationProviderNames.Any(n => n.Equals(provider.Name, StringComparison.OrdinalIgnoreCase)))
                     .ToArray();
         }
 
@@ -92,7 +100,7 @@ namespace Chromamboo
                     {
                         new RazerChromaGitNotificationPresentationProvider()
                     }
-                    .Where(provider => gitNotificationPresentationProviderNames.Contains(provider.GetType().Name))
+                    .Where(provider => gitNotificationPresentationProviderNames.Any(n => n.Equals(provider.Name, StringComparison.OrdinalIgnoreCase)))
                     .ToArray();
         }
     }

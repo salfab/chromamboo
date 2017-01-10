@@ -81,5 +81,7 @@ namespace Chromamboo.Providers.Presentation
         {
             // do nothing yet
         }
+
+        public string Name => "blync";
     }
 }
