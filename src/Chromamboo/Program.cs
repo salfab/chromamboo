@@ -91,7 +91,8 @@ namespace Chromamboo
             // TODO: don't hardcode it.
             return new IGitNotificationPresentationProvider[]
                     {
-                        new RazerChromaGitNotificationPresentationProvider()
+                        new RazerChromaGitNotificationPresentationProvider(),
+                        new BlyncGitNotificationPresentationProvider()
                     }
                     .Where(provider => gitNotificationPresentationProviderNames.Contains(provider.GetType().Name))
                     .ToArray();
