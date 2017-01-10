@@ -13,7 +13,7 @@ namespace Chromamboo.Providers.Presentation
         {
             if (divergenceWithDevelop.BehindBy > 0)
             {
-                Console.WriteLine($"{DateTime.Now} Behind origin/develop by: {0}", divergenceWithDevelop.BehindBy);
+                Console.WriteLine($"{DateTime.Now} Behind origin/develop by: {divergenceWithDevelop.BehindBy}");
             }
             else
             {
@@ -21,7 +21,7 @@ namespace Chromamboo.Providers.Presentation
 
             if (divergenceWithRemote.AheadBy > 0)
             {
-                Console.WriteLine($"{DateTime.Now} Unpushed commits: {0}", divergenceWithRemote.AheadBy);
+                Console.WriteLine($"{DateTime.Now} Unpushed commits: {divergenceWithRemote.AheadBy}");
             }
             else
             {
