@@ -87,5 +87,7 @@ namespace Chromamboo.Providers.Presentation
                     throw new ArgumentOutOfRangeException(nameof(notificationType), notificationType, null);
             }
         }
+
+        public string Name => "razerchroma";
     }
 }

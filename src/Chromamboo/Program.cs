@@ -6,6 +6,11 @@ using Chromamboo.Providers.Presentation;
 
 namespace Chromamboo
 {
+    using System.Collections.Generic;
+    using System.Linq;
+
+    using Blynclight;
+
     public class Program
     {
         private static IBambooApi bambooApi;
@@ -21,25 +26,35 @@ namespace Chromamboo
             if (args.Length <= 1)
             {
                 Console.Write(
-                    "Chromamboo bambooApiBaseUrl bitbucketApiBaseUrl presentationProviderName [username] [password]");
+                    "Chromamboo bambooApiBaseUrl bitbucketApiBaseUrl repositoryPath presentationProviderName gitNotificationProviderName [username] [password]");
                 return;
             }
 
             var bambooApiBaseUrl = args[0];
             var bitbucketApiBaseUrl = args[1];
-            var presentationProviderName = args[2];
+            var repositoryPath = args[2];
+            var presentationProviderName = args[3];
+            var gitNotificationProviderName = args[4];
 
-            if (args.Length > 4)
+            if (args.Length > 6)
             {
-                username = args[3];
-                password = args[4];
+                username = args[5];
+                password = args[6];
             }
+
+            Console.WriteLine($"bambooApiBaseUrl = {args[0]}");
+            Console.WriteLine($"bitbucketApiBaseUrl = {args[1]}");
+            Console.WriteLine($"repositoryPath = {args[2]}");
+            Console.WriteLine($"presentationProviderName = {args[3]}");
+            Console.WriteLine($"gitNotificationProviderName = {args[4]}");
+
 
             bambooApi = new BambooApi(bambooApiBaseUrl, username, password);
             bitbucketApi = new BitbucketApi(bitbucketApiBaseUrl, "MYV", "metis", username, password);
 
-            // TODO: retrieve a list of possible providers from the Command line arguments
+            // retrieve a list of possible providers from the Command line arguments
             var presentationProviderNames = new[] { presentationProviderName };
+            var gitNotificationProviderNames = new[] { gitNotificationProviderName };
 
             // find all implementations of the presentation provider names
             presentationService = new PresentationService(username, GetProviders(presentationProviderNames));
@@ -58,12 +73,8 @@ namespace Chromamboo
             buildStatusNotificationProvider.Register("MYV-MCI");
 
             // Handle git ahead/behind notification.
-            var gitPresentationProviders = new IGitNotificationPresentationProvider[]
-                                               {
-                                                   new RazerChromaGitNotificationPresentationProvider() 
-                                               };
-            var gitBehindNotificationProvider = new GitNotificationProvider(gitPresentationProviders);
-            gitBehindNotificationProvider.Register(@"C:/sources/metis");
+            var gitBehindNotificationProvider = new GitNotificationProvider(GetGitNotificationProviders(gitNotificationProviderNames));
+            gitBehindNotificationProvider.Register(repositoryPath);
 
             // TODO: get a push notification from the bamboo server whenever a new build is in.
             Console.WriteLine("Hit any key to exit...");
@@ -73,7 +84,25 @@ namespace Chromamboo
         private static IPresentationProvider[] GetProviders(string[] presentationProviderNames)
         {
             // TODO: don't hardcode it.
-            return new IPresentationProvider[] { new RazerChromaPresentationProvider() };
+            return new IPresentationProvider[]
+                    {
+                        new BlyncPresentationProvider(new BlynclightController()),
+                        new RazerChromaPresentationProvider()
+                    }
+                    .Where(provider => presentationProviderNames.Any(n => n.Equals(provider.Name, StringComparison.OrdinalIgnoreCase)))
+                    .ToArray();
+        }
+
+        private static IGitNotificationPresentationProvider[] GetGitNotificationProviders(string[] gitNotificationPresentationProviderNames)
+        {
+            // TODO: don't hardcode it.
+            return new IGitNotificationPresentationProvider[]
+                    {
+                        new RazerChromaGitNotificationPresentationProvider(),
+                        new BlyncGitNotificationPresentationProvider()
+                    }
+                    .Where(provider => gitNotificationPresentationProviderNames.Any(n => n.Equals(provider.Name, StringComparison.OrdinalIgnoreCase)))
+                    .ToArray();
         }
     }
 }
