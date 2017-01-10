@@ -11,5 +11,6 @@ namespace Chromamboo.Providers.Presentation
         void UpdatePullRequestCount(int pullRequestCount);
 
         void MarkAsInconclusive(AtlassianCiSuiteBuildStatusNotificationProvider.NotificationType notificationType);
+        string Name { get; }
     }
 }

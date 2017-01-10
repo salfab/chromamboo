@@ -34,6 +34,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Blynclight, Version=0.3.0.4, Culture=neutral, processorArchitecture=AMD64">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Providers\Presentation\BlyncDll\Blynclight.dll</HintPath>
+    </Reference>
     <Reference Include="Corale.Colore, Version=5.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Colore.5.0.0\lib\net35\Corale.Colore.dll</HintPath>
       <Private>True</Private>
@@ -81,20 +85,26 @@
     <Compile Include="Contracts\IBitbucketApi.cs" />
     <Compile Include="Contracts\IPresentationService.cs" />
     <Compile Include="Providers\Notification\IPullRequestCountProvider.cs" />
+    <Compile Include="Providers\Presentation\Contracts\IGitNotificationPresentationProvider.cs" />
+    <Compile Include="Providers\Presentation\Contracts\IPresentationProvider.cs" />
+    <Compile Include="Providers\Presentation\BlyncGitNotificationPresentationProvider.cs" />
     <Compile Include="Providers\Presentation\RazerChromaGitNotificationPresentationProvider.cs" />
-    <Compile Include="Providers\Presentation\IPresentationProvider.cs" />
     <Compile Include="PresentationService.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\Notification\GitNotificationProvider.cs" />
     <Compile Include="Providers\Notification\INotificationProvider.cs" />
-    <Compile Include="Providers\Presentation\IGitNotificationPresentationProvider.cs" />
+    <Compile Include="Providers\Presentation\BlyncPresentationProvider.cs" />
     <Compile Include="Providers\Presentation\RazerChromaPresentationProvider.cs" />
     <Compile Include="Providers\Notification\PullRequestsNotificationProvider.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Content Include="Providers\Presentation\BlyncDll\Blynclight.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

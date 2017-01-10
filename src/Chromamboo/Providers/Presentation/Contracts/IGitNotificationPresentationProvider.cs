@@ -9,5 +9,6 @@
     internal interface IGitNotificationPresentationProvider
     {        
         void UpdateGitNotification(HistoryDivergence divergenceWithDevelop, HistoryDivergence divergenceWithRemote);
+        string Name { get; }
     }
 }
