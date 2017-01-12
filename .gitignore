@@ -241,4 +241,3 @@ ModelManifest.xml
 # FAKE - F# Make
 .fake/
 src/.localhistory/
-src/Chromamboo/App.Debug.User.config
