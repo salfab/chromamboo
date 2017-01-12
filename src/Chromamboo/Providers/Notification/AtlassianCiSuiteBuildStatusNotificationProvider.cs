@@ -95,6 +95,11 @@ namespace Chromamboo.Providers.Notification
             buildDetails.PlanResultKey = details["planResultKey"]["key"].Value<string>();
 
             var commitDetails = JObject.Parse(this.bitbucketApi.GetCommitDetails(buildDetails.CommitHash).Result);
+            var errorMessage = commitDetails["errors"]?[0]["message"]?.Value<string>();
+            if (errorMessage != null)
+            {
+                throw new InvalidOperationException(errorMessage);
+            }
 
             buildDetails.JiraIssue = commitDetails["properties"]?["jira-key"].Values<string>().Aggregate((s1, s2) => s1 + ", " + s2);
             buildDetails.AuthorEmailAddress = commitDetails["author"]["emailAddress"].Value<string>();
