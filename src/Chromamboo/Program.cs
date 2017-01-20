@@ -61,6 +61,7 @@ namespace Chromamboo
             // Handle pull requests
             var pullRequestsNotificationProvider = new PullRequestsNotificationProvider(
                 bitbucketApi,
+                new PollingNotificationTrigger(),
                 // TODO: build array based on presentationProviderNames
                 new RazerChromaPullRequestPresentationProvider());
             pullRequestsNotificationProvider.Register();

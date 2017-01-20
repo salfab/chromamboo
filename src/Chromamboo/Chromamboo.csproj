@@ -94,7 +94,9 @@
     <Compile Include="Contracts\IBambooApi.cs" />
     <Compile Include="Contracts\IBitbucketApi.cs" />
     <Compile Include="Contracts\IPresentationService.cs" />
+    <Compile Include="Providers\Notification\INotificationTrigger.cs" />
     <Compile Include="Providers\Notification\IPullRequestCountProvider.cs" />
+    <Compile Include="Providers\Notification\PollingNotificationTrigger.cs" />
     <Compile Include="Providers\Presentation\BlyncBuildResultPresentationProvider.cs" />
     <Compile Include="Providers\Presentation\Contracts\IBuildResultPresentationProvider.cs" />
     <Compile Include="Providers\Presentation\Contracts\IGitNotificationPresentationProvider.cs" />

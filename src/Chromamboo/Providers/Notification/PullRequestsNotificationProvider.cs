@@ -6,17 +6,17 @@ namespace Chromamboo.Providers.Notification
     using System.Reactive.Linq;
     using System.Threading.Tasks;
 
-    using Chromamboo.Contracts;
-
     internal class PullRequestsNotificationProvider : INotificationProvider<object>
     {
         private readonly IPullRequestCountProvider pullRequestCountProvider;
+        private readonly INotificationTrigger trigger;
 
         private readonly IPullRequestPresentationProvider[] presentationProviders;
 
-        public PullRequestsNotificationProvider(IPullRequestCountProvider pullRequestCountProvider, params IPullRequestPresentationProvider[] presentationProviders)
+        public PullRequestsNotificationProvider(IPullRequestCountProvider pullRequestCountProvider,INotificationTrigger trigger, params IPullRequestPresentationProvider[] presentationProviders)
         {
             this.pullRequestCountProvider = pullRequestCountProvider;
+            this.trigger = trigger;
             this.presentationProviders = presentationProviders;
         }
 
@@ -28,8 +28,10 @@ namespace Chromamboo.Providers.Notification
 
         public void Register()
         {
-            Observable.Timer(DateTimeOffset.MinValue, TimeSpan.FromSeconds(30))
-                .Subscribe(async l => { await this.PerformPollingAction(); });
+            this.trigger.WaitForTrigger(async () =>
+            {
+                await this.PerformPollingAction();
+            });
         }
 
         private async Task PerformPollingAction()
