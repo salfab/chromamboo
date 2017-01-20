@@ -1,4 +1,6 @@
-﻿namespace Chromamboo.Providers.Notification
+﻿using Chromamboo.Providers.Presentation;
+
+namespace Chromamboo.Providers.Notification
 {
     using System;
     using System.Reactive.Linq;
@@ -10,12 +12,12 @@
     {
         private readonly IPullRequestCountProvider pullRequestCountProvider;
 
-        private readonly IPresentationService presentationService;
+        private readonly IPullRequestPresentationProvider[] presentationProviders;
 
-        public PullRequestsNotificationProvider(IPullRequestCountProvider pullRequestCountProvider, IPresentationService presentationService)
+        public PullRequestsNotificationProvider(IPullRequestCountProvider pullRequestCountProvider, params IPullRequestPresentationProvider[] presentationProviders)
         {
             this.pullRequestCountProvider = pullRequestCountProvider;
-            this.presentationService = presentationService;
+            this.presentationProviders = presentationProviders;
         }
 
         [Obsolete("Use the parameterless implementation as the param will never be used.")]
@@ -39,12 +41,19 @@
             }
             catch (Exception e)
             {
-                this.presentationService.MarkAsInconclusive(AtlassianCiSuiteBuildStatusNotificationProvider.NotificationType.PullRequest);
+                foreach (var provider in this.presentationProviders)
+                {
+                    provider.MarkAsInconclusive();
+                }
+
+                // TODO: consider accepting exceptions in MarkAsInconclusive and make it a first-class citizen presentationProvider.
                 Console.WriteLine(e.GetType() + ": " + e.Message);
                 return;
             }
-
-            this.presentationService.UpdatePullRequestCount(count);             
+            foreach (var provider in this.presentationProviders)
+            {
+                provider.UpdatePullRequestCount(count);
+            }
         }
     }
 }

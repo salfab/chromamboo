@@ -1,42 +1,32 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-
 using Blynclight;
 
 namespace Chromamboo.Providers.Presentation
 {
-    using System;
-
-    using Notification;
-
-    public class BlyncPresentationProvider : IPresentationProvider
+    public class BlyncBuildResultPresentationProvider : IBuildResultPresentationProvider
     {
-        private const int NumberOfExecutionsBetweenPullRequestNotifications = 3;
-
         private readonly BlynclightController blynclightController;
 
         private readonly int selectedBlyncDevice;
+        private readonly string username;
 
-        private int numberOfExecutions;
-        
-        public BlyncPresentationProvider(
-            BlynclightController blynclightController, 
-            int selectedBlyncDevice = 0,
-            int numberOfExecutions = 0)
+        public BlyncBuildResultPresentationProvider(
+            BlynclightController blynclightController, string username, int selectedBlyncDevice = 0)
         {
             this.blynclightController = blynclightController;
+            this.username = username;
             this.selectedBlyncDevice = selectedBlyncDevice;
-            this.numberOfExecutions = numberOfExecutions;
             this.blynclightController.InitBlyncDevices();
         }
 
-        public void Update(List<BuildDetail> buildsDetails, string username)
+        public void UpdateBuildResults(List<BuildDetail> buildsDetails, string username1)
         {
-            var buildBrokenByAny = buildsDetails.Where(b => !b.Successful && b.AuthorName != username).ToArray();
+            var buildBrokenByAny = buildsDetails.Where(b => !b.Successful && b.AuthorName != this.username).ToArray();
             var isAnyBroken = buildBrokenByAny.Any();
 
-            var buildBrokenByMe = buildsDetails.Where(b => !b.Successful && b.AuthorName == username).ToArray();
+            var buildBrokenByMe = buildsDetails.Where(b => !b.Successful && b.AuthorName == this.username).ToArray();
             var isMineBroken = buildBrokenByMe.Any();
 
             var buildDevelopBroken = buildsDetails.Where(b => !b.Successful && b.BranchName == "develop").ToArray();
@@ -67,32 +57,11 @@ namespace Chromamboo.Providers.Presentation
             }
         }
 
-        public void UpdatePullRequestCount(int pullRequestCount)
-        {
-            if (pullRequestCount > 0)
-            {
-                if (this.numberOfExecutions == 0)
-                {
-                    this.blynclightController.TurnOnMagentaLight(this.selectedBlyncDevice);
-                    Task.Delay(1000).Wait();
-                }
-
-                if (++this.numberOfExecutions == NumberOfExecutionsBetweenPullRequestNotifications)
-                {
-                    this.numberOfExecutions = 0;
-                }
-            }
-            else
-            {
-                this.numberOfExecutions = 0;
-            }
-        }
-
-        public void MarkAsInconclusive(AtlassianCiSuiteBuildStatusNotificationProvider.NotificationType notificationType)
+        public void MarkAsInconclusive()
         {
             // do nothing yet
         }
 
-        public string Name => "blync";
+        public string Name => "blync-build";
     }
 }

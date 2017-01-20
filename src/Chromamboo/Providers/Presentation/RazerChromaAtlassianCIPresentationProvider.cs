@@ -10,7 +10,7 @@ namespace Chromamboo.Providers.Presentation
 
     using Notification;
 
-    public class RazerChromaPresentationProvider : IPresentationProvider
+    public class RazerChromaBuildResultPresentationProvider : IBuildResultPresentationProvider
     {
         private const Key KeysForAllBuilds = Key.Logo;
 
@@ -35,7 +35,7 @@ namespace Chromamboo.Providers.Presentation
             Key.NumAdd
         };
 
-        public void Update(List<BuildDetail> buildsDetails, string username)
+        public void UpdateBuildResults(List<BuildDetail> buildsDetails, string username)
         {
             // TODO : resolve with either MEF, or Ninject discovery some modules the presentation service can use, and call a common contract. 
             // Then, move the following code to one of these modules dedicated to Razer keyboard support. Other extensions can then be developed. (blync, for instance)
@@ -54,40 +54,16 @@ namespace Chromamboo.Providers.Presentation
 
         public void UpdatePullRequestCount(int pullRequestCount)
         {
-            Color color;
-            if (pullRequestCount == 0)
-            {
-                color = new Color(0.0, 1.0, 0.0);
-            }
-            else if (pullRequestCount < 3)
-            {
-                color = new Color(255, 47, 0);
-            }
-            else
-            {
-                color = new Color(1, 0.0, 0.0);
-            }
-
-            Chroma.Instance.Keyboard.SetKey(Key.Macro1, color);
+            throw new NotImplementedException("This method should disappear from the classe and its interface");
         }
 
-        public void MarkAsInconclusive(AtlassianCiSuiteBuildStatusNotificationProvider.NotificationType notificationType)
+        public void MarkAsInconclusive()
         {
-            switch (notificationType)
-            {
-                case AtlassianCiSuiteBuildStatusNotificationProvider.NotificationType.Build:
-                    Chroma.Instance.Keyboard.SetKeys(this.keysForMyBuilds, new Color(0.5, 0.0, 0.5));
-                    Chroma.Instance.Keyboard.SetKey(KeysForAllBuilds, new Color(0.5, 0.0, 0.5));
-                    break;
-                case AtlassianCiSuiteBuildStatusNotificationProvider.NotificationType.PullRequest:
-                    Chroma.Instance.Keyboard.SetKey(Key.Macro1, Color.Purple);
-                    break;
-
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(notificationType), notificationType, null);
-            }
+            Chroma.Instance.Keyboard.SetKeys(this.keysForMyBuilds, new Color(0.5, 0.0, 0.5));
+            Chroma.Instance.Keyboard.SetKey(KeysForAllBuilds, new Color(0.5, 0.0, 0.5));
         }
 
         public string Name => "razerchroma";
+  
     }
 }

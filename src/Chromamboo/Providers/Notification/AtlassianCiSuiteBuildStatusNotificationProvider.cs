@@ -5,7 +5,7 @@ using System.Reactive.Linq;
 using System.Threading.Tasks;
 
 using Chromamboo.Contracts;
-
+using Chromamboo.Providers.Presentation;
 using Newtonsoft.Json.Linq;
 
 namespace Chromamboo.Providers.Notification
@@ -16,13 +16,15 @@ namespace Chromamboo.Providers.Notification
 
         private readonly IBambooApi bambooApi;
 
-        private readonly IPresentationService presentationService;
+        private readonly IBuildResultPresentationProvider[] presentationProviders;
+        private string username;
 
-        public AtlassianCiSuiteBuildStatusNotificationProvider(IBitbucketApi bitbucketApi, IBambooApi bambooApi, IPresentationService presentationService)
+        public AtlassianCiSuiteBuildStatusNotificationProvider(string username, IBitbucketApi bitbucketApi, IBambooApi bambooApi, params IBuildResultPresentationProvider[] presentationProviders)
         {
             this.bitbucketApi = bitbucketApi;
             this.bambooApi = bambooApi;
-            this.presentationService = presentationService;
+            this.presentationProviders = presentationProviders;
+            this.username = username;
         }
 
         public enum NotificationType
@@ -63,12 +65,17 @@ namespace Chromamboo.Providers.Notification
             }
             catch (Exception e)
             {
-                this.presentationService.MarkAsInconclusive(NotificationType.Build);
+                foreach (var provider in this.presentationProviders)
+                {
+                    provider.MarkAsInconclusive();
+                }
                 Console.WriteLine(e.GetType() + ": " + e.Message);
                 return;
             }
-
-            this.presentationService.Update(buildsDetails);
+            foreach (var provider in this.presentationProviders)
+            {
+                provider.UpdateBuildResults(buildsDetails, this.username);
+            }
         }
 
         private BuildDetail GetBuildDetails(JToken jsonToken)
