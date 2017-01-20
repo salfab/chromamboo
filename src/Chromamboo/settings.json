@@ -1,0 +1,83 @@
+﻿{
+  "notifications": [
+    {
+      "displayName": "Project-1",
+      "provider": "atlassian-ci",
+      "username": "sio",
+      "planKey": "MET-MCI",
+      "bitbucketSettings": {
+        "sharedConfigId": "bitbucketConfig"
+      },
+      "bambooSettings": {
+        "apiBaseUrl": "http://url.com",
+        "username": "sio",
+        "password": "12345"
+      },
+      "presentation": [
+        {
+          "provider": "razer-chroma-ci",
+          "keys": [ "Macro1" ]
+        },
+        {
+          "provider": "blync",
+          "selectedBlyncDevice": 0,
+          "numberOfExecutions": 0
+        }
+      ]
+    },
+    {
+      "displayName": "Project-1-PR",
+      "provider": "pull-request",
+      "username": "sio",
+      "bitbucketSettings": {
+        "sharedConfigId": "bitbucketConfig"
+      },
+      "trigger": {
+        "provider": "polling-triger",
+        "frequence",
+        "30000"
+      },
+      "presentation": [
+        {
+          "provider": "razer-chroma-pr",
+          "keys": [ "Macro1" ]
+        },
+        {
+          "provider": "blync",
+          "selectedBlyncDevice": 0,
+          "numberOfExecutions": 0
+        }
+      ]
+    },
+    {
+      "displayName": "Project-1-git",
+      "provider": "git",
+      "trigger": {
+        "provider": "push-trigger",
+        "url",
+        "http://url.com",
+        "message",
+        "git-push"
+      },
+      "presentation": [
+        {
+          "provider": "razer-chroma-pr",
+          "keyUncommitted": [ "Macro2" ],
+          "keyBehindDevelop": [ "Macro3" ]
+        }
+      ]
+    }
+  ],
+  "sharedConfigs": [
+    {
+      "id": "bitbucketConfig",
+      "settings": {
+        "apiBaseUrl": "http://url.com",
+        "username": "sio",
+        "password": "12345",
+        "projectKey": "MYV",
+        "repoSlug": "metis"
+      }
+    }
+  ]
+}

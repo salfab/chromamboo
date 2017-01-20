@@ -119,6 +119,7 @@
       <DependentUpon>App.config</DependentUpon>
     </None>
     <None Include="packages.config" />
+    <None Include="settings.json" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
