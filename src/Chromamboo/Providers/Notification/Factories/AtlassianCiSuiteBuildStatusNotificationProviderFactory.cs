@@ -1,6 +1,5 @@
 using System;
 using Chromamboo.Contracts;
-using Chromamboo.Providers.Notification.Factories.Contracts;
 using Chromamboo.Providers.Presentation.Contracts;
 using Newtonsoft.Json.Linq;
 
@@ -26,20 +25,5 @@ namespace Chromamboo.Providers.Notification.Factories
             ITriggerProvider trigger = TriggerBuilder.Build(settings.trigger);
             return new AtlassianCiSuiteBuildStatusNotificationProvider(settings.username.Value, settings.planKey.Value, bitbucketApi, bambooApi, trigger, presentationProviders);
         }
-    }
-
-    public abstract class NotificationProviderFactoryBase : INotificationProviderFactory
-    {
-        protected ITriggerBuilder TriggerBuilder { get; set; }
-        protected IPresentationProviderBuilder PresentationProviderBuilder { get; set; }
-
-        protected NotificationProviderFactoryBase(ITriggerBuilder triggerBuilder, IPresentationProviderBuilder presentationProviderBuilder)
-        {
-            TriggerBuilder = triggerBuilder;
-            PresentationProviderBuilder = presentationProviderBuilder;
-        }
-
-        public abstract string Name { get; }
-        public abstract INotificationProvider Create(dynamic settings);
     }
 }

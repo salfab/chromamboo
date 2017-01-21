@@ -95,9 +95,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Bootstrapper.cs" />
+    <Compile Include="IBoostrapper.cs" />
+    <Compile Include="INotificationBuilder.cs" />
+    <Compile Include="IPresentationProviderFactory.cs" />
     <Compile Include="ITriggerProviderFactory.cs" />
     <Compile Include="NotificationBuilder.cs" />
     <Compile Include="PollingTriggerProviderFactory.cs" />
+    <Compile Include="PresentationProviderBuilder.cs" />
     <Compile Include="PresentationProviderFactoryBase.cs" />
     <Compile Include="Providers\Notification\AtlassianCiSuiteBuildStatusNotificationProvider.cs" />
     <Compile Include="BambooApi.cs" />
@@ -111,6 +116,7 @@
     <Compile Include="Providers\Notification\Factories\GitNotificationProviderFactory.cs" />
     <Compile Include="IPresentationProviderBuilder.cs" />
     <Compile Include="ITriggerBuilder.cs" />
+    <Compile Include="Providers\Notification\Factories\NotificationProviderFactoryBase.cs" />
     <Compile Include="Providers\Notification\Factories\PullRequestNotificationProviderFactory.cs" />
     <Compile Include="Providers\Triggers\ITriggerProvider.cs" />
     <Compile Include="Providers\Notification\IPullRequestCountProvider.cs" />
@@ -127,9 +133,12 @@
     <Compile Include="Providers\Notification\GitNotificationProvider.cs" />
     <Compile Include="Providers\Notification\INotificationProvider.cs" />
     <Compile Include="Providers\Presentation\BlyncPullRequestPresentationProvider.cs" />
-    <Compile Include="Providers\Presentation\RazerChromaAtlassianCIPresentationProvider.cs" />
+    <Compile Include="Providers\Presentation\RazerChromaBuildResultPresentationProvider.cs" />
     <Compile Include="Providers\Notification\PullRequestNotificationProvider.cs" />
     <Compile Include="Providers\Presentation\RazerChromaPullRequestPresentationProvider.cs" />
+    <Compile Include="RazerChromaBuildResultPresentationProviderFactory.cs" />
+    <Compile Include="RazerChromaGitNotificationPresentationProviderFactory.cs" />
+    <Compile Include="RazerChromaPullRequestPresentationProviderFactory.cs" />
     <Compile Include="TriggerBuilder.cs" />
     <Compile Include="TriggerProviderFactoryBase.cs" />
   </ItemGroup>

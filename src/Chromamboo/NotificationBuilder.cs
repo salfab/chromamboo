@@ -10,11 +10,6 @@ using Newtonsoft.Json.Linq;
 
 namespace Chromamboo
 {
-    public interface INotificationBuilder
-    {
-        IEnumerable<INotificationProvider> Load(string settingsJson);
-    }
-
     public class NotificationBuilder : INotificationBuilder
     {
         private readonly INotificationProviderFactory[] notificationProviderFactories;
