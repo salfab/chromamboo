@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 
-using Chromamboo.Apis;
 using Chromamboo.Apis.AtlassianWrappers;
 
 namespace Chromamboo.Providers.Presentation.Contracts

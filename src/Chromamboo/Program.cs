@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Linq;
 
-using Chromamboo.Contracts;
-
 using Ninject;
 using Ninject.Extensions.Conventions;
 

@@ -1,5 +1,4 @@
 ﻿using Chromamboo.Providers.Notification.Contracts;
-using Chromamboo.Providers.Presentation;
 using Chromamboo.Providers.Presentation.Contracts;
 using Chromamboo.Providers.Triggers.Contracts;
 
