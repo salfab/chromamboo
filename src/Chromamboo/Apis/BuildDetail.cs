@@ -1,4 +1,4 @@
-﻿namespace Chromamboo
+﻿namespace Chromamboo.Apis
 {
     public class BuildDetail
     {

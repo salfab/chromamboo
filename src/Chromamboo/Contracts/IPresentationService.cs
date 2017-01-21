@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 
+using Chromamboo.Apis;
+
 namespace Chromamboo.Contracts
 {
     using Providers.Notification;

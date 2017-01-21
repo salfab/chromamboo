@@ -1,11 +1,11 @@
-namespace Chromamboo
+using System;
+
+using Chromamboo.Providers.Presentation.Contracts;
+
+using Newtonsoft.Json.Linq;
+
+namespace Chromamboo.Providers.Presentation.Factories.Contracts
 {
-    using System;
-
-    using Chromamboo.Providers.Presentation.Contracts;
-
-    using Newtonsoft.Json.Linq;
-
     public interface IPresentationProviderFactory
     {
         string Name { get;  }

@@ -1,6 +1,4 @@
-﻿using Chromamboo.Providers.Presentation.Contracts;
-
-namespace Chromamboo.Providers.Presentation
+﻿namespace Chromamboo.Providers.Presentation.Contracts
 {
     public interface IPullRequestPresentationProvider : IPresentationProvider
     {

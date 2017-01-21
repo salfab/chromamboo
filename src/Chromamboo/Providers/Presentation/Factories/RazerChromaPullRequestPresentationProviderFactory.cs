@@ -1,10 +1,10 @@
-namespace Chromamboo
+using Chromamboo.Providers.Presentation.Contracts;
+using Chromamboo.Providers.Presentation.Factories.Contracts;
+
+using Newtonsoft.Json.Linq;
+
+namespace Chromamboo.Providers.Presentation.Factories
 {
-    using Chromamboo.Providers.Presentation;
-    using Chromamboo.Providers.Presentation.Contracts;
-
-    using Newtonsoft.Json.Linq;
-
     public class RazerChromaPullRequestPresentationProviderFactory : PresentationProviderFactoryBase<RazerChromaPullRequestPresentationProvider>
     {
         public override string Name => "razer-chroma";

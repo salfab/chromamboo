@@ -1,3 +1,5 @@
+using Chromamboo.Providers.Notification.Contracts;
+
 namespace Chromamboo
 {
     public class Bootstrapper : IBoostrapper

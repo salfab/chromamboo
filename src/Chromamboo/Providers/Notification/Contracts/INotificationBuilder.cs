@@ -1,9 +1,7 @@
-namespace Chromamboo
+using System.Collections.Generic;
+
+namespace Chromamboo.Providers.Notification.Contracts
 {
-    using System.Collections.Generic;
-
-    using Chromamboo.Providers.Notification;
-
     public interface INotificationBuilder
     {
         IEnumerable<INotificationProvider> Load(string settingsJson);

@@ -2,6 +2,8 @@
 
 using Blynclight;
 
+using Chromamboo.Providers.Presentation.Contracts;
+
 namespace Chromamboo.Providers.Presentation
 {
     public class BlyncPullRequestPresentationProvider : IPullRequestPresentationProvider

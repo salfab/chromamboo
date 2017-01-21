@@ -1,10 +1,13 @@
-namespace Chromamboo
+using System;
+using System.Linq;
+
+using Chromamboo.Providers.Presentation.Contracts;
+using Chromamboo.Providers.Presentation.Factories.Contracts;
+
+using Newtonsoft.Json.Linq;
+
+namespace Chromamboo.Providers.Presentation
 {
-    using System;
-    using System.Linq;
-
-    using Newtonsoft.Json.Linq;
-
     public class PresentationProviderBuilder : IPresentationProviderBuilder
     {
         private readonly IPresentationProviderFactory[] factories;
