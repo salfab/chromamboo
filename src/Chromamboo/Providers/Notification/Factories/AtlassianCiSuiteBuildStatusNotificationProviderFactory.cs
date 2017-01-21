@@ -1,4 +1,5 @@
 using Chromamboo.Apis;
+using Chromamboo.Apis.AtlassianWrappers;
 using Chromamboo.Contracts;
 using Chromamboo.Providers.Notification.Contracts;
 using Chromamboo.Providers.Presentation.Contracts;

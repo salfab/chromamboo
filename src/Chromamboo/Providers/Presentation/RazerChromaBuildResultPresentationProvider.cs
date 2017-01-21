@@ -1,6 +1,7 @@
 ﻿using System;
 
 using Chromamboo.Apis;
+using Chromamboo.Apis.AtlassianWrappers;
 using Chromamboo.Providers.Presentation.Contracts;
 
 namespace Chromamboo.Providers.Presentation

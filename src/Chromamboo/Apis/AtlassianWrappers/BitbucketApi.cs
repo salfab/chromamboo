@@ -10,7 +10,7 @@ using Newtonsoft.Json.Linq;
 using RestSharp;
 using RestSharp.Authenticators;
 
-namespace Chromamboo.Apis
+namespace Chromamboo.Apis.AtlassianWrappers
 {
     internal class BitbucketApi : IBitbucketApi
     {

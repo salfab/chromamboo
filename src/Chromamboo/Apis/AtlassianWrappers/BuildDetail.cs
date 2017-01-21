@@ -1,4 +1,4 @@
-﻿namespace Chromamboo.Apis
+﻿namespace Chromamboo.Apis.AtlassianWrappers
 {
     public class BuildDetail
     {
