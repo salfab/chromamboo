@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Chromamboo.Providers.Presentation;
@@ -22,48 +23,69 @@ namespace Chromamboo
 
         public T[] Build<T>(JArray settings) 
         {
-            var providers = new List<IPresentationProvider>();
+            return settings
+                .Select(token => new
+                {
+                    Factory = factories
+                        .Where(f => f.Name.Equals(token["provider"].Value<string>(), StringComparison.OrdinalIgnoreCase))
+                        .SingleOrDefault(f => typeof(T).IsAssignableFrom(f.TypeProduced)),
+                    Settings = token
+                })
+                .Where(o => o.Factory != null)
+                .Select(o => o.Factory.Create(o.Settings))
+                .Cast<T>()
+                .ToArray();
 
-            // TODO: invert factories with settings so we can save a call to ToArray.
-            for (var i = 0; i < settings.Count; i++)
-            {
-                providers.AddRange(factories
-                    .Where(f => f.Name.Equals(settings.ElementAt(i)["provider"].Value<string>()))
-                    .Select( f => f.Create(settings.ElementAt(i))));
-            }
-            return providers.OfType<T>().ToArray();
+            //var providers = new List<IPresentationProvider>();
+
+
+            //for (var i = 0; i < settings.Count; i++)
+            //{
+            //    var presentationProvider = factories
+            //        .Where(f => f.TypeProduced == typeof(T))
+
+            //        .Where(f => f.Name.Equals(settings.ElementAt(i)["provider"].Value<string>()))
+            //        .Select(f => f.Create(settings.ElementAt(i)));
+
+            //    providers.Add(presentationProvider);
+            //}
+
+            //// TODO: refactor to avoid creating the provider before filtering them with OfType<T>.
+            //// Watch out for the settings that can be applied to multiple factories, if they share the "provider" JSON property.
+            //return providers;
         }
     }
 
     public interface IPresentationProviderFactory
     {
         string Name { get;  }
+        Type TypeProduced { get;  }
         IPresentationProvider Create(JToken settings);
     }
 
-    public class RazerChromaBuildResultPresentationProviderFactory : IPresentationProviderFactory
+    public class RazerChromaBuildResultPresentationProviderFactory : PresentationProviderFactoryBase<RazerChromaBuildResultPresentationProvider>
     {
-        public string Name => "razer-chroma";
-        public IPresentationProvider Create(JToken settings)
+        public override string Name => "razer-chroma";
+        public override IPresentationProvider Create(JToken settings)
         {
             // TODO: Keys to light up in configuration
             return new RazerChromaBuildResultPresentationProvider();
         }
     }
-    public class RazerChromaPullRequestPresentationProviderFactory : IPresentationProviderFactory
+    public class RazerChromaPullRequestPresentationProviderFactory : PresentationProviderFactoryBase<RazerChromaPullRequestPresentationProvider>
     {
-        public string Name => "razer-chroma";
-        public IPresentationProvider Create(JToken settings)
+        public override string Name => "razer-chroma";
+        public override IPresentationProvider Create(JToken settings)
         {
             // TODO: Keys to light up in configuration
             return new RazerChromaPullRequestPresentationProvider();
         }
     }
 
-    public class RazerChromaGitNotificationPresentationProviderFactory : IPresentationProviderFactory
+    public class RazerChromaGitNotificationPresentationProviderFactory : PresentationProviderFactoryBase<RazerChromaGitNotificationPresentationProvider>
     {
-        public string Name => "razer-chroma";
-        public IPresentationProvider Create(JToken settings)
+        public override string Name => "razer-chroma";
+        public override IPresentationProvider Create(JToken settings)
         {
             // TODO: Keys to light up in configuration
             return new RazerChromaGitNotificationPresentationProvider();

@@ -98,6 +98,7 @@
     <Compile Include="ITriggerProviderFactory.cs" />
     <Compile Include="NotificationBuilder.cs" />
     <Compile Include="PollingTriggerProviderFactory.cs" />
+    <Compile Include="PresentationProviderFactoryBase.cs" />
     <Compile Include="Providers\Notification\AtlassianCiSuiteBuildStatusNotificationProvider.cs" />
     <Compile Include="BambooApi.cs" />
     <Compile Include="BitbucketApi.cs" />
