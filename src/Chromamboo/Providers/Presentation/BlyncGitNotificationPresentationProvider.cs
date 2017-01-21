@@ -4,7 +4,6 @@ using LibGit2Sharp;
 namespace Chromamboo.Providers.Presentation
 {
     using System;
-    using System.Diagnostics;
 
     public class BlyncGitNotificationPresentationProvider : IGitNotificationPresentationProvider
     {

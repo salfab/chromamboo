@@ -1,18 +1,16 @@
 ﻿using System;
 
 using Chromamboo.Contracts;
-using Chromamboo.Providers.Notification;
 using Chromamboo.Providers.Presentation;
 using Chromamboo.Providers.Presentation.Contracts;
 using Ninject;
 using Ninject.Extensions.Conventions;
 
+using System.Linq;
+
 namespace Chromamboo
 {
-    using System.Collections.Generic;
-    using System.Linq;
 
-    using Blynclight;
 
     public class Program
     {

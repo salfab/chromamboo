@@ -9,8 +9,6 @@ namespace Chromamboo.Providers.Presentation
     using Corale.Colore.Core;
     using Corale.Colore.Razer.Keyboard;
 
-    using Notification;
-
     public class RazerChromaBuildResultPresentationProvider : IBuildResultPresentationProvider
     {
         private const Key KeysForAllBuilds = Key.Logo;

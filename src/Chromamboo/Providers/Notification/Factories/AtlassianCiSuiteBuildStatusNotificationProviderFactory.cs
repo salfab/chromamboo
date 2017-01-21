@@ -1,7 +1,5 @@
-using System;
 using Chromamboo.Contracts;
 using Chromamboo.Providers.Presentation.Contracts;
-using Newtonsoft.Json.Linq;
 
 namespace Chromamboo.Providers.Notification.Factories
 {

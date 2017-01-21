@@ -3,7 +3,6 @@
 namespace Chromamboo.Providers.Notification
 {
     using System;
-    using System.Reactive.Linq;
     using System.Threading.Tasks;
 
     internal class PullRequestNotificationProvider : INotificationProvider

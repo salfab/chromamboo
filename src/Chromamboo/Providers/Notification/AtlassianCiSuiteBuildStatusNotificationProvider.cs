@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reactive.Linq;
 using System.Threading.Tasks;
 
 using Chromamboo.Contracts;
-using Chromamboo.Providers.Presentation;
 using Chromamboo.Providers.Presentation.Contracts;
 using Newtonsoft.Json.Linq;
 
