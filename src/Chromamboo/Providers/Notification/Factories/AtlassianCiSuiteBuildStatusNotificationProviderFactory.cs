@@ -24,7 +24,7 @@ namespace Chromamboo.Providers.Notification.Factories
             // variable part
             IBuildResultPresentationProvider[] presentationProviders = PresentationProviderBuilder.Build<IBuildResultPresentationProvider>(settings.presentation);
             ITriggerProvider trigger = TriggerBuilder.Build(settings.trigger);
-            return new AtlassianCiSuiteBuildStatusNotificationProvider(settings.username.Value, bitbucketApi, bambooApi, trigger, presentationProviders);
+            return new AtlassianCiSuiteBuildStatusNotificationProvider(settings.username.Value, settings.planKey.Value, bitbucketApi, bambooApi, trigger, presentationProviders);
         }
     }
 

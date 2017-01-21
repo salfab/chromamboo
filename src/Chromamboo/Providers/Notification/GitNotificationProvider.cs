@@ -7,26 +7,25 @@ using LibGit2Sharp;
 
 namespace Chromamboo.Providers.Notification
 {
-    internal class GitNotificationProvider : INotificationProvider<string>
+    internal class GitNotificationProvider : INotificationProvider
     {
+        private readonly string repositoryPath;
+
         private readonly IGitNotificationPresentationProvider[] gitPresentationProviders;
 
-        public GitNotificationProvider(IGitNotificationPresentationProvider[] gitPresentationProviders)
+        public GitNotificationProvider(string repositoryPath, IGitNotificationPresentationProvider[] gitPresentationProviders)
         {
-            this.gitPresentationProviders = gitPresentationProviders;            
+            this.repositoryPath = repositoryPath;
+            this.gitPresentationProviders = gitPresentationProviders;
         }
 
-        public void Register(string repositoryPath)
+        public void Register()
         {
             Observable
                 .Timer(DateTimeOffset.MinValue, TimeSpan.FromSeconds(5))
-                .Subscribe(l => this.PerformPollingAction(repositoryPath));
+                .Subscribe(l => this.PerformPollingAction(this.repositoryPath));
         }
-
-        public void Register<T>(T param)
-        {
-            throw new NotImplementedException();
-        }
+       
 
         private void PerformPollingAction(string repositoryPath)
         {

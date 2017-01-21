@@ -11,7 +11,7 @@ using Newtonsoft.Json.Linq;
 
 namespace Chromamboo.Providers.Notification
 {
-    public class AtlassianCiSuiteBuildStatusNotificationProvider : INotificationProvider<string>
+    public class AtlassianCiSuiteBuildStatusNotificationProvider : INotificationProvider
     {
         private readonly IBitbucketApi bitbucketApi;
 
@@ -20,14 +20,16 @@ namespace Chromamboo.Providers.Notification
 
         private readonly IBuildResultPresentationProvider[] presentationProviders;
         private string username;
+        private readonly string planKey;
 
-        public AtlassianCiSuiteBuildStatusNotificationProvider(string username, IBitbucketApi bitbucketApi, IBambooApi bambooApi, ITriggerProvider triggerProvider, params IBuildResultPresentationProvider[] presentationProviders)
+        public AtlassianCiSuiteBuildStatusNotificationProvider(string username, string planKey, IBitbucketApi bitbucketApi, IBambooApi bambooApi, ITriggerProvider triggerProvider, params IBuildResultPresentationProvider[] presentationProviders)
         {
             this.bitbucketApi = bitbucketApi;
             this.bambooApi = bambooApi;
             this.triggerProvider = triggerProvider;
             this.presentationProviders = presentationProviders;
             this.username = username;
+            this.planKey = planKey;
         }
 
         public enum NotificationType
@@ -36,11 +38,11 @@ namespace Chromamboo.Providers.Notification
             PullRequest
         }
 
-        public void Register(string planKey)
+        public void Register()
         {
             this.triggerProvider.WaitForTrigger(async () =>
             {
-                await this.PerformPollingAction(planKey);                                       
+                await this.PerformPollingAction(this.planKey);                                       
             });            
         }
 

@@ -6,7 +6,7 @@ namespace Chromamboo.Providers.Notification
     using System.Reactive.Linq;
     using System.Threading.Tasks;
 
-    internal class PullRequestNotificationProvider : INotificationProvider<object>
+    internal class PullRequestNotificationProvider : INotificationProvider
     {
         private readonly IPullRequestCountProvider pullRequestCountProvider;
         private readonly ITriggerProvider trigger;
@@ -18,13 +18,7 @@ namespace Chromamboo.Providers.Notification
             this.pullRequestCountProvider = pullRequestCountProvider;
             this.trigger = trigger;
             this.presentationProviders = presentationProviders;
-        }
-
-        [Obsolete("Use the parameterless implementation as the param will never be used.")]
-        public void Register(object param = null)
-        {
-            this.Register();
-        }
+        }       
 
         public void Register()
         {

@@ -83,7 +83,7 @@ namespace Chromamboo
             foreach (var notificationProvider in notificationProviders)
             {
                 // TODO: make sure we can have a parameterless Register method. All parameters previouly passed here should be retrieved from the settings.
-                //notificationProvider.Register();
+                notificationProvider.Register();
             }
             return;
             string[] args = null;
@@ -136,12 +136,13 @@ namespace Chromamboo
             // Handle Build Status
             var buildStatusNotificationProvider = new AtlassianCiSuiteBuildStatusNotificationProvider(
                 username,
+                "MET-MCI",
                 bitbucketApi,
-                bambooApi,
+                bambooApi,                
                 new PollingTriggerProvider(30000),
                 // TODO: build array based on presentationProviderNames 
                 new RazerChromaBuildResultPresentationProvider());
-            buildStatusNotificationProvider.Register("MET-MCI");
+            buildStatusNotificationProvider.Register();
 
             // Handle git ahead/behind notification.
             //var gitBehindNotificationProvider = new GitNotificationProvider(GetGitNotificationProviders(gitNotificationProviderNames));

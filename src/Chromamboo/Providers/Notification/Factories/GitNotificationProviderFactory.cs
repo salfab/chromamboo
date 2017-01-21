@@ -16,7 +16,7 @@ namespace Chromamboo.Providers.Notification.Factories
         public override INotificationProvider Create(dynamic settings)
         {
             IGitNotificationPresentationProvider[] presentationProvider = PresentationProviderBuilder.Build<IGitNotificationPresentationProvider>(settings.presentation);
-            return new GitNotificationProvider(presentationProvider);
+            return new GitNotificationProvider(settings.repositoryPath.Value, presentationProvider);
         }
     }
 }

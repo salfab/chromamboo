@@ -63,6 +63,7 @@
     {
       "displayName": "Project-1-git",
       "provider": "git",
+      "repositoryPath": "C:\\sources\\metis",
       "trigger":
        {
         "message": "git-push",
