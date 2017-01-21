@@ -2,12 +2,14 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using Chromamboo.Providers.Notification;
+
+using Chromamboo.Providers.Notification.Contracts;
 using Chromamboo.Providers.Notification.Factories.Contracts;
+
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
-namespace Chromamboo
+namespace Chromamboo.Providers.Notification
 {
     public class NotificationBuilder : INotificationBuilder
     {

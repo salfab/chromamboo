@@ -105,9 +105,9 @@
     <Compile Include="Providers\Presentation\PresentationProviderBuilder.cs" />
     <Compile Include="Providers\Presentation\Factories\Contracts\PresentationProviderFactoryBase.cs" />
     <Compile Include="Providers\Notification\AtlassianCiSuiteBuildStatusNotificationProvider.cs" />
-    <Compile Include="Apis\BambooApi.cs" />
-    <Compile Include="Apis\BitbucketApi.cs" />
-    <Compile Include="Apis\BuildDetail.cs" />
+    <Compile Include="Apis\AtlassianWrappers\BambooApi.cs" />
+    <Compile Include="Apis\AtlassianWrappers\BitbucketApi.cs" />
+    <Compile Include="Apis\AtlassianWrappers\BuildDetail.cs" />
     <Compile Include="Contracts\IBambooApi.cs" />
     <Compile Include="Contracts\IBitbucketApi.cs" />
     <Compile Include="Contracts\IPresentationService.cs" />

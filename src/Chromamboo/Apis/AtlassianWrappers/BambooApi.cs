@@ -8,7 +8,7 @@ using Chromamboo.Contracts;
 using RestSharp;
 using RestSharp.Authenticators;
 
-namespace Chromamboo
+namespace Chromamboo.Apis
 {
     internal class BambooApi : IBambooApi
     {

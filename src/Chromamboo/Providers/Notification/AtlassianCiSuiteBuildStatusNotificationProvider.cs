@@ -3,8 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
+using Chromamboo.Apis;
 using Chromamboo.Contracts;
+using Chromamboo.Providers.Notification.Contracts;
 using Chromamboo.Providers.Presentation.Contracts;
+using Chromamboo.Providers.Triggers.Contracts;
+
 using Newtonsoft.Json.Linq;
 
 namespace Chromamboo.Providers.Notification

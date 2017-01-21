@@ -1,7 +1,8 @@
-using Chromamboo.Providers.Notification;
+using Chromamboo.Providers.Triggers.Contracts;
+
 using Newtonsoft.Json.Linq;
 
-namespace Chromamboo
+namespace Chromamboo.Providers.Triggers.Factories
 {
     public interface ITriggerProviderFactory
     {

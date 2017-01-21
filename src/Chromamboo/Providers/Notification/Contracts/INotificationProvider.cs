@@ -1,4 +1,4 @@
-﻿namespace Chromamboo.Providers.Notification
+﻿namespace Chromamboo.Providers.Notification.Contracts
 {
     public interface INotificationProvider
     {

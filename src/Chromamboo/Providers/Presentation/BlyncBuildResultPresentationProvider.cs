@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using Blynclight;
+
+using Chromamboo.Apis;
 using Chromamboo.Providers.Presentation.Contracts;
 
 namespace Chromamboo.Providers.Presentation

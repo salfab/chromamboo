@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Chromamboo.Providers.Notification
+namespace Chromamboo.Providers.Triggers.Contracts
 {
     public interface ITriggerProvider
     {

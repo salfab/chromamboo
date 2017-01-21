@@ -1,4 +1,6 @@
 ﻿using System;
+
+using Chromamboo.Apis;
 using Chromamboo.Providers.Presentation.Contracts;
 
 namespace Chromamboo.Providers.Presentation

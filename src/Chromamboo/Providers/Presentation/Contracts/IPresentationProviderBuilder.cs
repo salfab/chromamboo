@@ -1,6 +1,6 @@
 using Newtonsoft.Json.Linq;
 
-namespace Chromamboo
+namespace Chromamboo.Providers.Presentation.Contracts
 {
     public interface IPresentationProviderBuilder
     {

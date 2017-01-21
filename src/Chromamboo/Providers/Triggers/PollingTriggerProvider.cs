@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Reactive.Linq;
 
-namespace Chromamboo.Providers.Notification
+using Chromamboo.Providers.Triggers.Contracts;
+
+namespace Chromamboo.Providers.Triggers
 {
     public class PollingTriggerProvider : ITriggerProvider
     {

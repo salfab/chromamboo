@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Reactive.Linq;
 
+using Chromamboo.Providers.Notification.Contracts;
 using Chromamboo.Providers.Presentation.Contracts;
 using LibGit2Sharp;
 

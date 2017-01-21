@@ -1,17 +1,17 @@
-﻿namespace Chromamboo
+﻿using System;
+using System.Configuration;
+using System.Text;
+using System.Threading.Tasks;
+
+using Chromamboo.Contracts;
+
+using Newtonsoft.Json.Linq;
+
+using RestSharp;
+using RestSharp.Authenticators;
+
+namespace Chromamboo.Apis
 {
-    using System;
-    using System.Configuration;
-    using System.Text;
-    using System.Threading.Tasks;
-
-    using Chromamboo.Contracts;
-
-    using Newtonsoft.Json.Linq;
-
-    using RestSharp;
-    using RestSharp.Authenticators;
-
     internal class BitbucketApi : IBitbucketApi
     {
         private readonly string apiBaseUrl;

@@ -1,4 +1,6 @@
-﻿using Corale.Colore.Core;
+﻿using Chromamboo.Providers.Presentation.Contracts;
+
+using Corale.Colore.Core;
 using Corale.Colore.Razer.Keyboard;
 
 namespace Chromamboo.Providers.Presentation
