@@ -4,7 +4,7 @@ namespace Chromamboo
 {
     public class Bootstrapper : IBoostrapper
     {
-        private INotificationBuilder notificationBuilder;
+        private readonly INotificationBuilder notificationBuilder;
 
         public Bootstrapper(INotificationBuilder notificationBuilder)
         {
