@@ -16,7 +16,6 @@ namespace Chromamboo
             var notificationProviders = this.notificationBuilder.Load("settings.json");
             foreach (var notificationProvider in notificationProviders)
             {
-                // TODO: make sure we can have a parameterless Register method. All parameters previouly passed here should be retrieved from the settings.
                 notificationProvider.Register();
             }
         }

@@ -1,7 +1,4 @@
-﻿using System;
-using System.Configuration;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 
 using Chromamboo.Contracts;
 

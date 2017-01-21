@@ -7,6 +7,7 @@ namespace Chromamboo.Providers.Triggers.Factories
     public interface ITriggerProviderFactory
     {
         string Name { get; }
+
         ITriggerProvider Create(JObject settings);
     }
 }

@@ -26,13 +26,12 @@ namespace Chromamboo.Providers.Notification
                 .Subscribe(l => this.PerformPollingAction(this.repositoryPath));
         }
        
-
-        private void PerformPollingAction(string repositoryPath)
+        private void PerformPollingAction(string path)
         {
             // query git difference between current branch and develop            
             HistoryDivergence divergenceWithDevelop;
             HistoryDivergence divergenceWithRemote;
-            using (var repo = new Repository(repositoryPath))
+            using (var repo = new Repository(path))
             {
                 divergenceWithDevelop = repo.ObjectDatabase.CalculateHistoryDivergence(
                     repo.Head.Tip,

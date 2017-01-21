@@ -28,13 +28,14 @@ namespace Chromamboo.Providers.Notification
             {
                 settings = JToken.Load(reader);
             }
+
             var notifications = settings["notifications"];
             foreach (dynamic notification in notifications)
             {
                 Console.WriteLine("Loading notification " + notification.displayName);
-                var factory = this.notificationProviderFactories.Single(f => f.Name.Equals((string)notification.provider,StringComparison.OrdinalIgnoreCase));
+                var factory = this.notificationProviderFactories.Single(f => f.Name.Equals((string)notification.provider, StringComparison.OrdinalIgnoreCase));
                 Console.WriteLine("found provider " + notification.provider);
-                yield return (INotificationProvider) factory.Create(notification);
+                yield return (INotificationProvider)factory.Create(notification);
             }
         }
     }

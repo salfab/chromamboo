@@ -14,7 +14,7 @@ namespace Chromamboo.Providers.Notification
 
         private readonly IPullRequestPresentationProvider[] presentationProviders;
 
-        public PullRequestNotificationProvider(IPullRequestCountProvider pullRequestCountProvider,ITriggerProvider trigger, params IPullRequestPresentationProvider[] presentationProviders)
+        public PullRequestNotificationProvider(IPullRequestCountProvider pullRequestCountProvider, ITriggerProvider trigger, params IPullRequestPresentationProvider[] presentationProviders)
         {
             this.pullRequestCountProvider = pullRequestCountProvider;
             this.trigger = trigger;
@@ -47,6 +47,7 @@ namespace Chromamboo.Providers.Notification
                 Console.WriteLine(e.GetType() + ": " + e.Message);
                 return;
             }
+
             foreach (var provider in this.presentationProviders)
             {
                 provider.UpdatePullRequestCount(count);

@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Runtime.InteropServices.WindowsRuntime;
 
 using Chromamboo.Apis.AtlassianWrappers;
 using Chromamboo.Providers.Presentation.Contracts;
@@ -35,9 +34,9 @@ namespace Chromamboo.Providers.Presentation.RazerChroma
 
         public void UpdateBuildResults(List<BuildDetail> buildsDetails, string username)
         {
-            var isAnyBroken = IsAnyBroken(buildsDetails);
+            var isAnyBroken = this.IsAnyBroken(buildsDetails);
 
-            var isMineBroken = IsMineBroken(buildsDetails, username);
+            var isMineBroken = this.IsMineBroken(buildsDetails, username);
 
             Chroma.Instance.Keyboard.SetKeys(
                 this.keysForMyBuilds,
@@ -54,7 +53,6 @@ namespace Chromamboo.Providers.Presentation.RazerChroma
             Chroma.Instance.Keyboard.SetKey(KeysForAllBuilds, new Color(0.5, 0.0, 0.5));
         }
 
-        public string Name => "razerchroma";
-  
+        public string Name => "razerchroma";  
     }
 }

@@ -2,7 +2,8 @@
 {
     public interface IPresentationProvider 
     {
-        void MarkAsInconclusive();
         string Name { get; }
+
+        void MarkAsInconclusive();
     }
 }
