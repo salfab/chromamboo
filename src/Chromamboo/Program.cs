@@ -79,7 +79,13 @@ namespace Chromamboo
             IBambooApi bambooApi;
 
             IBitbucketApi bitbucketApi;
-            this.notificationBuilder.Load("settings.json");
+            var notificationProviders = this.notificationBuilder.Load("settings.json");
+            foreach (var notificationProvider in notificationProviders)
+            {
+                // TODO: make sure we can have a parameterless Register method. All parameters previouly passed here should be retrieved from the settings.
+                //notificationProvider.Register();
+            }
+            return;
             string[] args = null;
             string username = null;
             string password = null;

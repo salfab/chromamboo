@@ -12,7 +12,7 @@ namespace Chromamboo
 {
     public interface INotificationBuilder
     {
-        void Load(string settingsJson);
+        IEnumerable<INotificationProvider> Load(string settingsJson);
     }
 
     public class NotificationBuilder : INotificationBuilder
@@ -24,20 +24,8 @@ namespace Chromamboo
             this.notificationProviderFactories = notificationProviderFactories;
         }
 
-        public NotificationBuilder()
-        {
-        }
-
-        private Dictionary<string, Func<JObject, INotificationProvider>> LoadNotificationProviderFactories()
-        {          
-            return null;
-        }
-
-
-        public void Load(string settingsJson)
-        {
-            var notificationProviders = LoadNotificationProviderFactories();
-
+        public IEnumerable<INotificationProvider> Load(string settingsJson)
+        {        
             JToken settings;
             using (var file = File.OpenText(settingsJson))
             using (var reader = new JsonTextReader(file))
@@ -50,7 +38,7 @@ namespace Chromamboo
                 Console.WriteLine("Loading notification " + notification.displayName);
                 var factory = this.notificationProviderFactories.Single(f => f.Name.Equals((string)notification.provider,StringComparison.OrdinalIgnoreCase));
                 Console.WriteLine("found provider " + notification.provider);
-                var provider = factory.Create(notification);
+                yield return (INotificationProvider) factory.Create(notification);
             }
         }
     }

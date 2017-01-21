@@ -33,6 +33,11 @@ namespace Chromamboo.Providers.Presentation
             }
         }
 
+        public void MarkAsInconclusive()
+        {
+            throw new System.NotImplementedException();
+        }
+
         public string Name => "razerchroma";
     }
 }

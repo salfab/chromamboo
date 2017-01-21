@@ -38,7 +38,11 @@
       "provider": "pull-request",
       "username": "sio",
       "bitbucketSettings": {
-        "sharedConfigId": "bitbucketConfig"
+        "apiBaseUrl": "http://url.com",
+        "username": "sio",
+        "password": "12345",
+        "projectKey": "MYV",
+        "repoSlug": "metis"
       },
       "trigger": {
         "provider": "polling-trigger",
@@ -67,7 +71,7 @@
       },
       "presentation": [
         {
-          "provider": "razer-chroma-pr",
+          "provider": "razer-chroma",
           "keyUncommitted": [ "Macro2" ],
           "keyBehindDevelop": [ "Macro3" ]
         }

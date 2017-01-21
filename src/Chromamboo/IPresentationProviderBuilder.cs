@@ -59,4 +59,14 @@ namespace Chromamboo
             return new RazerChromaPullRequestPresentationProvider();
         }
     }
+
+    public class RazerChromaGitNotificationPresentationProviderFactory : IPresentationProviderFactory
+    {
+        public string Name => "razer-chroma";
+        public IPresentationProvider Create(JToken settings)
+        {
+            // TODO: Keys to light up in configuration
+            return new RazerChromaGitNotificationPresentationProvider();
+        }
+    }
 }
