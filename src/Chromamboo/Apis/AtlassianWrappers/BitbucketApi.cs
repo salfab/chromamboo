@@ -20,11 +20,11 @@ namespace Chromamboo.Apis.AtlassianWrappers
 
         private readonly string repoSlug;
 
-        private string password = ConfigurationManager.AppSettings["password"] == null ? string.Empty : Encoding.UTF8.GetString(Convert.FromBase64String(ConfigurationManager.AppSettings["password"]));
+        private readonly string password;
 
-        private string username = ConfigurationManager.AppSettings["username"];
+        private readonly string username;
 
-        public BitbucketApi(string apiBaseUrl, string projectKey, string repoSlug, string username = null, string password = null)
+        public BitbucketApi(string apiBaseUrl, string projectKey, string repoSlug, string username, string password)
         {
             if (password != null)
             {

@@ -14,11 +14,11 @@ namespace Chromamboo.Apis.AtlassianWrappers
     {
         private readonly string apiBaseUrl;
 
-        private readonly string password = ConfigurationManager.AppSettings["password"] == null ? string.Empty : Encoding.UTF8.GetString(Convert.FromBase64String(ConfigurationManager.AppSettings["password"]));
+        private readonly string password;
 
-        private readonly string username = ConfigurationManager.AppSettings["username"];
+        private readonly string username;
 
-        public BambooApi(string apiBaseUrl, string username = null, string password = null)
+        public BambooApi(string apiBaseUrl, string username, string password)
         {
             if (password != null)
             {
