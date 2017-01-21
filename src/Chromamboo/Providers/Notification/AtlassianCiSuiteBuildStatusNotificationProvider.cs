@@ -21,7 +21,7 @@ namespace Chromamboo.Providers.Notification
         private readonly ITriggerProvider triggerProvider;
 
         private readonly IBuildResultPresentationProvider[] presentationProviders;
-        private string username;
+        private readonly string username;
         private readonly string planKey;
 
         public AtlassianCiSuiteBuildStatusNotificationProvider(string username, string planKey, IBitbucketApi bitbucketApi, IBambooApi bambooApi, ITriggerProvider triggerProvider, params IBuildResultPresentationProvider[] presentationProviders)
@@ -48,13 +48,13 @@ namespace Chromamboo.Providers.Notification
             });            
         }
 
-        private async Task PerformPollingAction(string planKey)
+        private async Task PerformPollingAction(string planId)
         {
             List<BuildDetail> buildsDetails;
             try
             {
-                var latestHistoryBuildPromise = this.bambooApi.GetLatestBuildResultsInHistoryAsync(planKey);
-                var branchesListingPromise = this.bambooApi.GetLastBuildResultsWithBranchesAsync(planKey);
+                var latestHistoryBuildPromise = this.bambooApi.GetLatestBuildResultsInHistoryAsync(planId);
+                var branchesListingPromise = this.bambooApi.GetLastBuildResultsWithBranchesAsync(planId);
 
                 var latestHistoryBuild = await latestHistoryBuildPromise;
                 var isDevelopSuccessful = JObject.Parse(latestHistoryBuild)["results"]["result"].First()["state"].Value<string>() == "Successful";
