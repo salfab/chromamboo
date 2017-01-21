@@ -9,6 +9,5 @@ namespace Chromamboo.Providers.Presentation.Contracts
     internal interface IGitNotificationPresentationProvider : IPresentationProvider
     {        
         void UpdateGitNotification(HistoryDivergence divergenceWithDevelop, HistoryDivergence divergenceWithRemote);
-        string Name { get; }
     }
 }

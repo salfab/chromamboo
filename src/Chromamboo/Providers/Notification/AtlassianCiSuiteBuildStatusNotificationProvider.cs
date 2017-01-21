@@ -54,17 +54,19 @@ namespace Chromamboo.Providers.Notification
             List<BuildDetail> buildsDetails;
             try
             {
-                var latestHistoryBuild = this.bambooApi.GetLatestBuildResultsInHistoryAsync(planKey);
-                var branchesListing = this.bambooApi.GetLastBuildResultsWithBranchesAsync(planKey);
+                var latestHistoryBuildPromise = this.bambooApi.GetLatestBuildResultsInHistoryAsync(planKey);
+                var branchesListingPromise = this.bambooApi.GetLastBuildResultsWithBranchesAsync(planKey);
 
-                var isDevelopSuccessful = JObject.Parse(latestHistoryBuild.Result)["results"]["result"].First()["state"].Value<string>() == "Successful";
+                var latestHistoryBuild = await latestHistoryBuildPromise;
+                var isDevelopSuccessful = JObject.Parse(latestHistoryBuild)["results"]["result"].First()["state"].Value<string>() == "Successful";
 
-                var lastBuiltBranches = JObject.Parse(branchesListing.Result);
+                var branchesListing = await branchesListingPromise;
+                var lastBuiltBranches = JObject.Parse(branchesListing);
                 buildsDetails = lastBuiltBranches["branches"]["branch"].Where(b => b["enabled"].Value<bool>()).Select(this.GetBuildDetails).ToList();
 
                 if (!isDevelopSuccessful)
                 {
-                    var developDetails = this.bambooApi.GetBuildResultsAsync(JObject.Parse(latestHistoryBuild.Result)["results"]["result"].First()["planResultKey"]["key"].Value<string>());
+                    var developDetails = this.bambooApi.GetBuildResultsAsync(JObject.Parse(latestHistoryBuild)["results"]["result"].First()["planResultKey"]["key"].Value<string>());
                     var developBuildDetails = this.ConstructBuildDetails(developDetails.Result);
                     buildsDetails.Add(developBuildDetails);
                 }
