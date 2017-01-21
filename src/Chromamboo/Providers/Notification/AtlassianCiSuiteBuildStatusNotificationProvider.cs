@@ -34,12 +34,6 @@ namespace Chromamboo.Providers.Notification
             this.planKey = planKey;
         }
 
-        public enum NotificationType
-        {
-            Build,
-            PullRequest
-        }
-
         public void Register()
         {
             this.triggerProvider.WaitForTrigger(async () =>
@@ -102,11 +96,13 @@ namespace Chromamboo.Providers.Notification
         {
             var details = JObject.Parse(buildDetailsString);
 
-            var buildDetails = new BuildDetail();
-            buildDetails.CommitHash = details["vcsRevisionKey"].Value<string>();
-            buildDetails.Successful = details["successful"].Value<bool>();
-            buildDetails.BuildResultKey = details["buildResultKey"].Value<string>();
-            buildDetails.PlanResultKey = details["planResultKey"]["key"].Value<string>();
+            var buildDetails = new BuildDetail
+                                   {
+                                       CommitHash = details["vcsRevisionKey"].Value<string>(),
+                                       Successful = details["successful"].Value<bool>(),
+                                       BuildResultKey = details["buildResultKey"].Value<string>(),
+                                       PlanResultKey = details["planResultKey"]["key"].Value<string>()
+                                   };
 
             var commitDetails = JObject.Parse(this.bitbucketApi.GetCommitDetails(buildDetails.CommitHash).Result);
             var errorMessage = commitDetails["errors"]?[0]["message"]?.Value<string>();

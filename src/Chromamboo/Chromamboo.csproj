@@ -110,7 +110,6 @@
     <Compile Include="Apis\AtlassianWrappers\BuildDetail.cs" />
     <Compile Include="Contracts\IBambooApi.cs" />
     <Compile Include="Contracts\IBitbucketApi.cs" />
-    <Compile Include="Contracts\IPresentationService.cs" />
     <Compile Include="Providers\Notification\Factories\AtlassianCiSuiteBuildStatusNotificationProviderFactory.cs" />
     <Compile Include="Providers\Notification\Factories\Contracts\INotificationProviderFactory.cs" />
     <Compile Include="Providers\Notification\Factories\GitNotificationProviderFactory.cs" />
