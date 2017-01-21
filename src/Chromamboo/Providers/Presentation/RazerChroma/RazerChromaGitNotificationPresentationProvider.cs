@@ -1,10 +1,13 @@
 ﻿using System.Diagnostics;
+
 using Chromamboo.Providers.Presentation.Contracts;
+
 using Corale.Colore.Core;
 using Corale.Colore.Razer.Keyboard;
+
 using LibGit2Sharp;
 
-namespace Chromamboo.Providers.Presentation
+namespace Chromamboo.Providers.Presentation.RazerChroma
 {
     public class RazerChromaGitNotificationPresentationProvider : IGitNotificationPresentationProvider
     {

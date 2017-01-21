@@ -1,10 +1,11 @@
-﻿using Chromamboo.Providers.Presentation.Contracts;
+﻿using System;
+
+using Chromamboo.Providers.Presentation.Contracts;
+
 using LibGit2Sharp;
 
-namespace Chromamboo.Providers.Presentation
+namespace Chromamboo.Providers.Presentation.Blync
 {
-    using System;
-
     public class BlyncGitNotificationPresentationProvider : IGitNotificationPresentationProvider
     {
         public void UpdateGitNotification(

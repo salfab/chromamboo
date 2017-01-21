@@ -1,22 +1,19 @@
-﻿using System;
+﻿using System.Collections.Generic;
+using System.Runtime.InteropServices.WindowsRuntime;
 
 using Chromamboo.Apis.AtlassianWrappers;
 using Chromamboo.Providers.Presentation.Contracts;
 
-namespace Chromamboo.Providers.Presentation
+using Corale.Colore.Core;
+using Corale.Colore.Razer.Keyboard;
+
+namespace Chromamboo.Providers.Presentation.RazerChroma
 {
-    using System.Collections.Generic;
-    using System.Linq;
-
-    using Corale.Colore.Core;
-    using Corale.Colore.Razer.Keyboard;
-
-    public class RazerChromaBuildResultPresentationProvider : IBuildResultPresentationProvider
+    public class RazerChromaBuildResultPresentationProvider : BuildResultPresentationProviderBase, IBuildResultPresentationProvider
     {
         private const Key KeysForAllBuilds = Key.Logo;
 
-        private readonly Key[] keysForMyBuilds = new[]
-        {
+        private readonly Key[] keysForMyBuilds = {
             Key.Num0,
             Key.NumDecimal,
             Key.NumEnter,
@@ -38,11 +35,9 @@ namespace Chromamboo.Providers.Presentation
 
         public void UpdateBuildResults(List<BuildDetail> buildsDetails, string username)
         {
-            // TODO : resolve with either MEF, or Ninject discovery some modules the presentation service can use, and call a common contract. 
-            // Then, move the following code to one of these modules dedicated to Razer keyboard support. Other extensions can then be developed. (blync, for instance)
-            var isAnyBroken = buildsDetails.Any(b => !b.Successful);
+            var isAnyBroken = IsAnyBroken(buildsDetails);
 
-            var isMineBroken = buildsDetails.Any(b => !b.Successful && b.AuthorName == username);
+            var isMineBroken = IsMineBroken(buildsDetails, username);
 
             Chroma.Instance.Keyboard.SetKeys(
                 this.keysForMyBuilds,
@@ -51,11 +46,6 @@ namespace Chromamboo.Providers.Presentation
             Chroma.Instance.Keyboard.SetKey(
                 KeysForAllBuilds,
                 isAnyBroken ? new Color(1.0, 0.0, 0.0) : new Color(0.0, 1.0, 0.0));
-        }
-
-        public void UpdatePullRequestCount(int pullRequestCount)
-        {
-            throw new NotImplementedException("This method should disappear from the classe and its interface");
         }
 
         public void MarkAsInconclusive()

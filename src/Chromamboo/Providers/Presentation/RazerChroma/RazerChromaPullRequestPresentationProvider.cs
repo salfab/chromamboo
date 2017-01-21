@@ -3,7 +3,7 @@
 using Corale.Colore.Core;
 using Corale.Colore.Razer.Keyboard;
 
-namespace Chromamboo.Providers.Presentation
+namespace Chromamboo.Providers.Presentation.RazerChroma
 {
     public class RazerChromaPullRequestPresentationProvider : IPullRequestPresentationProvider
     {

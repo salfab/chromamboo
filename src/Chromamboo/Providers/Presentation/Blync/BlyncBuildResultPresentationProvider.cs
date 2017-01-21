@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+
 using Blynclight;
 
 using Chromamboo.Apis.AtlassianWrappers;
 using Chromamboo.Providers.Presentation.Contracts;
 
-namespace Chromamboo.Providers.Presentation
+namespace Chromamboo.Providers.Presentation.Blync
 {
     public class BlyncBuildResultPresentationProvider : IBuildResultPresentationProvider
     {

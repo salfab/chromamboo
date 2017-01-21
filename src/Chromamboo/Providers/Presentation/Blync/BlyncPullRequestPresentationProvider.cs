@@ -4,7 +4,7 @@ using Blynclight;
 
 using Chromamboo.Providers.Presentation.Contracts;
 
-namespace Chromamboo.Providers.Presentation
+namespace Chromamboo.Providers.Presentation.Blync
 {
     public class BlyncPullRequestPresentationProvider : IPullRequestPresentationProvider
     {
