@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 using Chromamboo.Contracts;
 using Chromamboo.Providers.Presentation;
+using Chromamboo.Providers.Presentation.Contracts;
 using Newtonsoft.Json.Linq;
 
 namespace Chromamboo.Providers.Notification
@@ -15,14 +16,16 @@ namespace Chromamboo.Providers.Notification
         private readonly IBitbucketApi bitbucketApi;
 
         private readonly IBambooApi bambooApi;
+        private readonly ITriggerProvider triggerProvider;
 
         private readonly IBuildResultPresentationProvider[] presentationProviders;
         private string username;
 
-        public AtlassianCiSuiteBuildStatusNotificationProvider(string username, IBitbucketApi bitbucketApi, IBambooApi bambooApi, params IBuildResultPresentationProvider[] presentationProviders)
+        public AtlassianCiSuiteBuildStatusNotificationProvider(string username, IBitbucketApi bitbucketApi, IBambooApi bambooApi, ITriggerProvider triggerProvider, params IBuildResultPresentationProvider[] presentationProviders)
         {
             this.bitbucketApi = bitbucketApi;
             this.bambooApi = bambooApi;
+            this.triggerProvider = triggerProvider;
             this.presentationProviders = presentationProviders;
             this.username = username;
         }
@@ -35,12 +38,10 @@ namespace Chromamboo.Providers.Notification
 
         public void Register(string planKey)
         {
-            Observable
-                .Timer(DateTimeOffset.MinValue, TimeSpan.FromSeconds(5))
-                .Subscribe(async l =>
-                    {                                                
-                            await this.PerformPollingAction(planKey);                       
-                    });
+            this.triggerProvider.WaitForTrigger(async () =>
+            {
+                await this.PerformPollingAction(planKey);                                       
+            });            
         }
 
         private async Task PerformPollingAction(string planKey)

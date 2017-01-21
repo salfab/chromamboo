@@ -1,4 +1,5 @@
-﻿using LibGit2Sharp;
+﻿using Chromamboo.Providers.Presentation.Contracts;
+using LibGit2Sharp;
 
 namespace Chromamboo.Providers.Presentation
 {

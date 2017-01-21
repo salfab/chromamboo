@@ -3,6 +3,9 @@
 using Chromamboo.Contracts;
 using Chromamboo.Providers.Notification;
 using Chromamboo.Providers.Presentation;
+using Chromamboo.Providers.Presentation.Contracts;
+using Ninject;
+using Ninject.Extensions.Conventions;
 
 namespace Chromamboo
 {
@@ -21,11 +24,68 @@ namespace Chromamboo
 
         private static void Main(string[] args)
         {
+            var kernel = BuildKernel();
+            var bootstrapper = kernel.Get<IBoostrapper>();
+            bootstrapper.Start();            
+            // TODO: get a push notification from the bamboo server whenever a new build is in.
+            Console.WriteLine("Hit any key to exit...");
+            Console.ReadKey();
+        }
+
+        private static IKernel BuildKernel()
+        {
+            var kernel = new StandardKernel();
+
+
+            kernel.Bind(x =>
+                x.FromThisAssembly()
+                    .IncludingNonePublicTypes()
+                    .SelectAllClasses()
+                    .Where(type => type.GetInterfaces().Length == 1)
+                    .BindSelection((type, types) => type.GetInterfaces().Take(1)));
+
+            return kernel;
+        }
+
+        private static IGitNotificationPresentationProvider[] GetGitNotificationProviders(string[] gitNotificationPresentationProviderNames)
+        {
+            // TODO: don't hardcode it.
+            return new IGitNotificationPresentationProvider[]
+                    {
+                        new RazerChromaGitNotificationPresentationProvider(),
+                        new BlyncGitNotificationPresentationProvider()
+                    }
+                    .Where(provider => gitNotificationPresentationProviderNames.Any(n => n.Equals(provider.Name, StringComparison.OrdinalIgnoreCase)))
+                    .ToArray();
+        }
+    }
+
+    public interface IBoostrapper
+    {
+        void Start();
+    }
+
+    public class Bootstrapper : IBoostrapper
+    {
+        private INotificationBuilder notificationBuilder;
+
+        public Bootstrapper(INotificationBuilder notificationBuilder)
+        {
+            this.notificationBuilder = notificationBuilder;
+        }
+
+        public void Start()
+        {   
+            IBambooApi bambooApi;
+
+            IBitbucketApi bitbucketApi;
+            this.notificationBuilder.Load("settings.json");
+            string[] args = null;
             string username = null;
             string password = null;
             if (args.Length <= 1)
             {
-                Console.Write( "Chromamboo bambooApiBaseUrl bitbucketApiBaseUrl repositoryPath presentationProviderName gitNotificationProviderName [username] [password]");
+                Console.Write("Chromamboo bambooApiBaseUrl bitbucketApiBaseUrl repositoryPath presentationProviderName gitNotificationProviderName [username] [password]");
                 return;
             }
 
@@ -47,6 +107,7 @@ namespace Chromamboo
             Console.WriteLine($"presentationProviderName = {args[3]}");
             Console.WriteLine($"gitNotificationProviderName = {args[4]}");
 
+
             // TODO: use IoC so that NotificationProviders can be loaded and instantiated from commandline arguments.
             bambooApi = new BambooApi(bambooApiBaseUrl, username, password);
             bitbucketApi = new BitbucketApi(bitbucketApiBaseUrl, "MYV", "metis", username, password);
@@ -59,9 +120,9 @@ namespace Chromamboo
             //presentationService = new PresentationService(username, GetProviders(presentationProviderNames));
 
             // Handle pull requests
-            var pullRequestsNotificationProvider = new PullRequestsNotificationProvider(
+            var pullRequestsNotificationProvider = new PullRequestNotificationProvider(
                 bitbucketApi,
-                new PollingNotificationTrigger(),
+                new PollingTriggerProvider(30000),
                 // TODO: build array based on presentationProviderNames
                 new RazerChromaPullRequestPresentationProvider());
             pullRequestsNotificationProvider.Register();
@@ -71,29 +132,14 @@ namespace Chromamboo
                 username,
                 bitbucketApi,
                 bambooApi,
+                new PollingTriggerProvider(30000),
                 // TODO: build array based on presentationProviderNames 
                 new RazerChromaBuildResultPresentationProvider());
             buildStatusNotificationProvider.Register("MET-MCI");
 
             // Handle git ahead/behind notification.
-            var gitBehindNotificationProvider = new GitNotificationProvider(GetGitNotificationProviders(gitNotificationProviderNames));
-            gitBehindNotificationProvider.Register(repositoryPath);
-
-            // TODO: get a push notification from the bamboo server whenever a new build is in.
-            Console.WriteLine("Hit any key to exit...");
-            Console.ReadKey();
-        }
-
-        private static IGitNotificationPresentationProvider[] GetGitNotificationProviders(string[] gitNotificationPresentationProviderNames)
-        {
-            // TODO: don't hardcode it.
-            return new IGitNotificationPresentationProvider[]
-                    {
-                        new RazerChromaGitNotificationPresentationProvider(),
-                        new BlyncGitNotificationPresentationProvider()
-                    }
-                    .Where(provider => gitNotificationPresentationProviderNames.Any(n => n.Equals(provider.Name, StringComparison.OrdinalIgnoreCase)))
-                    .ToArray();
+            //var gitBehindNotificationProvider = new GitNotificationProvider(GetGitNotificationProviders(gitNotificationProviderNames));
+            //gitBehindNotificationProvider.Register(repositoryPath);
         }
     }
 }

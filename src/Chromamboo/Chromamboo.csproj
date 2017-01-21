@@ -60,6 +60,14 @@
       <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Ninject, Version=3.2.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ninject.3.2.2.0\lib\net45-full\Ninject.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Ninject.Extensions.Conventions, Version=3.2.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ninject.Extensions.Conventions.3.2.0.0\lib\net45-full\Ninject.Extensions.Conventions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="RestSharp, Version=105.2.3.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\RestSharp.105.2.3\lib\net452\RestSharp.dll</HintPath>
       <Private>True</Private>
@@ -87,6 +95,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ITriggerProviderFactory.cs" />
+    <Compile Include="NotificationBuilder.cs" />
+    <Compile Include="PollingTriggerProviderFactory.cs" />
     <Compile Include="Providers\Notification\AtlassianCiSuiteBuildStatusNotificationProvider.cs" />
     <Compile Include="BambooApi.cs" />
     <Compile Include="BitbucketApi.cs" />
@@ -94,9 +105,15 @@
     <Compile Include="Contracts\IBambooApi.cs" />
     <Compile Include="Contracts\IBitbucketApi.cs" />
     <Compile Include="Contracts\IPresentationService.cs" />
-    <Compile Include="Providers\Notification\INotificationTrigger.cs" />
+    <Compile Include="Providers\Notification\Factories\AtlassianCiSuiteBuildStatusNotificationProviderFactory.cs" />
+    <Compile Include="Providers\Notification\Factories\Contracts\INotificationProviderFactory.cs" />
+    <Compile Include="Providers\Notification\Factories\GitNotificationProviderFactory.cs" />
+    <Compile Include="IPresentationProviderBuilder.cs" />
+    <Compile Include="ITriggerBuilder.cs" />
+    <Compile Include="Providers\Notification\Factories\PullRequestNotificationProviderFactory.cs" />
+    <Compile Include="Providers\Triggers\ITriggerProvider.cs" />
     <Compile Include="Providers\Notification\IPullRequestCountProvider.cs" />
-    <Compile Include="Providers\Notification\PollingNotificationTrigger.cs" />
+    <Compile Include="Providers\Notification\PollingTriggerProvider.cs" />
     <Compile Include="Providers\Presentation\BlyncBuildResultPresentationProvider.cs" />
     <Compile Include="Providers\Presentation\Contracts\IBuildResultPresentationProvider.cs" />
     <Compile Include="Providers\Presentation\Contracts\IGitNotificationPresentationProvider.cs" />
@@ -110,8 +127,10 @@
     <Compile Include="Providers\Notification\INotificationProvider.cs" />
     <Compile Include="Providers\Presentation\BlyncPullRequestPresentationProvider.cs" />
     <Compile Include="Providers\Presentation\RazerChromaAtlassianCIPresentationProvider.cs" />
-    <Compile Include="Providers\Notification\PullRequestsNotificationProvider.cs" />
+    <Compile Include="Providers\Notification\PullRequestNotificationProvider.cs" />
     <Compile Include="Providers\Presentation\RazerChromaPullRequestPresentationProvider.cs" />
+    <Compile Include="TriggerBuilder.cs" />
+    <Compile Include="TriggerProviderFactoryBase.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -119,7 +138,9 @@
       <DependentUpon>App.config</DependentUpon>
     </None>
     <None Include="packages.config" />
-    <None Include="settings.json" />
+    <None Include="settings.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

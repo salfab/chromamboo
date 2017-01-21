@@ -6,17 +6,25 @@
       "username": "sio",
       "planKey": "MET-MCI",
       "bitbucketSettings": {
-        "sharedConfigId": "bitbucketConfig"
+        "apiBaseUrl": "http://url.com",
+        "username": "sio",
+        "password": "12345",
+        "projectKey": "MYV",
+        "repoSlug": "metis"
       },
       "bambooSettings": {
         "apiBaseUrl": "http://url.com",
         "username": "sio",
         "password": "12345"
       },
+      "trigger": {
+        "provider": "polling-trigger",
+        "frequence": "30000"
+      },
       "presentation": [
         {
-          "provider": "razer-chroma-ci",
-          "keys": [ "Macro1" ]
+          "provider": "razer-chroma",
+          "keys": [ "Num0", "NumDecimal", "NumEnter", "Num1", "Num2", "Num3", "Num4", "Num5", "Num6", "Num7", "Num8", "Num9", "NumLock", "NumDivide", "NumMultiply", "NumSubtract", "NumAdd" ]
         },
         {
           "provider": "blync",
@@ -33,13 +41,12 @@
         "sharedConfigId": "bitbucketConfig"
       },
       "trigger": {
-        "provider": "polling-triger",
-        "frequence",
-        "30000"
+        "provider": "polling-trigger",
+        "frequence":"30000"
       },
       "presentation": [
         {
-          "provider": "razer-chroma-pr",
+          "provider": "razer-chroma",
           "keys": [ "Macro1" ]
         },
         {
@@ -52,12 +59,11 @@
     {
       "displayName": "Project-1-git",
       "provider": "git",
-      "trigger": {
+      "trigger":
+       {
+        "message": "git-push",
         "provider": "push-trigger",
-        "url",
-        "http://url.com",
-        "message",
-        "git-push"
+        "url": "http://url.com"
       },
       "presentation": [
         {

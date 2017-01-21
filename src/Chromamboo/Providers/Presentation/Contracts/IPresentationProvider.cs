@@ -1,7 +1,5 @@
-﻿namespace Chromamboo.Providers.Presentation
+﻿namespace Chromamboo.Providers.Presentation.Contracts
 {
-    using Notification;
-
     public interface IPresentationProvider 
     {
         void MarkAsInconclusive();

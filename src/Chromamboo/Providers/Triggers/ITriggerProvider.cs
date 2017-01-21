@@ -2,7 +2,7 @@
 
 namespace Chromamboo.Providers.Notification
 {
-    internal interface INotificationTrigger
+    public interface ITriggerProvider
     {
         void WaitForTrigger(Action callback);
     }

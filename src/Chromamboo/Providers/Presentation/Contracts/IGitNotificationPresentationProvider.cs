@@ -1,8 +1,8 @@
-﻿namespace Chromamboo.Providers.Presentation
-{
-    using Chromamboo.Providers.Notification;
-    using LibGit2Sharp;
+﻿using Chromamboo.Providers.Notification;
+using LibGit2Sharp;
 
+namespace Chromamboo.Providers.Presentation.Contracts
+{
     /// <summary>
     /// THis interface must be implemented by all providers compatible with the <see cref="GitNotificationProvider"/>.
     /// </summary>

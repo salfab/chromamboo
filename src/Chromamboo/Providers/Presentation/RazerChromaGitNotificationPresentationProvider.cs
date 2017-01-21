@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using Chromamboo.Providers.Presentation.Contracts;
 using Corale.Colore.Core;
 using Corale.Colore.Razer.Keyboard;
 using LibGit2Sharp;

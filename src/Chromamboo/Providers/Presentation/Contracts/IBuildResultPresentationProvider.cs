@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Chromamboo.Providers.Presentation
+namespace Chromamboo.Providers.Presentation.Contracts
 {
     public interface IBuildResultPresentationProvider : IPresentationProvider
     {

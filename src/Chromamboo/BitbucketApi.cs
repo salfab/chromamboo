@@ -24,11 +24,11 @@
 
         private string username = ConfigurationManager.AppSettings["username"];
 
-        public BitbucketApi(string apiBaseUrl, string projectKey, string repoSlug, string username = null, string secret = null)
+        public BitbucketApi(string apiBaseUrl, string projectKey, string repoSlug, string username = null, string password = null)
         {
-            if (secret != null)
+            if (password != null)
             {
-                this.password = secret;
+                this.password = password;
             }
 
             if (username != null)

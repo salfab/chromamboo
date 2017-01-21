@@ -6,14 +6,14 @@ namespace Chromamboo.Providers.Notification
     using System.Reactive.Linq;
     using System.Threading.Tasks;
 
-    internal class PullRequestsNotificationProvider : INotificationProvider<object>
+    internal class PullRequestNotificationProvider : INotificationProvider<object>
     {
         private readonly IPullRequestCountProvider pullRequestCountProvider;
-        private readonly INotificationTrigger trigger;
+        private readonly ITriggerProvider trigger;
 
         private readonly IPullRequestPresentationProvider[] presentationProviders;
 
-        public PullRequestsNotificationProvider(IPullRequestCountProvider pullRequestCountProvider,INotificationTrigger trigger, params IPullRequestPresentationProvider[] presentationProviders)
+        public PullRequestNotificationProvider(IPullRequestCountProvider pullRequestCountProvider,ITriggerProvider trigger, params IPullRequestPresentationProvider[] presentationProviders)
         {
             this.pullRequestCountProvider = pullRequestCountProvider;
             this.trigger = trigger;

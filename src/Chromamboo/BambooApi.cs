@@ -18,11 +18,11 @@ namespace Chromamboo
 
         private readonly string username = ConfigurationManager.AppSettings["username"];
 
-        public BambooApi(string apiBaseUrl, string username = null, string secret = null)
+        public BambooApi(string apiBaseUrl, string username = null, string password = null)
         {
-            if (secret != null)
+            if (password != null)
             {
-                this.password = secret;
+                this.password = password;
             }
 
             if (username != null)
