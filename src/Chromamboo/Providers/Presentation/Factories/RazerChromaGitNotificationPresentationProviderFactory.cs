@@ -1,5 +1,6 @@
 using Chromamboo.Providers.Presentation.Contracts;
 using Chromamboo.Providers.Presentation.Factories.Contracts;
+using Chromamboo.Providers.Presentation.RazerChroma;
 
 using Newtonsoft.Json.Linq;
 
