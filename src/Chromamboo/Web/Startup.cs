@@ -7,12 +7,15 @@ namespace Chromamboo.Web
     {
         public void ConfigureServices(IServiceCollection services)
         {
-          
+          services
+                .AddMvcCore()
+                .AddJsonFormatters();
 
         }
         public void Configure(IApplicationBuilder app)
         {
-            app.UseStaticFiles();
+            app.UseStaticFiles()
+                .UseMvc();
         }
     }
 }
