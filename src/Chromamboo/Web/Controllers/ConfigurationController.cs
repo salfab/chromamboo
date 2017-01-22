@@ -1,7 +1,9 @@
-﻿using System.Net.Mime;
+﻿using System.Collections.Generic;
+using System.Net.Mime;
 
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Formatters;
+using Microsoft.Extensions.Primitives;
 
 namespace Chromamboo.Web.Controllers
 {
@@ -10,6 +12,7 @@ namespace Chromamboo.Web.Controllers
     {
         public string Get()
         {
+            this.Response.Headers.Add(new KeyValuePair<string, StringValues>("Access-Control-Allow-Origin", new StringValues("*")));
             return System.IO.File.ReadAllText("settings.json");
         }
     }
