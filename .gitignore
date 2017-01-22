@@ -241,3 +241,5 @@ ModelManifest.xml
 # FAKE - F# Make
 .fake/
 src/.localhistory/
+src/Chromamboo/wwwroot/chromamboo-react/.idea/workspace.xml
+src/Chromamboo/wwwroot/chromamboo-react/.idea/tasks.xml
