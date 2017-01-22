@@ -1,5 +1,10 @@
 ﻿using System;
+using System.IO;
 using System.Linq;
+
+using Chromamboo.Web;
+
+using Microsoft.AspNetCore.Hosting;
 
 using Ninject;
 using Ninject.Extensions.Conventions;
@@ -10,12 +15,30 @@ namespace Chromamboo
     {
         private static void Main(string[] args)
         {
-            var kernel = BuildKernel();
-            var bootstrapper = kernel.Get<IBoostrapper>();
-            bootstrapper.Start();        
+            if (args.Contains("config"))
+            {
+                StartConfig();
+            }
+            else
+            {
+                var kernel = BuildKernel();
+                var bootstrapper = kernel.Get<IBoostrapper>();
+                bootstrapper.Start();        
+            }
                 
             Console.WriteLine("Hit any key to exit...");
             Console.ReadKey();
+        }
+
+        private static void StartConfig()
+        {
+            var host = new WebHostBuilder()
+           .UseKestrel()
+           .UseContentRoot(Directory.GetCurrentDirectory())
+           .UseStartup<Startup>()
+           .Build();
+
+            host.Run();
         }
 
         private static IKernel BuildKernel()
