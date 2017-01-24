@@ -7,7 +7,7 @@
   </ItemGroup>
 	<Target Name="TransformBabel">
 		<TransformBabel SourceDir="$(MSBuildProjectDirectory)\chromamboo-react" />
-    <Copy SourceFiles="@(Compile)" DestinationFiles="@(Compile->'$(MSBuildProjectDirectory)\wwwroot\chromamboo-react\ %(RecursiveDir)%(Filename)%(Extension)')" />   
+    <Copy SourceFiles="@(Compile)" DestinationFiles="@(Compile->'$(MSBuildProjectDirectory)\wwwroot\chromamboo-react\%(RecursiveDir)\%(Filename)%(Extension)')" />   
 	</Target>
 </Project>
 
