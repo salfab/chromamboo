@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="TransformBabel">
+	<!-- ReactJS.NET - Transpile JavaScript via Babel -->
+	<UsingTask AssemblyFile="$(OutputPath)\React.MSBuild.dll" TaskName="TransformBabel" />
+  <ItemGroup>
+    <Compile Include="$(MSBuildProjectDirectory)\chromamboo-react\src\**\*.*" Exclude="$(MSBuildProjectDirectory)\chromamboo-react\**\*.jsx;$(MSBuildProjectDirectory)\chromamboo-react\**\.idea\**\*.*" />
+  </ItemGroup>
+	<Target Name="TransformBabel">
+		<TransformBabel SourceDir="$(MSBuildProjectDirectory)\chromamboo-react" />
+    <Copy SourceFiles="@(Compile)" DestinationFiles="@(Compile->'$(MSBuildProjectDirectory)\wwwroot\chromamboo-react\ %(RecursiveDir)%(Filename)%(Extension)')" />   
+	</Target>
+</Project>
+
