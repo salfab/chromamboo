@@ -79,7 +79,7 @@ class ValueEditor extends Component {
                 return (
                     <li className="box nested">
                         Item #{this.props.keyName}
-                        <NotificationBlock settings={content} isNested isArray={isArray}/>
+                        <NotificationBlock settings={content} isNested isArrayItem={isArrayItem}/>
                     </li>)
 
             }
