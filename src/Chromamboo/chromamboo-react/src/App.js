@@ -48,7 +48,7 @@ class NotificationBlock extends Component {
     }
     render() {
         let settings = this.props.settings;
-        let isNested = this.props.isNested;
+        let isArray = this.props.isArray;
         return (
             <div>
                 <h4>
@@ -59,7 +59,7 @@ class NotificationBlock extends Component {
                         console.log(keyName  + "  " + settings[keyName]);
                         // use keyName to get current key's name
                         // and a[keyName] or a.keyName to get its value
-                        return <ValueEditor content={settings[keyName]} settings={settings} keyName={keyName} />
+                        return <ValueEditor content={settings[keyName]} settings={settings} keyName={keyName} isArrayItem={isArray} />
                     })}
                 </ul>
             </div>)
@@ -72,17 +72,35 @@ class ValueEditor extends Component {
     }
     render() {
         let content = this.props.content;
+        let isArrayItem = this.props.isArrayItem;
+        let isArray = content.constructor === Array
         if (typeof content == "object"){
+            if (isArrayItem) {
+                return (
+                    <li className="box nested">
+                        Item #{this.props.keyName}
+                        <NotificationBlock settings={content} isNested isArray={isArray}/>
+                    </li>)
+
+            }
+            if (isArray) {
+                return (
+                    <li className="box nested">
+                        Array: {this.props.keyName}
+                        <NotificationBlock settings={content} isNested isArray={isArray}/>
+                    </li>)
+
+            }
             return (
             <li className="box nested">
                 {this.props.keyName}
-                <NotificationBlock settings={content} isNested="true"/>
+                <NotificationBlock settings={content} isNested isArray={isArray}/>
             </li>)
         }
         return(
             <li>
         <div>
-            {this.props.content}
+            <b>{this.props.keyName}</b>: {this.props.content}
         </div>
                 </li>)
     }
