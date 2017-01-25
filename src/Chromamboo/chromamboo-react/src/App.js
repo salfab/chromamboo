@@ -29,7 +29,7 @@ class App extends Component {
         <div>
 
             {items.map(item =>
-                <NotificationBlock key={item.displayName} settings={item} />
+                <Wrapper key={item.displayName} settings={item} />
             )}
         </div>
       </div>
@@ -37,7 +37,10 @@ class App extends Component {
   }
 }
 
-
+const Wrapper = (props)  => (
+        <div className="box shadow">
+            <NotificationBlock settings={props.settings} />
+        </div>)
 
 class NotificationBlock extends Component {
     constructor() {
@@ -45,23 +48,18 @@ class NotificationBlock extends Component {
     }
     render() {
         let settings = this.props.settings;
-        let parameters = createFragment({
-            right: Object.keys(settings),
-            left: Object.keys(settings)
-        });
+        let isNested = this.props.isNested;
         return (
             <div>
                 <h4>
                     {settings.displayName}
                 </h4>
                 <ul>
-
-
                     {Object.keys(settings).map(function(keyName, keyIndex) {
-                        console.log(settings[keyName]);
+                        console.log(keyName  + "  " + settings[keyName]);
                         // use keyName to get current key's name
                         // and a[keyName] or a.keyName to get its value
-                        return <li key={keyName}>Key: {keyName} <ValueEditor content={settings[keyName]} /></li>
+                        return <ValueEditor content={settings[keyName]} settings={settings} keyName={keyName} />
                     })}
                 </ul>
             </div>)
@@ -75,12 +73,18 @@ class ValueEditor extends Component {
     render() {
         let content = this.props.content;
         if (typeof content == "object"){
-            return <NotificationBlock settings={content}/>
+            return (
+            <li className="box nested">
+                {this.props.keyName}
+                <NotificationBlock settings={content} isNested="true"/>
+            </li>)
         }
         return(
+            <li>
         <div>
             {this.props.content}
-        </div>)
+        </div>
+                </li>)
     }
 }
 
