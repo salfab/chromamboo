@@ -77,7 +77,7 @@ class ValueEditor extends Component {
         if (typeof content == "object"){
             if (isArrayItem) {
                 return (
-                    <li className="box nested">
+                    <li className="box nested nested-shadow">
                         Item #{this.props.keyName}
                         <NotificationBlock settings={content} isNested isArrayItem={isArrayItem}/>
                     </li>)
@@ -85,14 +85,14 @@ class ValueEditor extends Component {
             }
             if (isArray) {
                 return (
-                    <li className="box nested">
+                    <li className="box nested nested-shadow">
                         Array: {this.props.keyName}
                         <NotificationBlock settings={content} isNested isArray={isArray}/>
                     </li>)
 
             }
             return (
-            <li className="box nested">
+            <li className="box nested nested-shadow">
                 {this.props.keyName}
                 <NotificationBlock settings={content} isNested isArray={isArray}/>
             </li>)

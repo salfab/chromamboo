@@ -79,3 +79,28 @@ body {background:#ccc}
   -o-transform:skew(8deg) rotate(3deg);
   transform:skew(8deg) rotate(3deg);
 }
+
+/*--------- nested*/
+
+.shadow6 {
+  box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 20px rgba(0, 0, 0, 0.1) inset;
+}
+/*****************************************************************dashed border
+****************************************************************/
+.nested-shadow h3{
+  width:87%;
+  height:100px;
+  margin-left:6%;
+  border:2px dashed #F7EEEE;
+  border-radius:5px;
+}
+
+
+.nested-shadow:before, .nested-shadow:after{
+  position:absolute;
+  content:"";
+  top:100px;bottom:5px;left:30px;right:30px;
+  z-index:-1;
+  box-shadow:0 0 40px 13px #486685;
+  border-radius:100px/20px;
+}
