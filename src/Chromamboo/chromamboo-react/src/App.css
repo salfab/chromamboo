@@ -39,8 +39,9 @@ body {background:#ccc}
   margin:40px auto;
 }
 .nested{
-  background-color: #9EB3EB;
+  background-color: rgba(158, 179, 235, 0.5);
   width:90%
+
 }
 
 /*==================================================
