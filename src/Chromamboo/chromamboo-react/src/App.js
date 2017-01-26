@@ -29,7 +29,7 @@ class App extends Component {
         <div>
 
             {items.map(item =>
-                <Wrapper key={item.displayName} settings={item} />
+                <Wrapper key={item.displayName} headerText={item.displayName} settings={item} />
             )}
         </div>
       </div>
@@ -39,7 +39,10 @@ class App extends Component {
 
 const Wrapper = (props)  => (
         <div className="box shadow">
-            <NotificationBlock settings={props.settings} />
+          <h4>
+              {props.headerText}
+          </h4>
+            <NotificationBlock settings={props.settings} title={props.headerText} />
         </div>)
 
 class NotificationBlock extends Component {
@@ -49,17 +52,16 @@ class NotificationBlock extends Component {
     render() {
         let settings = this.props.settings;
         let isArray = this.props.isArray;
+        let isArrayItem = this.props.isArrayItem;
         return (
             <div>
-                <h4>
-                    {settings.displayName}
-                </h4>
+              Title: {this.props.title}
                 <ul>
                     {Object.keys(settings).map(function(keyName, keyIndex) {
                         console.log(keyName  + "  " + settings[keyName]);
                         // use keyName to get current key's name
                         // and a[keyName] or a.keyName to get its value
-                        return <ValueEditor content={settings[keyName]} settings={settings} keyName={keyName} isArrayItem={isArray} />
+                        return <ValueEditor title={keyName} content={settings[keyName]} settings={settings} keyName={keyName} isArray={isArray} isArrayItem={isArrayItem} />
                     })}
                 </ul>
             </div>)
@@ -78,31 +80,39 @@ class ValueEditor extends Component {
             if (isArrayItem) {
                 return (
                     <li className="box nested nested-shadow">
-                        Item #{this.props.keyName}
-                        <NotificationBlock settings={content} isNested isArrayItem={isArrayItem}/>
+                      <div>
+                          <NotificationBlock title={"Item #" + this.props.title}settings={content} isNested/>
+                          <button>Remove item</button>
+                      </div>
                     </li>)
 
             }
             if (isArray) {
                 return (
                     <li className="box nested nested-shadow">
-                        Array: {this.props.keyName}
-                        <NotificationBlock settings={content} isNested isArray={isArray}/>
+                      <div>
+                          <NotificationBlock title={this.props.title} settings={content} isNested isArrayItem="true" />
+                          <button>Add new item</button>
+                      </div>
                     </li>)
 
             }
             return (
             <li className="box nested nested-shadow">
-                {this.props.keyName}
+                 object: {this.props.keyName}
                 <NotificationBlock settings={content} isNested isArray={isArray}/>
             </li>)
         }
+        if (isArrayItem) {
+          return(              
+                <div>
+                    scalar array Item: <b>{this.props.keyName}</b>: {this.props.content} <button>X</button>
+                </div>)
+        }
         return(
-            <li>
-        <div>
-            <b>{this.props.keyName}</b>: {this.props.content}
-        </div>
-                </li>)
+              <div>
+                  scalar: <b>{this.props.keyName}</b>: {this.props.content}
+              </div>)
     }
 }
 

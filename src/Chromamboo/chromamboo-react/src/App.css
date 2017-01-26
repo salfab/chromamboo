@@ -80,9 +80,13 @@ body {background:#ccc}
   transform:skew(8deg) rotate(3deg);
 }
 
+ul .box, li .box {
+  list-style-type: none;
+}
+
 /*--------- nested*/
 
-.shadow6 {
+.nested-shadow {
   box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 20px rgba(0, 0, 0, 0.1) inset;
 }
 /*****************************************************************dashed border
@@ -95,7 +99,7 @@ body {background:#ccc}
   border-radius:5px;
 }
 
-
+/*
 .nested-shadow:before, .nested-shadow:after{
   position:absolute;
   content:"";
@@ -103,4 +107,4 @@ body {background:#ccc}
   z-index:-1;
   box-shadow:0 0 40px 13px #486685;
   border-radius:100px/20px;
-}
+}*/
