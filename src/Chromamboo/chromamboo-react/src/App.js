@@ -27,7 +27,7 @@ class App extends Component {
           <h2>Chromamboo configuration</h2>
         </div>
         <p className="App-intro">
-            Current configuration <FontAwesome
+           <FontAwesome
             name='plus'
             size='2x'
             spin
