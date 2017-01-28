@@ -134,3 +134,9 @@ h4{
   padding:50px;
   color:whitesmoke;
 }
+
+li.new-settings-block-item a{
+  font-size: xx-large;
+  color: dimgray;
+  cursor: default;
+}

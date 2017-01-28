@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
-import createFragment from 'react-addons-create-fragment'
 
+var FontAwesome = require('react-fontawesome');
 
 class App extends Component {
 
@@ -18,14 +18,21 @@ class App extends Component {
   render(){
     let items = this.state.notifications;
     console.log(items);
+    // TODO: replace this by a local version of the .css. see https://github.com/simonwhitaker/github-fork-ribbon-css
     return (
       <div className="App">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-fork-ribbon-css/0.2.0/gh-fork-ribbon.min.css" />
         <div className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
           <h2>Chromamboo configuration</h2>
         </div>
         <p className="App-intro">
-            Current configuration
+            Current configuration <FontAwesome
+            name='plus'
+            size='2x'
+            spin
+            style={{ textShadow: '0 1px 0 rgba(0, 0, 0, 0.1)' }}
+        />
         </p>
         <div>
 
@@ -44,7 +51,6 @@ const Wrapper = (props)  => (
           <h4>
               {props.headerText}
           </h4>
-
                 <a className="github-fork-ribbon" title={props.ribbonText} />
                 </div>
             <NotificationBlock settings={props.settings} title={props.headerText} />
@@ -66,7 +72,7 @@ class NotificationBlock extends Component {
                         console.log(keyName  + "  " + settings[keyName]);
                         // use keyName to get current key's name
                         // and a[keyName] or a.keyName to get its value
-                        return <ValueEditor title={keyName} content={settings[keyName]} settings={settings} keyName={keyName} isArray={isArray} isArrayItem={isArrayItem} />
+                        return <ValueEditor key={keyName} title={keyName} content={settings[keyName]} settings={settings} keyName={keyName} isArray={isArray} isArrayItem={isArrayItem} />
                     })}
                 </ul>
             </div>)
@@ -109,7 +115,9 @@ class SettingsBlockCollection extends Component {
                     </div>
                 </li>
                 <li className="box nested nested-shadow new-settings-block-item">
-                    <a onClick={this.AddItem}><i class="fa fa-plus" aria-hidden="true"></i></a>
+                    <a onClick={this.AddItem}>
+                        +
+                    </a>
                 </li>
             </div>)
     }
