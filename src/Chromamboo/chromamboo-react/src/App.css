@@ -115,19 +115,8 @@ body {background:#ccc}
 
 .new-settings-block-item
 {
-  margin-right: 4%;
-  width: 73.5%;
-  display: block;
-  text-align:center;
-
-  background-color: rgba(158, 179, 235, 0.5);
-
+  padding-top: 50px;
+  padding-bottom: 50px;
   box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 20px rgba(0, 0, 0, 0.1) inset;
-
-
-  height:100px;
-
   border:2px dashed #F7EEEE;
-  border-radius:5px;
-
 }

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import createFragment from 'react-addons-create-fragment'
+import 'https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css'
 
 class App extends Component {
 
@@ -96,12 +97,17 @@ class SettingsBlockCollection extends Component {
 
     render() {
         return(
+            <div>
             <li className="box nested nested-shadow">
-                <div>
-                    <NotificationBlock title={this.props.title} settings={this.props.content} isNested isArrayItem />
-                    <a className="new-settings-block-item" onClick={this.AddItem}>Add new item</a>
-                </div>
-            </li>)
+                    <div>
+                        <NotificationBlock title={this.props.title} settings={this.props.content} isNested isArrayItem />
+
+                    </div>
+                </li>
+                <li className="box nested nested-shadow new-settings-block-item">
+                    <a onClick={this.AddItem}><i class="fa fa-plus" aria-hidden="true"></i></a>
+                </li>
+            </div>)
     }
     }
 
