@@ -48,13 +48,13 @@ class App extends Component {
 const Wrapper = (props)  => (
         <div className="box shadow">
             <div className="title-header">
-          <h4>
-              {props.headerText}
-          </h4>
+                <h4>
+                  {props.headerText}
+                </h4>
                 <a className="github-fork-ribbon" title={props.ribbonText} />
-                </div>
-            <NotificationBlock settings={props.settings} title={props.headerText} />
-        </div>)
+            </div>
+            <NotificationBlock settings={props.settings} title={props.headerText} skipTitle />
+        </div>);
 
 class NotificationBlock extends Component {
     constructor() {
@@ -66,15 +66,17 @@ class NotificationBlock extends Component {
         let isArrayItem = this.props.isArrayItem;
         return (
             <div>
-              Title: <b>{this.props.title}</b>
-                <ul>
-                    {Object.keys(settings).map(function(keyName, keyIndex) {
-                        console.log(keyName  + "  " + settings[keyName]);
-                        // use keyName to get current key's name
-                        // and a[keyName] or a.keyName to get its value
-                        return <ValueEditor key={keyName} title={keyName} content={settings[keyName]} settings={settings} keyName={keyName} isArray={isArray} isArrayItem={isArrayItem} />
-                    })}
-                </ul>
+                {!this.props.skipTitle && <div className="block-title">{this.props.title}</div>}
+                <div className="block-settings">
+                    <ul>
+                        {Object.keys(settings).map(function(keyName, keyIndex) {
+                            console.log(keyName  + "  " + settings[keyName]);
+                            // use keyName to get current key's name
+                            // and a[keyName] or a.keyName to get its value
+                            return <ValueEditor key={keyName} title={keyName} content={settings[keyName]} settings={settings} keyName={keyName} isArray={isArray} isArrayItem={isArrayItem} />
+                        })}
+                    </ul>
+                </div>
             </div>)
     }
 }
@@ -140,7 +142,7 @@ const SettingsBlock = (props)  => (
 const SettingInput = (props)  => (
     <li className="setting settings-item">
         <div>
-            <span className="setting-input label">{props.label}</span>: {props.value}
+            <span className="setting-input label">{props.label}</span>: <input className="enjoy-input" value={props.value} />
             {props.isOptional && <a>X</a>}
         </div>
     </li>);
