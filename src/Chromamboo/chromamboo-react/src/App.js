@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import createFragment from 'react-addons-create-fragment'
-import 'https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css'
+
 
 class App extends Component {
 
@@ -30,7 +30,7 @@ class App extends Component {
         <div>
 
             {items.map(item =>
-                <Wrapper key={item.displayName} headerText={item.displayName} settings={item} />
+                <Wrapper key={item.displayName} headerText={item.displayName} settings={item} ribbonText={item.provider}/>
             )}
         </div>
       </div>
@@ -40,9 +40,13 @@ class App extends Component {
 
 const Wrapper = (props)  => (
         <div className="box shadow">
+            <div className="title-header">
           <h4>
               {props.headerText}
           </h4>
+
+                <a className="github-fork-ribbon" title={props.ribbonText} />
+                </div>
             <NotificationBlock settings={props.settings} title={props.headerText} />
         </div>)
 

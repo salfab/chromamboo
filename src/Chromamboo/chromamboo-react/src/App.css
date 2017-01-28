@@ -120,3 +120,17 @@ body {background:#ccc}
   box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 20px rgba(0, 0, 0, 0.1) inset;
   border:2px dashed #F7EEEE;
 }
+
+.title-header {
+  width: 100%;
+  height: 100%;
+  background-color: #252525;
+  background-size: cover;
+  clip-path: polygon(0% 70%, 100% 100%, 100% 0%, 0% 0%);
+}
+
+h4{
+  font-size: x-large;
+  padding:50px;
+  color:whitesmoke;
+}
