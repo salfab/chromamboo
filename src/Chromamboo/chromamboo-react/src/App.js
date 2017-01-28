@@ -55,7 +55,7 @@ class NotificationBlock extends Component {
         let isArrayItem = this.props.isArrayItem;
         return (
             <div>
-              Title: {this.props.title}
+              Title: <b>{this.props.title}</b>
                 <ul>
                     {Object.keys(settings).map(function(keyName, keyIndex) {
                         console.log(keyName  + "  " + settings[keyName]);
@@ -77,43 +77,44 @@ class ValueEditor extends Component {
         let isArrayItem = this.props.isArrayItem;
         let isArray = content.constructor === Array
         if (typeof content == "object"){
-            if (isArrayItem) {
-                return (
-                    <li className="box nested nested-shadow">
-                      <div>
-                          <NotificationBlock title={"Item #" + this.props.title}settings={content} isNested/>
-                          <button>Remove item</button>
-                      </div>
-                    </li>)
-
-            }
-            if (isArray) {
-                return (
-                    <li className="box nested nested-shadow">
-                      <div>
-                          <NotificationBlock title={this.props.title} settings={content} isNested isArrayItem="true" />
-                          <button>Add new item</button>
-                      </div>
-                    </li>)
-
-            }
-            return (
-            <li className="box nested nested-shadow">
-                 object: {this.props.keyName}
-                <NotificationBlock settings={content} isNested isArray={isArray}/>
-            </li>)
+            if (isArrayItem) return <SettingsBlockCollectionItem title={this.props.title} content={this.props.content} />;
+            if (isArray) return <SettingsBlockCollection title={this.props.title} content={this.props.content}/>;
+            return <SettingsBlock title={this.props.title} content={this.props.content}/>;
         }
-        if (isArrayItem) {
-          return(              
-                <div>
-                    scalar array Item: <b>{this.props.keyName}</b>: {this.props.content} <button>X</button>
-                </div>)
-        }
-        return(
-              <div>
-                  scalar: <b>{this.props.keyName}</b>: {this.props.content}
-              </div>)
+        return <SettingInput label={this.props.keyName} value={this.props.content} isOptional={isArrayItem} />;
+
     }
 }
+
+const SettingsBlockCollection = (props)  => (
+    <li className="box nested nested-shadow">
+        <div>
+            <NotificationBlock title={props.title} settings={props.content} isNested isArrayItem />
+            <button>Add new item</button>
+        </div>
+    </li>);
+
+
+const SettingsBlockCollectionItem = (props)  => (
+    <li className="box nested nested-shadow">
+        <div>
+            <NotificationBlock title={"Item #" + props.title} settings={props.content} isNested/>
+            <button>Remove item</button>
+        </div>
+    </li>);
+
+const SettingsBlock = (props)  => (
+    <li className="box nested nested-shadow">
+        <NotificationBlock settings={props.content} isNested isArray={props.isArray} title={props.title}/>
+    </li>);
+
+const SettingInput = (props)  => (
+    <li className="setting settings-item">
+        <div>
+            <span className="setting-input label">{props.label}</span>: {props.value}
+            {props.isOptional && <button>X</button>}
+        </div>
+    </li>);
+
 
 export default App;

@@ -80,7 +80,7 @@ body {background:#ccc}
   transform:skew(8deg) rotate(3deg);
 }
 
-ul .box, li .box {
+.box, .setting {
   list-style-type: none;
 }
 
@@ -108,3 +108,7 @@ ul .box, li .box {
   box-shadow:0 0 40px 13px #486685;
   border-radius:100px/20px;
 }*/
+
+.setting-input.label{
+  font-weight: bold;
+}
