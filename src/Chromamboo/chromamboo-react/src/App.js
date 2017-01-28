@@ -82,24 +82,35 @@ class ValueEditor extends Component {
             return <SettingsBlock title={this.props.title} content={this.props.content}/>;
         }
         return <SettingInput label={this.props.keyName} value={this.props.content} isOptional={isArrayItem} />;
-
     }
 }
 
-const SettingsBlockCollection = (props)  => (
-    <li className="box nested nested-shadow">
-        <div>
-            <NotificationBlock title={props.title} settings={props.content} isNested isArrayItem />
-            <button>Add new item</button>
-        </div>
-    </li>);
+
+class SettingsBlockCollection extends Component {
+    constructor() {
+        super();
+    }
+    AddItem(e){
+        alert(e);
+    }
+
+    render() {
+        return(
+            <li className="box nested nested-shadow">
+                <div>
+                    <NotificationBlock title={this.props.title} settings={this.props.content} isNested isArrayItem />
+                    <a className="new-settings-block-item" onClick={this.AddItem}>Add new item</a>
+                </div>
+            </li>)
+    }
+    }
 
 
 const SettingsBlockCollectionItem = (props)  => (
     <li className="box nested nested-shadow">
         <div>
             <NotificationBlock title={"Item #" + props.title} settings={props.content} isNested/>
-            <button>Remove item</button>
+            <a>Remove item</a>
         </div>
     </li>);
 
@@ -112,7 +123,7 @@ const SettingInput = (props)  => (
     <li className="setting settings-item">
         <div>
             <span className="setting-input label">{props.label}</span>: {props.value}
-            {props.isOptional && <button>X</button>}
+            {props.isOptional && <a>X</a>}
         </div>
     </li>);
 
