@@ -112,7 +112,10 @@ body {background:#ccc}
 }*/
 
 .setting-input.label{
-  font-weight: bold;
+    font-weight: bold;
+    display: inline-block;
+    width: 20%;
+    text-align: right;
 }
 
 .new-settings-block-item
