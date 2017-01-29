@@ -2,84 +2,84 @@
 body {background:#ccc}
 
 .App {
-  text-align: center;
+    text-align: center;
 }
 
 .App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
+    animation: App-logo-spin infinite 20s linear;
+    height: 80px;
 }
 
 .App-header {
-  background-color: #222;
-  height: 150px;
-  padding: 20px;
-  color: white;
+    background-color: #222;
+    height: 150px;
+    padding: 20px;
+    color: white;
 }
 
 .App-intro {
-  font-size: large;
+    font-size: large;
 }
 
 @keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
 }
 
 
 .box h3{
-  text-align:center;
-  position:relative;
-  top:80px;
+    text-align:center;
+    position:relative;
+    top:80px;
 }
 .box {
-  width:40%;
-  height:100%;
-  background:#FFF;
-  margin:40px auto;
+    width:40%;
+    height:100%;
+    background:#FFF;
+    margin:40px auto;
 }
 
 .nested{
-  background-color: rgba(6, 116, 85, 0.36);
-  width:90%;
-  margin-top: 20px;
+    background-color: rgba(6, 116, 85, 0.36);
+    width:90%;
+    margin-top: 20px;
 }
 
 .shadow
 {
-  position:relative;
-  -webkit-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
-  -moz-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
-  box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+    position:relative;
+    -webkit-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+    -moz-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+    box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
 }
 .shadow:before, .shadow:after
 {
-  content:"";
-  position:absolute;
-  z-index:-1;
-  -webkit-box-shadow:0 0 20px rgba(0,0,0,0.8);
-  -moz-box-shadow:0 0 20px rgba(0,0,0,0.8);
-  box-shadow:0 0 20px rgba(0,0,0,0.8);
-  top:10px;
-  bottom:10px;
-  left:0;
-  right:0;
-  -moz-border-radius:100px / 10px;
-  border-radius:100px / 10px;
+    content:"";
+    position:absolute;
+    z-index:-1;
+    -webkit-box-shadow:0 0 20px rgba(0,0,0,0.8);
+    -moz-box-shadow:0 0 20px rgba(0,0,0,0.8);
+    box-shadow:0 0 20px rgba(0,0,0,0.8);
+    top:10px;
+    bottom:10px;
+    left:0;
+    right:0;
+    -moz-border-radius:100px / 10px;
+    border-radius:100px / 10px;
 }
 .shadow:after
 {
-  right:10px;
-  left:auto;
-  -webkit-transform:skew(8deg) rotate(3deg);
-  -moz-transform:skew(8deg) rotate(3deg);
-  -ms-transform:skew(8deg) rotate(3deg);
-  -o-transform:skew(8deg) rotate(3deg);
-  transform:skew(8deg) rotate(3deg);
+    right:10px;
+    left:auto;
+    -webkit-transform:skew(8deg) rotate(3deg);
+    -moz-transform:skew(8deg) rotate(3deg);
+    -ms-transform:skew(8deg) rotate(3deg);
+    -o-transform:skew(8deg) rotate(3deg);
+    transform:skew(8deg) rotate(3deg);
 }
 
 .box, .setting {
-  list-style-type: none;
+    list-style-type: none;
 }
 
 .box .nested {
@@ -89,16 +89,16 @@ body {background:#ccc}
 /*--------- nested*/
 
 .nested-shadow {
-  box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 20px rgba(0, 0, 0, 0.1) inset;
+    box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 20px rgba(0, 0, 0, 0.1) inset;
 }
 /*****************************************************************dashed border
 ****************************************************************/
 .nested-shadow h3{
-  width:87%;
-  height:100px;
-  margin-left:6%;
-  border:2px dashed #F7EEEE;
-  border-radius:5px;
+    width:87%;
+    height:100px;
+    margin-left:6%;
+    border:2px dashed #F7EEEE;
+    border-radius:5px;
 }
 
 /*
@@ -117,33 +117,37 @@ body {background:#ccc}
     width: 20%;
     text-align: right;
 }
+.new-block-button-container
+{
+    -webkit-padding-start: 40px;
+}
 
 .new-settings-block-item
 {
     opacity: 0.5;
-  padding-top: 50px;
-  padding-bottom: 50px;
-  box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 20px rgba(0, 0, 0, 0.1) inset;
-  border:2px dashed rgba(247, 238, 238, 1);
+    padding-top: 50px;
+    padding-bottom: 50px;
+    box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 20px rgba(0, 0, 0, 0.1) inset;
+    border:2px dashed rgba(247, 238, 238, 1);
 }
 
 .title-header {
-  width: 100%;
-  height: 100%;
-  background-color: #252525;
-  background-size: cover;
-  clip-path: polygon(0% 70%, 100% 100%, 100% 0%, 0% 0%);
+    width: 100%;
+    height: 100%;
+    background-color: #252525;
+    background-size: cover;
+    clip-path: polygon(0% 70%, 100% 100%, 100% 0%, 0% 0%);
 }
 
-h4{
-  font-size: x-large;
-  padding:50px;
-  color:whitesmoke;
+.title-header > h4{
+    font-size: x-large;
+    padding:50px;
+    color:whitesmoke;
 }
 
-li.new-settings-block-item a{
-  font-size: 250%;
-  cursor: default;
+.new-settings-block-item a{
+    font-size: 250%;
+    cursor: default;
 }
 
 .block-title

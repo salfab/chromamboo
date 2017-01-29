@@ -35,10 +35,11 @@ class App extends Component {
         />
         </p>
         <div>
-
+<ul>
             {items.map((item, i) =>
                 <Wrapper key={item.displayName} headerText={item.displayName} settings={item} ribbonText={item.provider} jsonPath={"notifications["+i+"]"}/>
             )}
+    </ul>
         </div>
       </div>
     );
@@ -46,7 +47,7 @@ class App extends Component {
 }
 
 const Wrapper = (props)  => (
-        <div className="box shadow">
+        <li className="box shadow">
             <div className="title-header">
                 <h4>
                   {props.headerText}
@@ -54,7 +55,7 @@ const Wrapper = (props)  => (
                 <a className="github-fork-ribbon" title={props.ribbonText} />
             </div>
             <NotificationBlock settings={props.settings} title={props.headerText} skipTitle jsonPath={props.jsonPath} />
-        </div>);
+        </li>);
 
 class NotificationBlock extends Component {
     constructor() {
@@ -69,11 +70,9 @@ class NotificationBlock extends Component {
             <div>
                 {!this.props.skipTitle && <div className="block-title">{this.props.title}</div>}
                 <ul className="block-settings">
-
                         {Object.keys(settings).map(keyName => {
                             return <ValueEditor key={keyName} title={keyName} content={settings[keyName]} settings={settings} keyName={keyName} isArray={isArray} isArrayItem={isArrayItem} jsonPath={jsonPath} />
                         })}
-
                 </ul>
             </div>)
     }
@@ -92,7 +91,7 @@ class ValueEditor extends Component {
             if (isArray) return <SettingsBlockCollection title={this.props.title} content={this.props.content} jsonPath={this.props.jsonPath}/>
             return <SettingsBlock title={this.props.title} content={this.props.content} jsonPath={this.props.jsonPath} />
         }
-        let jsonPath = isArrayItem ? this.props.jsonPath + "[" + this.props.keyName +"]": this.props.jsonPath + "." + this.props.keyName
+        let jsonPath = isArrayItem ? this.props.jsonPath + "[" + this.props.keyName +"]": this.props.jsonPath + "." + this.props.keyName;
         return <SettingInput label={this.props.keyName} value={this.props.content} isOptional={isArrayItem} jsonPath={jsonPath}/>
     }
 }
@@ -114,13 +113,13 @@ class SettingsBlockCollection extends Component {
 
                 <NotificationBlock title={this.props.title} settings={this.props.content} isNested isArrayItem jsonPath={this.props.jsonPath + "." + this.props.title} />
 
-                <ul>
-                    <li className="box nested nested-shadow new-settings-block-item">
+                <div className="new-block-button-container">
+                    <div className="box nested nested-shadow new-settings-block-item">
                         <a onClick={this.AddItem.bind(this)}>
                             +
                         </a>
-                    </li>
-                </ul>
+                    </div>
+                </div>
 
             </ul>)
     }
