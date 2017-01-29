@@ -68,13 +68,13 @@ class NotificationBlock extends Component {
         return (
             <div>
                 {!this.props.skipTitle && <div className="block-title">{this.props.title}</div>}
-                <div className="block-settings">
-                    <ul>
+                <ul className="block-settings">
+
                         {Object.keys(settings).map(keyName => {
                             return <ValueEditor key={keyName} title={keyName} content={settings[keyName]} settings={settings} keyName={keyName} isArray={isArray} isArrayItem={isArrayItem} jsonPath={jsonPath} />
                         })}
-                    </ul>
-                </div>
+
+                </ul>
             </div>)
     }
 }
@@ -108,19 +108,21 @@ class SettingsBlockCollection extends Component {
 
     render() {
         return(
-            <div>
-            <li className="box nested nested-shadow">
-                    <div>
-                        <NotificationBlock title={this.props.title} settings={this.props.content} isNested isArrayItem jsonPath={this.props.jsonPath + "." + this.props.title} />
+            <ul className="box nested nested-shadow">
 
-                    </div>
-                </li>
-                <li className="box nested nested-shadow new-settings-block-item">
-                    <a onClick={this.AddItem.bind(this)}>
-                        +
-                    </a>
-                </li>
-            </div>)
+                SettingsBlockCollection: {this.props.title}
+
+                <NotificationBlock title={this.props.title} settings={this.props.content} isNested isArrayItem jsonPath={this.props.jsonPath + "." + this.props.title} />
+
+                <ul>
+                    <li className="box nested nested-shadow new-settings-block-item">
+                        <a onClick={this.AddItem.bind(this)}>
+                            +
+                        </a>
+                    </li>
+                </ul>
+
+            </ul>)
     }
     }
 
@@ -139,12 +141,11 @@ const SettingsBlock = (props)  => (
     </li>);
 
 const SettingInput = (props)  => (
-    <li className="setting settings-item">
-        <div>
+
+        <li className="setting settings-item">
             <span className="setting-input label">{props.label}</span>: <input className="enjoy-input" value={props.value} />
             {props.isOptional && <a>X</a>}
-        </div>
-    </li>);
+        </li>);
 
 
 export default App;
