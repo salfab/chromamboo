@@ -36,8 +36,8 @@ class App extends Component {
         </p>
         <div>
 
-            {items.map(item =>
-                <Wrapper key={item.displayName} headerText={item.displayName} settings={item} ribbonText={item.provider}/>
+            {items.map((item, i) =>
+                <Wrapper key={item.displayName} headerText={item.displayName} settings={item} ribbonText={item.provider} jsonPath={"notifications["+i+"]"}/>
             )}
         </div>
       </div>
@@ -53,7 +53,7 @@ const Wrapper = (props)  => (
                 </h4>
                 <a className="github-fork-ribbon" title={props.ribbonText} />
             </div>
-            <NotificationBlock settings={props.settings} title={props.headerText} skipTitle />
+            <NotificationBlock settings={props.settings} title={props.headerText} skipTitle jsonPath={props.jsonPath} />
         </div>);
 
 class NotificationBlock extends Component {
@@ -64,16 +64,14 @@ class NotificationBlock extends Component {
         let settings = this.props.settings;
         let isArray = this.props.isArray;
         let isArrayItem = this.props.isArrayItem;
+        let jsonPath = this.props.jsonPath;
         return (
             <div>
                 {!this.props.skipTitle && <div className="block-title">{this.props.title}</div>}
                 <div className="block-settings">
                     <ul>
-                        {Object.keys(settings).map(function(keyName, keyIndex) {
-                            console.log(keyName  + "  " + settings[keyName]);
-                            // use keyName to get current key's name
-                            // and a[keyName] or a.keyName to get its value
-                            return <ValueEditor key={keyName} title={keyName} content={settings[keyName]} settings={settings} keyName={keyName} isArray={isArray} isArrayItem={isArrayItem} />
+                        {Object.keys(settings).map(keyName => {
+                            return <ValueEditor key={keyName} title={keyName} content={settings[keyName]} settings={settings} keyName={keyName} isArray={isArray} isArrayItem={isArrayItem} jsonPath={jsonPath} />
                         })}
                     </ul>
                 </div>
@@ -90,11 +88,12 @@ class ValueEditor extends Component {
         let isArrayItem = this.props.isArrayItem;
         let isArray = content.constructor === Array
         if (typeof content == "object"){
-            if (isArrayItem) return <SettingsBlockCollectionItem title={this.props.title} content={this.props.content} />;
-            if (isArray) return <SettingsBlockCollection title={this.props.title} content={this.props.content}/>;
-            return <SettingsBlock title={this.props.title} content={this.props.content}/>;
+            if (isArrayItem) return <SettingsBlockCollectionItem title={this.props.title} content={this.props.content} jsonPath={this.props.jsonPath} />
+            if (isArray) return <SettingsBlockCollection title={this.props.title} content={this.props.content} jsonPath={this.props.jsonPath}/>
+            return <SettingsBlock title={this.props.title} content={this.props.content} jsonPath={this.props.jsonPath} />
         }
-        return <SettingInput label={this.props.keyName} value={this.props.content} isOptional={isArrayItem} />;
+        let jsonPath = isArrayItem ? this.props.jsonPath + "[" + this.props.keyName +"]": this.props.jsonPath + "." + this.props.keyName
+        return <SettingInput label={this.props.keyName} value={this.props.content} isOptional={isArrayItem} jsonPath={jsonPath}/>
     }
 }
 
@@ -104,7 +103,7 @@ class SettingsBlockCollection extends Component {
         super();
     }
     AddItem(e){
-        alert(e);
+        alert(this.props.jsonPath);
     }
 
     render() {
@@ -112,12 +111,12 @@ class SettingsBlockCollection extends Component {
             <div>
             <li className="box nested nested-shadow">
                     <div>
-                        <NotificationBlock title={this.props.title} settings={this.props.content} isNested isArrayItem />
+                        <NotificationBlock title={this.props.title} settings={this.props.content} isNested isArrayItem jsonPath={this.props.jsonPath + "." + this.props.title} />
 
                     </div>
                 </li>
                 <li className="box nested nested-shadow new-settings-block-item">
-                    <a onClick={this.AddItem}>
+                    <a onClick={this.AddItem.bind(this)}>
                         +
                     </a>
                 </li>
@@ -129,14 +128,14 @@ class SettingsBlockCollection extends Component {
 const SettingsBlockCollectionItem = (props)  => (
     <li className="box nested nested-shadow">
         <div>
-            <NotificationBlock title={"Item #" + props.title} settings={props.content} isNested/>
+            <NotificationBlock title={"Item #" + props.title} settings={props.content} isNested jsonPath={props.jsonPath + "[" + props.title+"]"}/>
             <a>Remove item</a>
         </div>
     </li>);
 
 const SettingsBlock = (props)  => (
     <li className="box nested nested-shadow">
-        <NotificationBlock settings={props.content} isNested isArray={props.isArray} title={props.title}/>
+        <NotificationBlock settings={props.content} isNested isArray={props.isArray} title={props.title} jsonPath={props.jsonPath + "." + props.title}/>
     </li>);
 
 const SettingInput = (props)  => (
