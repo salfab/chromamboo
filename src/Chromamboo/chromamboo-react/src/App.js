@@ -136,12 +136,24 @@ const SettingsBlock = (props)  => (
         <NotificationBlock settings={props.content} isNested isArray={props.isArray} title={props.title} jsonPath={props.jsonPath}/>
     </li>);
 
-const SettingInput = (props)  => (
+class SettingInput extends Component {
+    constructor() {
+        super();
+    }
 
-        <li className="setting settings-item">
-            <span className="setting-input label">{props.label}</span>: <input className="enjoy-input" value={props.value} />
-            {props.isOptional && <a>X</a>}
-        </li>);
+    valueChanged(e) {
+        console.log(e.target.value);
+    }
+
+    render() {
+        return (
+            <li className="setting settings-item">
+                <span className="setting-input label">{this.props.label}</span>: <input type="text" className="enjoy-input" defaultValue={this.props.value} onChange={this.valueChanged.bind(this)} />
+                {this.props.isOptional && <a>X</a>}
+            </li>)
+    }
+}
+
 
 
 export default App;
