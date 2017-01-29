@@ -87,9 +87,9 @@ class ValueEditor extends Component {
         let isArrayItem = this.props.isArrayItem;
         let isArray = content.constructor === Array
         if (typeof content == "object"){
-            if (isArrayItem) return <SettingsBlockCollectionItem title={this.props.title} content={this.props.content} jsonPath={this.props.jsonPath} />
-            if (isArray) return <SettingsBlockCollection title={this.props.title} content={this.props.content} jsonPath={this.props.jsonPath}/>
-            return <SettingsBlock title={this.props.title} content={this.props.content} jsonPath={this.props.jsonPath} />
+            if (isArrayItem) return <SettingsBlockCollectionItem title={this.props.title} content={this.props.content} jsonPath={this.props.jsonPath + "[" + this.props.title+"]"} />
+            if (isArray) return <SettingsBlockCollection title={this.props.title} content={this.props.content} jsonPath={this.props.jsonPath + "." + this.props.title}/>
+            return <SettingsBlock title={this.props.title} content={this.props.content} jsonPath={this.props.jsonPath + "." + this.props.title} />
         }
         let jsonPath = isArrayItem ? this.props.jsonPath + "[" + this.props.keyName +"]": this.props.jsonPath + "." + this.props.keyName;
         return <SettingInput label={this.props.keyName} value={this.props.content} isOptional={isArrayItem} jsonPath={jsonPath}/>
@@ -108,14 +108,11 @@ class SettingsBlockCollection extends Component {
     render() {
         return(
             <ul className="box nested nested-shadow">
-
-                SettingsBlockCollection: {this.props.title}
-
-                <NotificationBlock title={this.props.title} settings={this.props.content} isNested isArrayItem jsonPath={this.props.jsonPath + "." + this.props.title} />
+                <NotificationBlock title={this.props.title} settings={this.props.content} isNested isArrayItem jsonPath={this.props.jsonPath} />
 
                 <div className="new-block-button-container">
-                    <div className="box nested nested-shadow new-settings-block-item">
-                        <a onClick={this.AddItem.bind(this)}>
+                    <div className="box nested nested-shadow new-settings-block-item" onClick={this.AddItem.bind(this)}>
+                        <a>
                             +
                         </a>
                     </div>
@@ -129,14 +126,14 @@ class SettingsBlockCollection extends Component {
 const SettingsBlockCollectionItem = (props)  => (
     <li className="box nested nested-shadow">
         <div>
-            <NotificationBlock title={"Item #" + props.title} settings={props.content} isNested jsonPath={props.jsonPath + "[" + props.title+"]"}/>
+            <NotificationBlock title={"Item #" + props.title} settings={props.content} isNested jsonPath={props.jsonPath}/>
             <a>Remove item</a>
         </div>
     </li>);
 
 const SettingsBlock = (props)  => (
     <li className="box nested nested-shadow">
-        <NotificationBlock settings={props.content} isNested isArray={props.isArray} title={props.title} jsonPath={props.jsonPath + "." + props.title}/>
+        <NotificationBlock settings={props.content} isNested isArray={props.isArray} title={props.title} jsonPath={props.jsonPath}/>
     </li>);
 
 const SettingInput = (props)  => (
