@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import 'font-awesome/css/font-awesome.css'
+import 'github-fork-ribbon-css/gh-fork-ribbon.ie.css'
+import 'github-fork-ribbon-css/gh-fork-ribbon.css'
 
 var FontAwesome = require('react-fontawesome');
 
@@ -21,18 +24,11 @@ class App extends Component {
     // TODO: replace this by a local version of the .css. see https://github.com/simonwhitaker/github-fork-ribbon-css
     return (
       <div className="App">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-fork-ribbon-css/0.2.0/gh-fork-ribbon.min.css" />
         <div className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
           <h2>Chromamboo configuration</h2>
         </div>
         <p className="App-intro">
-           <FontAwesome
-            name='plus'
-            size='2x'
-            spin
-            style={{ textShadow: '0 1px 0 rgba(0, 0, 0, 0.1)' }}
-        />
         </p>
         <div>
 <ul>
@@ -113,7 +109,7 @@ class SettingsBlockCollection extends Component {
                 <div className="new-block-button-container">
                     <div className="box nested nested-shadow new-settings-block-item" onClick={this.AddItem.bind(this)}>
                         <a>
-                            +
+                        <FontAwesome name='plus'/>
                         </a>
                     </div>
                 </div>
@@ -149,7 +145,7 @@ class SettingInput extends Component {
         return (
             <li className="setting settings-item">
                 <span className="setting-input label">{this.props.label}</span>: <input type="text" className="enjoy-input" defaultValue={this.props.value} onChange={this.valueChanged.bind(this)} />
-                {this.props.isOptional && <a>X</a>}
+                {this.props.isOptional && <a><FontAwesome name='times'/></a>}
             </li>)
     }
 }
