@@ -1,25 +1,42 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
-import 'font-awesome/css/font-awesome.css'
-import 'github-fork-ribbon-css/gh-fork-ribbon.ie.css'
-import 'github-fork-ribbon-css/gh-fork-ribbon.css'
+import 'font-awesome/css/font-awesome.css';
+import 'github-fork-ribbon-css/gh-fork-ribbon.ie.css';
+import 'github-fork-ribbon-css/gh-fork-ribbon.css';
+import { Inject, InjectDirect } from 'react-injector';
+
 
 var FontAwesome = require('react-fontawesome');
 
+class ConfigFileManagementService {
+    constructor() {
+        this.notifications = [];
+    }
+
+    loadNotifications(){
+        fetch ('http://localhost:5000/config')
+            .then( response => response.json())
+            .then( ({notifications: notifications})=> this.notifications = notifications);
+    }
+
+    updateSettingValue(jsonPath, value) {
+        alert(jsonPath + " "+ value)
+    }
+}
+
 class App extends Component {
 
-  constructor() {
+  constructor(configFileManagementService) {
       super();
+      this.configFileManagementService = configFileManagementService.ConfigFileManagementService;
       this.state = {notifications: []}
   }
   componentWillMount(){
-      fetch ('http://localhost:5000/config')
-      .then( response => response.json())
-      .then( ({notifications: notifications})=> this.setState({notifications}) )
+      this.configFileManagementService.loadNotifications();
   }
   render(){
-    let items = this.state.notifications;
+    let items = this.configFileManagementService.notifications;
     console.log(items);
     // TODO: replace this by a local version of the .css. see https://github.com/simonwhitaker/github-fork-ribbon-css
     return (
@@ -41,6 +58,7 @@ class App extends Component {
     );
   }
 }
+InjectDirect(App, [ ConfigFileManagementService ]);
 
 const Wrapper = (props)  => (
         <li className="box shadow">
@@ -133,12 +151,14 @@ const SettingsBlock = (props)  => (
     </li>);
 
 class SettingInput extends Component {
-    constructor() {
+    constructor(configFileManagementService) {
         super();
+        this.configFileManagementService = configFileManagementService.ConfigFileManagementService;
     }
 
     valueChanged(e) {
         console.log(e.target.value);
+        this.configFileManagementService.updateSettingValue(this.props.jsonPath, e.target.value)
     }
 
     render() {
@@ -149,7 +169,7 @@ class SettingInput extends Component {
             </li>)
     }
 }
-
+InjectDirect(SettingInput, [ ConfigFileManagementService ]);
 
 
 export default App;

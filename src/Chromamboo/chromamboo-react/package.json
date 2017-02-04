@@ -11,7 +11,8 @@
     "github-fork-ribbon-css": "^0.2.1",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
-    "react-fontawesome": "^1.5.0"
+    "react-fontawesome": "^1.5.0",
+    "react-injector": "^0.2.1"
   },
   "scripts": {
     "start": "react-scripts start",
