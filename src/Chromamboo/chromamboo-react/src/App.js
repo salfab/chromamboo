@@ -32,9 +32,9 @@ class ConfigFileManagementService {
 
 class App extends Component {
 
-  constructor(configFileManagementService) {
-      super();
-      this.configFileManagementService = configFileManagementService.ConfigFileManagementService;
+  constructor(props) {
+      super(props);
+      this.configFileManagementService = this.props.ConfigFileManagementService;
   }
   async componentWillMount(){
       this.configFileManagementService.loadNotifications()
