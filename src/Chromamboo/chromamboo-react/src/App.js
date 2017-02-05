@@ -11,13 +11,18 @@ var FontAwesome = require('react-fontawesome');
 
 class ConfigFileManagementService {
     constructor() {
-        this.notifications = [];
     }
 
-    loadNotifications(){
-        fetch ('http://localhost:5000/config')
+    async loadNotifications(){
+        var that = this;
+        this.isLoading = true;
+
+        return await fetch ('http://localhost:5000/config')
             .then( response => response.json())
-            .then( ({notifications: notifications})=> this.notifications = notifications);
+            .then( ({notifications: notifications})=> {
+                that.notifications = notifications;
+                that.isLoading = false;
+            });
     }
 
     updateSettingValue(jsonPath, value) {
@@ -30,14 +35,18 @@ class App extends Component {
   constructor(configFileManagementService) {
       super();
       this.configFileManagementService = configFileManagementService.ConfigFileManagementService;
-      this.state = {notifications: []}
   }
-  componentWillMount(){
-      this.configFileManagementService.loadNotifications();
+  async componentWillMount(){
+      this.configFileManagementService.loadNotifications()
+      .then( x => this.forceUpdate());
   }
+
   render(){
     let items = this.configFileManagementService.notifications;
-    console.log(items);
+    if(this.configFileManagementService.isLoading) {
+      return <LoadingScreen />;
+    }
+
     // TODO: replace this by a local version of the .css. see https://github.com/simonwhitaker/github-fork-ribbon-css
     return (
       <div className="App">
@@ -99,7 +108,7 @@ class ValueEditor extends Component {
     render() {
         let content = this.props.content;
         let isArrayItem = this.props.isArrayItem;
-        let isArray = content.constructor === Array
+        let isArray = content.constructor === Array;
         if (typeof content == "object"){
             if (isArrayItem) return <SettingsBlockCollectionItem title={this.props.title} content={this.props.content} jsonPath={this.props.jsonPath + "[" + this.props.title+"]"} />
             if (isArray) return <SettingsBlockCollection title={this.props.title} content={this.props.content} jsonPath={this.props.jsonPath + "." + this.props.title}/>
@@ -134,7 +143,7 @@ class SettingsBlockCollection extends Component {
 
             </ul>)
     }
-    }
+}
 
 
 const SettingsBlockCollectionItem = (props)  => (
@@ -169,6 +178,11 @@ class SettingInput extends Component {
             </li>)
     }
 }
+const LoadingScreen = (props)  => (
+    <div>
+        <span>Loading</span>
+    </div>);
+
 InjectDirect(SettingInput, [ ConfigFileManagementService ]);
 
 
