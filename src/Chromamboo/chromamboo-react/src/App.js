@@ -178,11 +178,12 @@ class SettingInput extends Component {
             </li>)
     }
 }
+
 InjectDirect(SettingInput, [ ConfigFileManagementService ]);
 const LoadingScreen = (props)  => (
     <div>
         <span>Loading</span>
-        <span>Injected ConfigFileManagementService: '{props.ConfigFileManagementService.toString()}'</span>
+        <span>Injected ConfigFileManagementService: '{/*props.ConfigFileManagementService.toString()*/}'</span>
     </div>);
 
 InjectDirect(LoadingScreen, [ ConfigFileManagementService ]);
