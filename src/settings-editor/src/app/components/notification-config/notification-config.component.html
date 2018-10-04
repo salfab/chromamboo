@@ -4,4 +4,6 @@
 </div>
 <!-- <notification-provider></notification-provider>-->
 <notification-trigger [trigger]="notification.trigger"></notification-trigger>
-<!-- <notification-presentation></notification-presentation>  -->
+<div id="presentations-container">
+    <presentation-selector *ngFor="let presentationProvider of notification.presentation" [presentationProvider]="presentationProvider"></presentation-selector>
+</div>

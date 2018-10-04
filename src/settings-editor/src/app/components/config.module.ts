@@ -1,3 +1,6 @@
+import { BlyncPresentationProviderComponent } from './blync-presentation-provider/blync-presentation-provider.component';
+import { RazerPresentationProviderComponent } from './razer-presentation-provider/razer-presentation-provider.component';
+import { PresentationSelectorComponent } from './presentation-selector/presentation-selector.component';
 import { PushTriggerConfigComponent } from './push-trigger-config/push-trigger-config.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { NotificationConfigComponent } from './notification-config/notification-config.component';
@@ -10,7 +13,10 @@ import { PollingTriggerConfigComponent } from './polling-trigger-config/polling-
     NotificationConfigComponent,
     NotificationTriggerComponent,
     PollingTriggerConfigComponent,
-    PushTriggerConfigComponent],
+    PushTriggerConfigComponent,
+    PresentationSelectorComponent,
+    RazerPresentationProviderComponent,
+    BlyncPresentationProviderComponent],
   imports: [BrowserModule],
   exports: [NotificationConfigComponent]
 
