@@ -1,7 +1,9 @@
 <div class="trigger">
-
     <label>{{trigger.provider}}</label>    
     <div *ngIf="trigger.provider == 'polling-trigger'">
         <polling-trigger-config [trigger]="trigger"></polling-trigger-config>
+    </div>
+    <div *ngIf="trigger.provider == 'push-trigger'">
+        <push-trigger-config [trigger]="trigger"></push-trigger-config>
     </div>
 </div>

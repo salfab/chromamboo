@@ -2,6 +2,6 @@
     <label>Display name:</label>            
     <input type="text" value="{{notification.displayName}}" />
 </div>
-<!-- <notification-provider></notification-provider>
-<notification-trigger></notification-trigger>
-<notification-presentation></notification-presentation> -->
+<!-- <notification-provider></notification-provider>-->
+<notification-trigger [trigger]="notification.trigger"></notification-trigger>
+<!-- <notification-presentation></notification-presentation>  -->
