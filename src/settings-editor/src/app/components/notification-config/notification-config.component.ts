@@ -10,6 +10,7 @@ import { Component, OnInit, Input } from '@angular/core';
 export class NotificationConfigComponent implements OnInit {
   constructor() {
   }
+  @Input() notification: any = null;
 
   ngOnInit() {
 
