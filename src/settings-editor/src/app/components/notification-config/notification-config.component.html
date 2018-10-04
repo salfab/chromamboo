@@ -1,8 +1,8 @@
 <div>
-    <label>Display name:</label>            
+    <label>Display name:</label>
     <input type="text" value="{{notification.displayName}}" />
 </div>
-<!-- <notification-provider></notification-provider>-->
+<notification-provider-selector [notificationProvider]="notification"></notification-provider-selector>
 <notification-trigger [trigger]="notification.trigger"></notification-trigger>
 <div id="presentations-container">
     <presentation-selector *ngFor="let presentationProvider of notification.presentation" [presentationProvider]="presentationProvider"></presentation-selector>
