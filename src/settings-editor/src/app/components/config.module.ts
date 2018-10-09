@@ -24,7 +24,7 @@ import { PullRequestProviderComponent } from './pull-request-provider/pull-reque
     BlyncPresentationProviderComponent,
     NotificationProviderSelectorComponent,
     GitNotificationProviderComponent,
-    PullRequestProviderComponent
+    PullRequestProviderComponent,
     AtlassianCiNotificationProviderComponent],
   imports: [BrowserModule],
   exports: [NotificationConfigComponent]

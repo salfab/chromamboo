@@ -1,5 +1,5 @@
-<div>
-    <label>{{notificationProvider.provider}}</label>
+<div class="notification-provider-settings-container">
+    <label class="notification-section-title">{{notificationProvider.provider}}</label>
     <atlassian-ci-notification-provider *ngIf="notificationProvider.provider == 'atlassian-ci'"></atlassian-ci-notification-provider>
     <git-notification-provider *ngIf="notificationProvider.provider == 'git'"></git-notification-provider>
     <pull-request-provider *ngIf="notificationProvider.provider == 'pull-request'"></pull-request-provider>
