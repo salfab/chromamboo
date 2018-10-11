@@ -1,3 +1,4 @@
+import { ChromambooSettingsComponent } from './chromamboo-settings/chromamboo-settings.component';
 // tslint:disable-next-line:max-line-length
 import { AtlassianCiNotificationProviderComponent } from './atlassian-ci-notification-provider/atlassian-ci-notification-provider.component';
 import { BlyncPresentationProviderComponent } from './blync-presentation-provider/blync-presentation-provider.component';
@@ -15,6 +16,7 @@ import { PullRequestProviderComponent } from './pull-request-provider/pull-reque
 
 @NgModule({
   declarations: [
+    ChromambooSettingsComponent,
     NotificationConfigComponent,
     NotificationTriggerComponent,
     PollingTriggerConfigComponent,
@@ -27,7 +29,7 @@ import { PullRequestProviderComponent } from './pull-request-provider/pull-reque
     PullRequestProviderComponent,
     AtlassianCiNotificationProviderComponent],
   imports: [BrowserModule],
-  exports: [NotificationConfigComponent]
+  exports: [ChromambooSettingsComponent]
 
 })
 export class ConfigModule { }
