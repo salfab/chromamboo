@@ -13,6 +13,7 @@ import { PollingTriggerConfigComponent } from './polling-trigger-config/polling-
 import { NotificationProviderSelectorComponent } from './notification-provider-selector/notification-provider-selector.component';
 import { GitNotificationProviderComponent } from './git-notification-provider/git-notification-provider.component';
 import { PullRequestProviderComponent } from './pull-request-provider/pull-request-provider.component';
+import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,7 @@ import { PullRequestProviderComponent } from './pull-request-provider/pull-reque
     GitNotificationProviderComponent,
     PullRequestProviderComponent,
     AtlassianCiNotificationProviderComponent],
-  imports: [BrowserModule],
+  imports: [BrowserModule, FormsModule, ReactiveFormsModule],
   exports: [ChromambooSettingsComponent]
 
 })

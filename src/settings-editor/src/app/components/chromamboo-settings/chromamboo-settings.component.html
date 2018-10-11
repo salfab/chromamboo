@@ -1,5 +1,12 @@
-<form>
-    <div *ngFor="let notification of config.notifications">
-      <notification-config [notification]="notification"></notification-config>
-    </div>
+<form (ngSubmit)="save()" [formGroup]="rootFormGroup">
+   
+        <div formArrayName="notifications">
+            <div formGroupName="0">
+
+            </div>
+            <label>plop</label>
+        <!-- <notification-config [notification]="notification"></notification-config> -->
+        </div>
+
+    <button type="submit">save</button>
 </form>
