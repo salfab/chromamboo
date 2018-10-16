@@ -5,7 +5,7 @@
     </div>
     <!-- <notification-provider-selector [notificationProvider]="notification"></notification-provider-selector> -->
     <!-- <notification-trigger [trigger]="notification.trigger"></notification-trigger> -->
-    <div id="presentations-container">
-        <!-- <presentation-selector *ngFor="let presentationProvider of notification.presentation" [presentationProvider]="presentationProvider"></presentation-selector> -->
+    <div id="presentations-container">    
+        <presentation-selector *ngFor="let presentationProvider of notification.presentation; let i = index" [presentation]="notification.presentation[i]" [item]="item"></presentation-selector> 
     </div>
 </div>

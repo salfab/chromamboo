@@ -1,4 +1,2 @@
-<!-- Todo: rename presentationProvider.provider to presentationProvider.name -->
-<label>{{presentationProvider.provider}}</label>
-<razer-presentation-provider *ngIf="presentationProvider.provider == 'razer-chroma'" [presentationProvider]="presentationProvider"></razer-presentation-provider>
-<blync-presentation-provider *ngIf="presentationProvider.provider == 'blync'" [presentationProvider]="presentationProvider"></blync-presentation-provider> 
+<razer-presentation-provider *ngIf="presentation.provider == 'razer-chroma'" [item]="item" [presentation]="presentation"></razer-presentation-provider> 
+<blync-presentation-provider *ngIf="presentation.provider == 'blync'" [item]="item" [presentation]="presentation"></blync-presentation-provider> 

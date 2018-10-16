@@ -1,10 +1,11 @@
-<div>
+<div [formGroup]="item">
+    <label>{{presentation.provider}}</label>
     <div>
         <label>selectedBlyncDevice</label>
-        <input type="number">
+        <input type="number" [formControlName]="selectedBlyncDevice">
     </div>
     <div>
         <label>numberOfExecutions</label>
-        <input type="number">
+        <input type="number" [formControlName]="numberOfExecutions">
     </div>
 </div>

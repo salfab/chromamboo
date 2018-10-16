@@ -11,7 +11,8 @@ export class RazerPresentationProviderComponent implements OnInit {
   constructor() {
 
   }
-  @Input() presentationProvider: any = null;
+  @Input() presentation: any = null;
+  @Input() item: FormGroup = null;
   ngOnInit() {
 
   }

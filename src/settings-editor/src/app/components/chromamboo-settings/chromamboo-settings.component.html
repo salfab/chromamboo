@@ -1,5 +1,4 @@
 <form (ngSubmit)="save()" [formGroup]="rootFormGroup">
-    <input formControlName="test" />
     <div formArrayName="notifications" *ngFor="let notification of notifications.controls; let i = index">
         <div [formGroupName]="i">
             <notification-config [item]="notification" [notification]="config.notifications[i]"></notification-config> 

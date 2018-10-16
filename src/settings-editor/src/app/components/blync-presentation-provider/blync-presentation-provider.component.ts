@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { FormGroup, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'blync-presentation-provider',
@@ -11,8 +12,9 @@ export class BlyncPresentationProviderComponent implements OnInit {
   constructor() {
 
   }
-  @Input() presentationProvider: any = null;
+  @Input() item: FormGroup = null;
+  @Input() presentation: any = null;
   ngOnInit() {
-
+    this.item.addControl('selectedBlyncDevice', new FormControl(this.presentation.selectedBlyncDevice));
   }
 }

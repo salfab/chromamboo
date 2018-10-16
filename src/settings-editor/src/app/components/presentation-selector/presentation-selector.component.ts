@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'presentation-selector',
@@ -12,7 +13,8 @@ export class PresentationSelectorComponent implements OnInit {
 
   }
 
-  @Input() presentationProvider: any = null;
+  @Input() presentation: any = null;
+  @Input() item: FormGroup = null;
 
   ngOnInit() {
 
