@@ -1,10 +1,10 @@
 <form (ngSubmit)="save()" [formGroup]="rootFormGroup">
-   
-        <div formArrayName="notifications" *ngFor="let notification of config.notifications; let i = index">
-            <div formGroupName="i">
-                <notification-config [notification]="notification"></notification-config> 
-            </div>         
-        </div>
+    <input formControlName="test" />
+    <div formArrayName="notifications" *ngFor="let notification of notifications.controls; let i = index">
+        <div [formGroupName]="i">
+            <notification-config [item]="notification" [notification]="config.notifications[i]"></notification-config> 
+        </div>                 
+    </div>
 
     <button type="submit">save</button>
 </form>

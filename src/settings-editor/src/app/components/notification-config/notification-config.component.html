@@ -1,11 +1,11 @@
-<div id="notification-config-container">
+<div id="notification-config-container" [formGroup]="item"> 
     <div>
         <label>Display name:</label>
-        <input type="text" value="{{notification.displayName}}" />
+        <input formControlName="displayName" />
     </div>
-    <notification-provider-selector [notificationProvider]="notification"></notification-provider-selector>
-    <notification-trigger [trigger]="notification.trigger"></notification-trigger>
+    <!-- <notification-provider-selector [notificationProvider]="notification"></notification-provider-selector> -->
+    <!-- <notification-trigger [trigger]="notification.trigger"></notification-trigger> -->
     <div id="presentations-container">
-        <presentation-selector *ngFor="let presentationProvider of notification.presentation" [presentationProvider]="presentationProvider"></presentation-selector>
+        <!-- <presentation-selector *ngFor="let presentationProvider of notification.presentation" [presentationProvider]="presentationProvider"></presentation-selector> -->
     </div>
 </div>

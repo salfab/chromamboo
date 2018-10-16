@@ -11,10 +11,8 @@ export class ChromambooSettingsComponent implements OnInit {
   rootFormGroup: FormGroup;
 
   constructor(private fb: FormBuilder) {
-
   }
   @Input() config: any = null;
-
 
 public get notifications(): FormArray {
   return <FormArray>this.rootFormGroup.get('notifications');
@@ -23,7 +21,17 @@ public get notifications(): FormArray {
 
   ngOnInit() {
     this.rootFormGroup = this.fb.group({
-      notifications: this.fb.array(this.config.notifications)
+      notifications: this.fb.array(this.buildNotifications(this.config.notifications)])
     });
+  }
+  buildNotifications(notifications: any[]): FormGroup[] {
+    const groups: FormGroup[] = [];
+    for (const notification of notifications) {
+      const group = this.fb.group({
+      });
+      groups.push(group);
+    }
+
+    return groups;
   }
 }

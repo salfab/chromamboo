@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { FormGroup, FormControl, FormBuilder, FormArray } from '@angular/forms';
 
 @Component({
   selector: 'notification-config',
@@ -8,11 +9,12 @@ import { Component, OnInit, Input } from '@angular/core';
 
 
 export class NotificationConfigComponent implements OnInit {
-  constructor() {
+  constructor(private fb: FormBuilder) {
   }
   @Input() notification: any = null;
 
+  @Input() item: FormGroup = null;
   ngOnInit() {
-
+    this.item.addControl('displayName', new FormControl(this.notification.displayName));
   }
 }
