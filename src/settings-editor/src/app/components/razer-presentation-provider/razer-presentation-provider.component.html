@@ -1,8 +1,8 @@
-<div>
+<div [formGroup]="item">
     <label>{{presentation.provider}}</label>
     
     <div>
         <label>keys</label>
-        <input type="text" aria-multiline="true">
+        <input type="text" formControlName="keys" aria-multiline="true">
     </div>
 </div>

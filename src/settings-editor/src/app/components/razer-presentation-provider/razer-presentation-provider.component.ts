@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { FormGroup, FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'razer-presentation-provider',
@@ -8,12 +9,12 @@ import { Component, OnInit, Input } from '@angular/core';
 
 export class RazerPresentationProviderComponent implements OnInit {
 
-  constructor() {
+  constructor(private fb: FormBuilder) {
 
   }
   @Input() presentation: any = null;
   @Input() item: FormGroup = null;
   ngOnInit() {
-
+    this.item.addControl('keys', this.fb.control(this.presentation.keys));
   }
 }

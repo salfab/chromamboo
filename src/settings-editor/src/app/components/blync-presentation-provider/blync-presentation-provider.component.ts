@@ -16,5 +16,6 @@ export class BlyncPresentationProviderComponent implements OnInit {
   @Input() presentation: any = null;
   ngOnInit() {
     this.item.addControl('selectedBlyncDevice', new FormControl(this.presentation.selectedBlyncDevice));
+    this.item.addControl('numberOfExecutions', new FormControl(this.presentation.numberOfExecutions));
   }
 }
