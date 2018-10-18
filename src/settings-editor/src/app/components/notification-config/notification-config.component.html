@@ -4,8 +4,8 @@
         <input formControlName="displayName" />
     </div>
     <!-- <notification-provider-selector [notificationProvider]="notification"></notification-provider-selector> -->
-    <!-- <notification-trigger [trigger]="notification.trigger"></notification-trigger> -->
+    <notification-trigger [trigger]="notification.trigger" [item]="item" ></notification-trigger> 
     <div id="presentations-container">    
-        <presentation-selector *ngFor="let presentation of notification.presentation; let i = index" [presentation]="presentation" [item]="item.get('presentation').controls[i]"></presentation-selector> 
+        <presentation-selector *ngFor="let presentation of notification.presentation; let i = index" [presentation]="presentation" [item]="item.get('presentation').controls[i]" [notification]="notification" ></presentation-selector> 
     </div>
 </div>

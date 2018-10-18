@@ -13,6 +13,7 @@ export class PresentationSelectorComponent implements OnInit {
 
   }
 
+  @Input() notification: any = null;
   @Input() presentation: any = null;
   @Input() item: FormGroup = null;
 

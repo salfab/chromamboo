@@ -16,6 +16,16 @@ export class NotificationConfigComponent implements OnInit {
   @Input() item: FormGroup = null;
   ngOnInit() {
     this.item.addControl('displayName', new FormControl(this.notification.displayName));
+
+    // trigger
+    // Presentation
+    const triggerFormGroups: FormGroup[] = [];
+    for (const trigger of this.notification.trigger) {
+      triggerFormGroups.push(this.fb.group([]));
+    }
+    this.item.addControl('trigger', this.fb.array(triggerFormGroups));
+
+    // Presentation
     const presentationFormGroups: FormGroup[] = [];
     for (const presentationGroup of this.notification.presentation) {
       presentationFormGroups.push(this.fb.group([]));

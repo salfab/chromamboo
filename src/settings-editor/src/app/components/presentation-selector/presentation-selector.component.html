@@ -1,2 +1,3 @@
-<razer-presentation-provider *ngIf="presentation.provider == 'razer-chroma'" [item]="item" [presentation]="presentation"></razer-presentation-provider> 
+<razer-presentation-keys-provider *ngIf="presentation.provider == 'razer-chroma' && (notification.provider == 'atlassian-ci' || notification.provider == 'pull-request')" [item]="item" [presentation]="presentation"></razer-presentation-keys-provider> 
+<razer-presentation-git-provider *ngIf="presentation.provider == 'razer-chroma' && (notification.provider == 'git')" [item]="item" [presentation]="presentation"></razer-presentation-git-provider> 
 <blync-presentation-provider *ngIf="presentation.provider == 'blync'" [item]="item" [presentation]="presentation"></blync-presentation-provider> 

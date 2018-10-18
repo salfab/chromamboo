@@ -21,7 +21,7 @@ public get notifications(): FormArray {
 
   ngOnInit() {
     this.rootFormGroup = this.fb.group({
-      notifications: this.fb.array(this.buildNotifications(this.config.notifications)])
+      notifications: this.fb.array(this.buildNotifications(this.config.notifications))
     });
   }
   buildNotifications(notifications: any[]): FormGroup[] {

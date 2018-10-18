@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'notification-trigger',
@@ -11,6 +12,8 @@ export class NotificationTriggerComponent implements OnInit {
   constructor() {
 
   }
+
+  @Input() item: FormGroup = null;
   @Input() trigger: any = null;
 
   ngOnInit() {

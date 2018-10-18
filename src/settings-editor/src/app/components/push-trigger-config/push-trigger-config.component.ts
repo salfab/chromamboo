@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'push-trigger-config',
@@ -12,6 +13,7 @@ export class PushTriggerConfigComponent implements OnInit {
 
   }
 
+  @Input() item: FormGroup = null;
   @Input() trigger: any = null;
   ngOnInit() {
 

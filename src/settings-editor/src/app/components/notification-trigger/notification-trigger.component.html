@@ -1,9 +1,7 @@
-<div class="trigger">
+<div class="trigger" [formGroup]="item">
     <label class="notification-section-title">{{trigger.provider}}</label>    
-    <div *ngIf="trigger.provider == 'polling-trigger'">
-        <polling-trigger-config [trigger]="trigger"></polling-trigger-config>
-    </div>
-    <div *ngIf="trigger.provider == 'push-trigger'">
-        <push-trigger-config [trigger]="trigger"></push-trigger-config>
+    <div>
+        <polling-trigger-config *ngIf="trigger.provider == 'polling-trigger'" [trigger]="trigger" [item]="item"></polling-trigger-config>
+        <push-trigger-config  *ngIf="trigger.provider == 'push-trigger'"[trigger]="trigger" [item]="item"></push-trigger-config> 
     </div>
 </div>

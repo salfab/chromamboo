@@ -1,5 +1,5 @@
 import { NO_ERRORS_SCHEMA } from "@angular/core";
-import { RazerPresentationProviderComponent } from "./razer-presentation-provider.component";
+import { RazerPresentationProviderComponent } from "./razer-presentation-keys-provider.component";
 import { ComponentFixture, TestBed } from "@angular/core/testing";
 
 describe("RazerPresentationProviderComponent", () => {
