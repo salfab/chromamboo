@@ -1,32 +1,32 @@
-<div>    
+<div [formGroup]="item">    
     <div> 
         <label>username</label>
-        <input type="text" /> 
+        <input type="text" formControlName="username"/> 
     </div>
 
-    <div class="bitbucket-settings settings-block"> 
+    <div class="bitbucket-settings settings-block" [formGroup]="item.get('bitbucketSettings')"> 
         <div class="settings-block-title">
             <label>bitbucket settings</label>            
         </div>
         <div>
             <label>api base url</label>
-            <input type="url" /> 
+            <input type="url" formControlName="apiBaseUrl"/> 
         </div>
         <div>
             <label>user name</label>
-            <input type="text" /> 
+            <input type="text" formControlName="username"/> 
         </div>
         <div>
             <label>password</label>
-            <input type="password" /> 
+            <input type="password" formControlName="password"/> 
         </div>
         <div>
             <label>project key</label>
-            <input type="text" /> 
+            <input type="text" formControlName="projectKey"/> 
         </div>
         <div>
             <label>repository slug</label>
-            <input type="text" /> 
+            <input type="text" formControlName="repoSlug"/> 
         </div>
     </div>
 </div>

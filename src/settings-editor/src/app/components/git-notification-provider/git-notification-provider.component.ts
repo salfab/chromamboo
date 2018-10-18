@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'git-notification-provider',
@@ -8,11 +9,14 @@ import { Component, OnInit } from '@angular/core';
 
 export class GitNotificationProviderComponent implements OnInit {
 
-  constructor() {
+  constructor(private fb: FormBuilder) {
 
   }
 
-  ngOnInit() {
+  @Input() notification: any = null;
+  @Input() item: FormGroup = null;
 
+  ngOnInit() {
+    this.item.addControl('repositoryPath', this.fb.control(this.notification.repositoryPath));
   }
 }

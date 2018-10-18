@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'notification-provider-selector',
@@ -11,7 +12,8 @@ export class NotificationProviderSelectorComponent implements OnInit {
   constructor() {
 
   }
-  @Input() notificationProvider: any = null;
+  @Input() notification: any = null;
+  @Input() item: FormGroup = null;
   ngOnInit() {
 
   }

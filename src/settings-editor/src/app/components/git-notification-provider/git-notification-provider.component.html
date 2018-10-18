@@ -1,7 +1,7 @@
-<div class="settings-block">
+<div class="settings-block" [formGroup]="item">
     <div class="settings-block-title">
         <label>git repository settings</label>            
     </div>
     <label>repository path</label>
-    <input type="text" />
+    <input type="text" formControlName="repositoryPath"/>
 </div>

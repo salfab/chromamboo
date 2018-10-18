@@ -1,6 +1,6 @@
-<div class="notification-provider-settings-container">
-    <label class="notification-section-title">{{notificationProvider.provider}}</label>
-    <atlassian-ci-notification-provider *ngIf="notificationProvider.provider == 'atlassian-ci'"></atlassian-ci-notification-provider>
-    <git-notification-provider *ngIf="notificationProvider.provider == 'git'"></git-notification-provider>
-    <pull-request-provider *ngIf="notificationProvider.provider == 'pull-request'"></pull-request-provider>
+<div class="notification-provider-settings-container" [formGroup]="item">
+    <label class="notification-section-title">{{notification.provider}}</label>
+    <atlassian-ci-notification-provider *ngIf="notification.provider == 'atlassian-ci'" [item]="item" [notification]="notification"></atlassian-ci-notification-provider>
+    <git-notification-provider *ngIf="notification.provider == 'git'" [item]="item" [notification]="notification"></git-notification-provider>
+    <pull-request-provider *ngIf="notification.provider == 'pull-request'" [item]="item" [notification]="notification"></pull-request-provider>
 </div>
