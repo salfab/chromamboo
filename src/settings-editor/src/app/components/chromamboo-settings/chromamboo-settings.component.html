@@ -5,5 +5,8 @@
         </div>                 
     </div>
 
-    <button type="submit">save</button>
+    <button type="submit" (click)="submit($event)">save</button>
+    <div>
+        {{rootFormGroup.value|json}}
+    </div>
 </form>

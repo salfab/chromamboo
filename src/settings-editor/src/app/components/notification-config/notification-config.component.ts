@@ -18,12 +18,7 @@ export class NotificationConfigComponent implements OnInit {
     this.item.addControl('displayName', new FormControl(this.notification.displayName));
 
     // trigger
-    // Presentation
-    const triggerFormGroups: FormGroup[] = [];
-    for (const trigger of this.notification.trigger) {
-      triggerFormGroups.push(this.fb.group([]));
-    }
-    this.item.addControl('trigger', this.fb.array(triggerFormGroups));
+    this.item.addControl('trigger', this.fb.group([]));
 
     // Presentation
     const presentationFormGroups: FormGroup[] = [];

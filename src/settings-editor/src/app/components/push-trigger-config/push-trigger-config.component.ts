@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { FormGroup, FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'push-trigger-config',
@@ -9,13 +9,14 @@ import { FormGroup } from '@angular/forms';
 
 export class PushTriggerConfigComponent implements OnInit {
 
-  constructor() {
+  constructor(private fb: FormBuilder) {
 
   }
 
   @Input() item: FormGroup = null;
   @Input() trigger: any = null;
   ngOnInit() {
-
+    this.item.addControl('message', this.fb.control(this.trigger.message));
+    this.item.addControl('url', this.fb.control(this.trigger.url));
   }
 }

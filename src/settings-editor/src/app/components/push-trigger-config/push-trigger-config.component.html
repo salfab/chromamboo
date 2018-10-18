@@ -1,10 +1,10 @@
 <div [formGroup]="item">
     <div>
             <label>message</label>
-            <input type="text" [value]="trigger.message" >
+            <input type="text" formControlName="message" >
     </div>
     <div>
             <label>url</label>
-            <input type="url" [value]="trigger.url" >
+            <input type="url" formControlName="url" >
     </div>
 </div>

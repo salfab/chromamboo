@@ -1,4 +1,4 @@
-<div>
+<div [formGroup]="item">
     <label>frequence</label>
-    <input type="number" [value]="trigger.frequence" aria-valuemin="0">
+    <input type="number" formControlName="frequence" aria-valuemin="0">
 </div>

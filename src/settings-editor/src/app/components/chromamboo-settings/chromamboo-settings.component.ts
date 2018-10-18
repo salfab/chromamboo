@@ -34,4 +34,8 @@ public get notifications(): FormArray {
 
     return groups;
   }
+
+  save ($event: Event) {
+    console.log(this.rootFormGroup.value);
+  }
 }

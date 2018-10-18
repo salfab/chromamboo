@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { FormGroup, FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'polling-trigger-config',
@@ -9,13 +9,14 @@ import { FormGroup } from '@angular/forms';
 
 export class PollingTriggerConfigComponent implements OnInit {
 
-  constructor() {
+  constructor(private fb: FormBuilder) {
 
   }
   @Input() trigger: any = null;
   @Input() item: FormGroup = null;
 
   ngOnInit() {
+    this.item.addControl('frequence', this.fb.control(this.trigger.frequence));
 
   }
 }

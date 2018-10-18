@@ -17,7 +17,6 @@ export class PullRequestProviderComponent implements OnInit {
   @Input() item: FormGroup = null;
 
   ngOnInit() {
-    this.item.addControl('planKey', this.fb.control(this.notification.planKey));
     this.item.addControl('username', this.fb.control(this.notification.username));
     this.item.addControl('bitbucketSettings', this.fb.group({
       apiBaseUrl: this.fb.control(this.notification.bitbucketSettings.apiBaseUrl),
