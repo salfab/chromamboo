@@ -2,12 +2,12 @@ import { Component, OnInit, Input } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
-  selector: 'pull-request-provider',
-  templateUrl: './pull-request-provider.component.html',
-  styleUrls: ['./pull-request-provider.component.scss']
+  selector: 'pull-request-notification-provider',
+  templateUrl: './pull-request-notification-provider.component.html',
+  styleUrls: ['./pull-request-notification-provider.component.scss']
 })
 
-export class PullRequestProviderComponent implements OnInit {
+export class PullRequestNotificationProviderComponent implements OnInit {
 
   constructor(private fb: FormBuilder) {
 

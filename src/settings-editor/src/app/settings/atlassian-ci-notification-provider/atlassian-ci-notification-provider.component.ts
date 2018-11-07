@@ -1,5 +1,6 @@
 import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
 import { Component, OnInit, Input } from '@angular/core';
+import { Store } from '@ngrx/store';
 
 @Component({
   selector: 'atlassian-ci-notification-provider',

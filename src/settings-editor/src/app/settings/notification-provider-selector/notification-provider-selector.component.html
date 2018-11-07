@@ -2,5 +2,5 @@
     <label class="notification-section-title">{{notification.provider}}</label>
     <atlassian-ci-notification-provider *ngIf="notification.provider == 'atlassian-ci'" [item]="item" [notification]="notification"></atlassian-ci-notification-provider>
     <git-notification-provider *ngIf="notification.provider == 'git'" [item]="item" [notification]="notification"></git-notification-provider>
-    <pull-request-provider *ngIf="notification.provider == 'pull-request'" [item]="item" [notification]="notification"></pull-request-provider>
+    <pull-request-notification-provider *ngIf="notification.provider == 'pull-request'" [item]="item" [notification]="notification"></pull-request-notification-provider>
 </div>

@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, FormArray } from '@angular/forms';
+import { Store } from '@ngrx/store';
 
 @Component({
   selector: 'notification-config',
@@ -9,7 +10,7 @@ import { FormGroup, FormControl, FormBuilder, FormArray } from '@angular/forms';
 
 
 export class NotificationConfigComponent implements OnInit {
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private store: Store<any>) {
   }
   @Input() notification: any = null;
 
@@ -26,5 +27,14 @@ export class NotificationConfigComponent implements OnInit {
       presentationFormGroups.push(this.fb.group([]));
     }
     this.item.addControl('presentation', this.fb.array(presentationFormGroups));
+
+        // event registration
+        this.item.valueChanges.subscribe(val => {
+          this.store.dispatch({
+            type: 'notifications',
+            payload: val
+          });
+          console.log(JSON.stringify(val));
+        });
   }
 }

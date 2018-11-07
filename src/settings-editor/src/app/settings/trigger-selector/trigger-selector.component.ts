@@ -2,12 +2,12 @@ import { Component, OnInit, Input } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
 @Component({
-  selector: 'notification-trigger',
-  templateUrl: './notification-trigger.component.html',
-  styleUrls: ['./notification-trigger.component.scss']
+  selector: 'trigger-selector',
+  templateUrl: './trigger-selector.component.html',
+  styleUrls: ['./trigger-selector.component.scss']
 })
 
-export class NotificationTriggerComponent implements OnInit {
+export class TriggerSelectorComponent implements OnInit {
 
   constructor() {
 
