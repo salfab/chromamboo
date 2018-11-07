@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, FormArray } from '@angular/forms';
+import { Store, select } from '@ngrx/store';
 
 @Component({
   selector: 'chromamboo-settings',
@@ -10,7 +11,17 @@ import { FormGroup, FormControl, FormBuilder, FormArray } from '@angular/forms';
 export class ChromambooSettingsComponent implements OnInit {
   rootFormGroup: FormGroup;
 
-  constructor(private fb: FormBuilder) {
+
+  private _selectedNotification: number
+  ;
+  public get selectedNotification(): number {
+    return this._selectedNotification;
+  }
+  public set selectedNotification(v: number) {
+    this._selectedNotification = v;
+  }
+
+  constructor(private fb: FormBuilder, private store: Store<any>) {
   }
   @Input() config: any = null;
 
@@ -23,6 +34,10 @@ public get notifications(): FormArray {
     this.rootFormGroup = this.fb.group({
       notifications: this.fb.array(this.buildNotifications(this.config.notifications))
     });
+
+    this.store.pipe(select('homepage')).subscribe(
+      app => this._selectedNotification = app.selectedNotification
+    );
   }
   buildNotifications(notifications: any[]): FormGroup[] {
     const groups: FormGroup[] = [];
@@ -35,6 +50,14 @@ public get notifications(): FormArray {
     return groups;
   }
 
+  selectedNotificationChanged (value: number) {
+    console.log('dispatch');
+    this.store.dispatch({
+      type: 'selected_notification_changed',
+      payload: value
+    });
+    console.log('end dispatch');
+  }
   save ($event: Event) {
     console.log(this.rootFormGroup.value);
   }

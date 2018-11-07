@@ -1,5 +1,5 @@
 import { SettingsModule } from './settings/settings.module';
-import { ConfigModule } from './components/config.module';
+
 
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -7,7 +7,9 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { StoreModule} from '@ngrx/store';
-import { reducer } from './settings/state/settings.reducer';
+import { reducer } from './homepage/state/homepage.reducer';
+import { ConfigModule } from './homepage/config.module';
+
 
 @NgModule({
   declarations: [
@@ -17,7 +19,7 @@ import { reducer } from './settings/state/settings.reducer';
     BrowserModule,
     AppRoutingModule,
     ConfigModule,
-    StoreModule.forRoot({reducer}),
+    StoreModule.forRoot({}),
     SettingsModule
   ],
   providers: [],

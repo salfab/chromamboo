@@ -1,6 +1,7 @@
 export function reducer(state, action) {
     switch (action.type) {
-        case 'prout':
+        case 'notification_changed':
+        console.log(action.payload);
         return {
             ...state
         };

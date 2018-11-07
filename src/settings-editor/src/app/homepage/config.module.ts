@@ -18,8 +18,15 @@ import { GitNotificationProviderComponent } from '../settings/git-notification-p
 // tslint:disable-next-line:max-line-length
 import { PullRequestNotificationProviderComponent } from '../settings/pull-request-notification-provider/pull-request-notification-provider.component';
 import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { StoreModule } from '@ngrx/store';
+import { reducer } from './state/homepage.reducer';
 
 @NgModule({
+  imports: [
+    BrowserModule,
+    FormsModule,
+    ReactiveFormsModule,
+    StoreModule.forFeature('homepage', reducer)],
   declarations: [
     ChromambooSettingsComponent,
     NotificationConfigComponent,
@@ -34,7 +41,6 @@ import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
     GitNotificationProviderComponent,
     PullRequestNotificationProviderComponent,
     AtlassianCiNotificationProviderComponent],
-  imports: [BrowserModule, FormsModule, ReactiveFormsModule],
   exports: [ChromambooSettingsComponent]
 
 })

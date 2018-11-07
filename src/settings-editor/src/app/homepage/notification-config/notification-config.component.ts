@@ -31,7 +31,7 @@ export class NotificationConfigComponent implements OnInit {
         // event registration
         this.item.valueChanges.subscribe(val => {
           this.store.dispatch({
-            type: 'notifications',
+            type: 'notification_changed',
             payload: val
           });
           console.log(JSON.stringify(val));
