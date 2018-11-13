@@ -9,6 +9,7 @@ import { AppComponent } from './app.component';
 import { StoreModule} from '@ngrx/store';
 import { reducer } from './homepage/state/homepage.reducer';
 import { ConfigModule } from './homepage/config.module';
+import { EffectsModule } from '@ngrx/effects';
 
 
 @NgModule({
@@ -20,6 +21,7 @@ import { ConfigModule } from './homepage/config.module';
     AppRoutingModule,
     ConfigModule,
     StoreModule.forRoot({}),
+    EffectsModule.forRoot([]),
     SettingsModule
   ],
   providers: [],

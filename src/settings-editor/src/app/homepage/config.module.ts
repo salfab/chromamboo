@@ -20,13 +20,16 @@ import { PullRequestNotificationProviderComponent } from '../settings/pull-reque
 import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { StoreModule } from '@ngrx/store';
 import { reducer } from './state/homepage.reducer';
+import { EffectsModule } from '@ngrx/effects';
+import { HomepageEffects } from './state/homepage.effects';
 
 @NgModule({
   imports: [
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
-    StoreModule.forFeature('homepage', reducer)],
+    StoreModule.forFeature('homepage', reducer),
+    EffectsModule.forFeature([HomepageEffects])],
   declarations: [
     ChromambooSettingsComponent,
     NotificationConfigComponent,

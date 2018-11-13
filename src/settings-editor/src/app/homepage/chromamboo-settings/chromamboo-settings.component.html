@@ -1,17 +1,16 @@
 <div>
     <select name="selectedNotification" size="10" (change)="selectedNotificationChanged($event.target.value)">
-        <option value="{{i}}" *ngFor="let notification of notifications.controls; let i = index">
-            {{config.notifications[i].displayName}}            
+        <option value="{{i}}" *ngFor="let notification of config.notifications; let i = index">
+            {{notification.displayName}}            
         </option>                 
     </select>
 </div>
 <div>
     <form (ngSubmit)="save()" [formGroup]="rootFormGroup">
-        {{selectedNotification}}
-        <!-- <notification-config [item]="notification" [notification]="state.currentNotification"></notification-config> -->
+        <notification-config *ngIf="selectedNotification" [item]="notification" [notification]="selectedNotification"></notification-config> 
         <button type="submit" (click)="submit($event)">save</button>
         <div>
-            {{rootFormGroup.value|json}}
+            {{selectedNotification|json}}
         </div>
     </form>
 </div>

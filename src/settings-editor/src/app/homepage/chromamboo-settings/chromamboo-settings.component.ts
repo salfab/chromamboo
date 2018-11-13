@@ -12,31 +12,33 @@ export class ChromambooSettingsComponent implements OnInit {
   rootFormGroup: FormGroup;
 
 
-  private _selectedNotification: number
-  ;
-  public get selectedNotification(): number {
+  private _selectedNotification: any;
+  public get selectedNotification(): any {
     return this._selectedNotification;
   }
-  public set selectedNotification(v: number) {
+  public set selectedNotification(v: any) {
     this._selectedNotification = v;
   }
+
+  private _selectedNotificationIndex: number;
 
   constructor(private fb: FormBuilder, private store: Store<any>) {
   }
   @Input() config: any = null;
 
-public get notifications(): FormArray {
-  return <FormArray>this.rootFormGroup.get('notifications');
+public get notification(): FormArray {
+  return <FormArray>this.rootFormGroup.get('notification');
 }
-
-
   ngOnInit() {
     this.rootFormGroup = this.fb.group({
-      notifications: this.fb.array(this.buildNotifications(this.config.notifications))
+      notification: this.fb.group({})
     });
 
     this.store.pipe(select('homepage')).subscribe(
-      app => this._selectedNotification = app.selectedNotification
+      app => {
+        this._selectedNotification = app.selectedNotification;
+        this._selectedNotificationIndex = app.selectedNotificationIndex;
+      }
     );
   }
   buildNotifications(notifications: any[]): FormGroup[] {
@@ -50,13 +52,11 @@ public get notifications(): FormArray {
     return groups;
   }
 
-  selectedNotificationChanged (value: number) {
-    console.log('dispatch');
+  selectedNotificationChanged (value: any) {
     this.store.dispatch({
-      type: 'selected_notification_changed',
+      type: 'selected_notification_index_changed',
       payload: value
     });
-    console.log('end dispatch');
   }
   save ($event: Event) {
     console.log(this.rootFormGroup.value);
